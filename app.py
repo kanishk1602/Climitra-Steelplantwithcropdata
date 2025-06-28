@@ -56,78 +56,102 @@ st.markdown("### Visualizing invasive species clusters for biochar production")
 # Load steel plant data
 @st.cache_data
 def load_steel_plants():
-    # For demo, using sample data - replace with your actual Excel file
-    sample_plants = [
-        {"Plant Name": "Tata Steel Jamshedpur", "latitude": 22.7749, "longitude": 86.2020},
-        {"Plant Name": "JSW Steel Dolvi", "latitude": 20.9056, "longitude": 72.9329},
-        {"Plant Name": "SAIL Rourkela", "latitude": 22.2244, "longitude": 84.8640},
-        {"Plant Name": "AM/NS India Hazira", "latitude": 21.1291, "longitude": 72.7411}
-    ]
-    return pd.DataFrame(sample_plants)
+    try:
+        # Load your actual Excel file
+        df = pd.read_excel("plants_with_filled_data.xlsx")
+        
+        # Ensure required columns exist
+        if not all(col in df.columns for col in ["Plant Name", "latitude", "longitude"]):
+            st.error("Excel file is missing required columns: 'Plant Name', 'latitude', 'longitude'")
+            return pd.DataFrame(columns=["Plant Name", "latitude", "longitude"])
+        
+        # Clean data
+        df = df.dropna(subset=["latitude", "longitude"])
+        return df[["Plant Name", "latitude", "longitude"]]
+    except Exception as e:
+        st.error(f"Error loading steel plants data: {str(e)}")
+        return pd.DataFrame(columns=["Plant Name", "latitude", "longitude"])
 
+# Load steel plants
 plants = load_steel_plants()
+
+# Show data debug info
+with st.expander("Data Debug Info"):
+    st.write(f"Loaded {len(plants)} steel plants")
+    st.dataframe(plants)
+    
+    # Check for valid coordinates
+    invalid_coords = plants[
+        (plants["latitude"].abs() > 90) | 
+        (plants["longitude"].abs() > 180)
+    ]
+    
+    if not invalid_coords.empty:
+        st.warning(f"Found {len(invalid_coords)} plants with invalid coordinates:")
+        st.dataframe(invalid_coords)
 
 # Species selection
 species = st.radio("Select Biomass Species:", ["None", "Lantana", "Juliflora"])
 
 # Create base map with steel plants
-fig = px.scatter_mapbox(
-    plants,
-    lat="latitude",
-    lon="longitude",
-    hover_name="Plant Name",
-    hover_data={"latitude": False, "longitude": False},
-    zoom=4,
-    height=700,
-    mapbox_style="carto-positron",
-    color_discrete_sequence=["red"],
-)
-
-# Set map center to India
-fig.update_layout(mapbox_center={"lat": 20.5937, "lon": 78.9629})
-
-# Add clusters based on selection
-if species != "None":
-    clusters = lantana_clusters if species == "Lantana" else juliflora_clusters
-    color = "green" if species == "Lantana" else "blue"
+if not plants.empty:
+    # Create the map figure
+    fig = px.scatter_mapbox(
+        plants,
+        lat="latitude",
+        lon="longitude",
+        hover_name="Plant Name",
+        hover_data={"latitude": True, "longitude": True},
+        zoom=4,
+        height=800,  # Increased height for better visibility
+        mapbox_style="carto-positron",
+        color_discrete_sequence=["red"],
+        title="Steel Plants"
+    )
     
-    for cluster in clusters:
-        radius_km = math.sqrt(cluster["Area_km2"] / math.pi)
-        circle = circle_coords(cluster["Longitude"], cluster["Latitude"], radius_km)
-        lons, lats = zip(*circle)
+    # Set map center to India
+    fig.update_layout(
+        mapbox_center={"lat": 20.5937, "lon": 78.9629},
+        margin={"r":0,"t":0,"l":0,"b":0}
+    )
+    
+    # Add clusters based on selection
+    if species != "None":
+        clusters = lantana_clusters if species == "Lantana" else juliflora_clusters
+        color = "green" if species == "Lantana" else "blue"
         
-        # Add polygon
-        fig.add_trace(px.line_mapbox(
-            lat=list(lats) + [lats[0]],
-            lon=list(lons) + [lons[0]],
-            color_discrete_sequence=[f"rgba(0,{128 if color=='green' else 0},{0 if color=='green' else 128},0.3)"]
-        ).data[0])
-        
-        # Add center marker
-        fig.add_scattermapbox(
-            lat=[cluster["Latitude"]],
-            lon=[cluster["Longitude"]],
-            mode="markers",
-            marker=dict(size=10, color=color),
-            name=cluster["Region"],
-            hoverinfo="text",
-            hovertext=f"{cluster['Region']}<br>{cluster['Description']}<br>Area: {cluster['Area_km2']} km²"
-        )
+        for cluster in clusters:
+            radius_km = math.sqrt(cluster["Area_km2"] / math.pi)
+            circle = circle_coords(cluster["Longitude"], cluster["Latitude"], radius_km)
+            lons, lats = zip(*circle)
+            
+            # Add polygon
+            fig.add_trace(px.line_mapbox(
+                lat=list(lats) + [lats[0]],
+                lon=list(lons) + [lons[0]],
+                color_discrete_sequence=[f"rgba(0,{128 if color=='green' else 0},{0 if color=='green' else 128},0.3)"]
+            ).data[0])
+            
+            # Add center marker
+            fig.add_scattermapbox(
+                lat=[cluster["Latitude"]],
+                lon=[cluster["Longitude"]],
+                mode="markers+text",
+                marker=dict(size=10, color=color),
+                name=cluster["Region"],
+                hoverinfo="text",
+                hovertext=f"{cluster['Region']}<br>{cluster['Description']}<br>Area: {cluster['Area_km2']} km²",
+                text=cluster["Region"],
+                textposition="bottom center"
+            )
+    
+    # Display the map
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.warning("No steel plant data available. Please check your Excel file.")
 
-# Add legend
-fig.add_scattermapbox(
-    lat=[None],
-    lon=[None],
-    mode="markers",
-    marker=dict(size=10, color="red"),
-    name="Steel Plants",
-    hoverinfo="none"
-)
-
-st.plotly_chart(fig, use_container_width=True)
-
-# Show cluster details
-if species != "None":
+# Show cluster information
+if species != "None" and plants.empty:
     st.subheader(f"{species} Cluster Details")
     cluster_df = pd.DataFrame(lantana_clusters if species == "Lantana" else juliflora_clusters)
     st.dataframe(cluster_df[["Region", "Area_km2", "Description"]], 
