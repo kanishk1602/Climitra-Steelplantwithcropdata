@@ -102,15 +102,18 @@ if not plants.empty:
             geom_type = feature["geometry"]["type"]
             coords = feature["geometry"]["coordinates"]
 
-            if geom_type == "Polygon":
-                lons, lats = zip(*coords[0])  # Polygon → list of rings → outer ring
-                fig.add_trace(
-                    px.line_mapbox(
-                        lat=list(lats) + [lats[0]],
-                        lon=list(lons) + [lons[0]],
-                        color_discrete_sequence=["rgba(255, 165, 0, 0.5)"]
-                    ).data[0]
-                )
+            if geom_type == "Polygon" and coords and coords[0]:
+                try:
+                    lons, lats = zip(*coords[0])  # outer ring
+                    fig.add_trace(
+                        px.line_mapbox(
+                            lat=list(lats) + [lats[0]],
+                            lon=list(lons) + [lons[0]],
+                            color_discrete_sequence=["rgba(255, 165, 0, 0.5)"]
+                        ).data[0]
+                    )
+                except Exception as e:
+                    st.warning(f"⚠️ Skipped a polygon due to error: {e}")
             elif geom_type == "Point":
                 lon, lat = coords
                 fig.add_scattermapbox(
@@ -122,6 +125,21 @@ if not plants.empty:
                 hovertext=json.dumps(feature["properties"]),
                 hoverinfo="text"
             )
+            elif geom_type == "MultiPolygon":
+                try:
+                    for polygon in coords:
+                        if polygon and polygon[0]:
+                            lons, lats = zip(*polygon[0])
+                            fig.add_trace(
+                                px.line_mapbox(
+                                    lat=list(lats) + [lats[0]],
+                                    lon=list(lons) + [lons[0]],
+                                    color_discrete_sequence=["rgba(255, 165, 0, 0.5)"]
+                                ).data[0]
+                            )
+                except Exception as e:
+                    st.warning(f"⚠️ Skipped a MultiPolygon due to error: {e}")
+
 
     st.plotly_chart(fig, use_container_width=True)
 else:
