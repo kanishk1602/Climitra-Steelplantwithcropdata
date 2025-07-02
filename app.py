@@ -67,7 +67,7 @@ with st.expander("Data Debug Info"):
         st.dataframe(invalid_coords)
 
 species = st.radio("Select Biomass Species:", ["None", "Lantana", "Juliflora"])
-geojson_file = st.selectbox("Select GeoJSON Overlay:", ["None","lantanapresence.geojson","juliflora.geojson","cottonstalk.geojson"])
+geojson_file = st.selectbox("Select GeoJSON Overlay:", ["None","lantanapresence.geojson","juliflora.geojson","cottonstalk.geojson","sugarcane.geojson"])
 
 if not plants.empty:
     # Create base map with steel plants in purple
