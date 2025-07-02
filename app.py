@@ -99,9 +99,29 @@ if not plants.empty:
         with open(geojson_file) as f:
             geojson_data = json.load(f)
         for feature in geojson_data["features"]:
-            coords = feature["geometry"]["coordinates"][0]  # assume polygons only
-            lons, lats = zip(*coords)
-            fig.add_trace(px.line_mapbox(lat=list(lats) + [lats[0]], lon=list(lons) + [lons[0]], color_discrete_sequence=["rgba(255, 165, 0, 0.5)"]).data[0])  # Orange color for GeoJSON
+            geom_type = feature["geometry"]["type"]
+            coords = feature["geometry"]["coordinates"]
+
+            if geom_type == "Polygon":
+                lons, lats = zip(*coords[0])  # Polygon → list of rings → outer ring
+                fig.add_trace(
+                    px.line_mapbox(
+                        lat=list(lats) + [lats[0]],
+                        lon=list(lons) + [lons[0]],
+                        color_discrete_sequence=["rgba(255, 165, 0, 0.5)"]
+                    ).data[0]
+                )
+            elif geom_type == "Point":
+                lon, lat = coords
+                fig.add_scattermapbox(
+                lat=[lat],
+                lon=[lon],
+                mode="markers",
+                marker=dict(size=8, color="orange"),
+                name="GeoJSON Point",
+                hovertext=json.dumps(feature["properties"]),
+                hoverinfo="text"
+            )
 
     st.plotly_chart(fig, use_container_width=True)
 else:
