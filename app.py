@@ -91,21 +91,28 @@ geojson_metadata = {
         "source": "Bhuvan Jaivoorja(ISRO)",
         "external_link": "https://bhuvan-app1.nrsc.gov.in/bioenergy/index.php",
         "recorded_time": "2016",
-        "description": "Surplus Cotton Biomass shown in this layer.",
+        "description": "Surplus Cotton Biomass shown in this layer.You can access more relevant information using the Crop Specific Tab",
         "image_path": "Cotton.png"
     },
     "sugarcane.geojson": {
         "source": "Bhuvan Jaivoorja(ISRO)",
         "external_link": "https://bhuvan-app1.nrsc.gov.in/bioenergy/index.php",
         "recorded_time": "2016",
-        "description": "Surplus Sugarcane Biomass shown in this layer.",
+        "description": "Surplus Sugarcane Biomass shown in this layer.You can access more relevant information using the Crop Specific Tab",
         "image_path": "sugarcane.png"
     },
     "maize.geojson": {
         "source": "Research Paper",
         "external_link": "https://oar.icrisat.org/10759/1/maize%20yield%20India.pdf",
         "recorded_time": "2018",
-        "description": "Major districts of maize in India with area sown",
+        "description": "Major districts of maize in India with area sown.",
+        "image_path": "Maize.png"
+    },
+    "bamboo.geojson": {
+        "source": "Zenodo Dataset",
+        "external_link": "https://doi.org/10.5281/zenodo.14671750",
+        "recorded_time": "2025",
+        "description": "Shows the Bamboo presence.I have included tiff file link in Crop Specific Data Navigation bar , it has a very high resolution and accuracy",
         "image_path": "Maize.png"
     }
 }
