@@ -242,7 +242,8 @@ elif section == "Crop-Specific Data":
         "Sugarcane": "sugarcane.pdf",
         "Maize": "maize.pdf",
         "Juliflora": "Juliflora (1).pdf",
-        "Lantana": "Lantana (1).pdf"
+        "Lantana": "Lantana (1).pdf",
+        "Bamboo": "bamboo.pdf",
     }
 
     if crop_selected in pdf_map and os.path.exists(pdf_map[crop_selected]):
