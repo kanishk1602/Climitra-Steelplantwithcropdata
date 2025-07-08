@@ -85,7 +85,7 @@ geojson_metadata = {
         "external_link": "https://www.researchgate.net/publication/244993994_Managing_Prosopis_juliflora_A_Technical_Manual",
         "recorded_time": "2001",
         "description": "These dots show distribution of juliflora across Indian Map",
-        "image_path": "Juliflora.png"
+        "image_path": "juliflora.png"
     },
     "cottonstalk.geojson": {
         "source": "Bhuvan Jaivoorja(ISRO)",
