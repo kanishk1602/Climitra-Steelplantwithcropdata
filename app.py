@@ -113,7 +113,7 @@ geojson_metadata = {
         "external_link": "https://doi.org/10.5281/zenodo.14671750",
         "recorded_time": "2025",
         "description": "Shows the Bamboo presence.I have included tiff file link in Crop Specific Data Navigation bar , it has a very high resolution and accuracy",
-        "image_path": "Maize.png"
+        "image_path": "bamboo.png"
     }
 }
 
