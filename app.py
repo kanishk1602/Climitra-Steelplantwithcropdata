@@ -235,7 +235,7 @@ if section == "Dashboard":
 # CROP-SPECIFIC SECTION
 elif section == "Crop-Specific Data":
     st.title("🌾 Crop-Specific Biochar Resource Information")
-    crop_selected = st.selectbox("Choose a Crop", ["Cotton", "Sugarcane", "Maize", "Juliflora", "Lantana"])
+    crop_selected = st.selectbox("Choose a Crop", ["Cotton", "Sugarcane", "Maize", "Juliflora", "Lantana","Bamboo"])
 
     pdf_map = {
         "Cotton": "cotton.pdf",
