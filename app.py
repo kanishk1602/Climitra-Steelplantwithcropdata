@@ -61,10 +61,28 @@ def circle_coords(lon, lat, radius_km, n_points=100):
 @st.cache_data
 def load_steel_plants():
     try:
-        df = pd.read_excel("plants_with_filled_data.xlsx")
-        if not all(col in df.columns for col in ["Plant Name", "latitude", "longitude"]):
-            st.error("Excel file is missing required columns: 'Plant Name', 'latitude', 'longitude'")
-            return pd.DataFrame(columns=["Plant Name", "latitude", "longitude"])
+        df = pd.read_excel("geocoded_ru1600_full.xlsx")
+        df = df.rename(columns={"Name of Unit": "Plant Name"})  # match expected column name
+        if not all(col in df.columns for col in ["Plant Name", "Latitude", "Longitude"]):
+            st.error("Excel file is missing required columns: 'Plant Name', 'Latitude', 'Longitude'")
+            return pd.DataFrame(columns=["Plant Name", "Latitude", "Longitude"])
+        df = df.dropna(subset=["Latitude", "Longitude"])
+
+        # Ensure numeric lat/lon conversion in case some are strings like "13°43'50\"N"
+        def to_decimal(coord):
+            try:
+                if isinstance(coord, str) and "°" in coord:
+                    parts = coord.replace("°", " ").replace("'", " ").replace('"', " ").split()
+                    deg, min_, sec, direction = int(parts[0]), int(parts[1]), float(parts[2]), parts[3]
+                    decimal = deg + min_/60 + sec/3600
+                    return -decimal if direction in ["S", "W"] else decimal
+                return float(coord)
+            except:
+                return None
+
+        df["latitude"] = df["Latitude"].apply(to_decimal)
+        df["longitude"] = df["Longitude"].apply(to_decimal)
+
         df = df.dropna(subset=["latitude", "longitude"])
         return df[["Plant Name", "latitude", "longitude"]]
     except Exception as e:
