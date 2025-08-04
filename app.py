@@ -78,6 +78,18 @@ def load_steel_plants():
         st.error(f"Error loading steel plants data: {str(e)}")
         return pd.DataFrame()
 
+@st.cache_data
+def load_geocoded_companies():
+    try:
+        df = pd.read_excel("geocoded_combined_companies.xlsx")
+        # Clean up any invalid coordinates
+        df = df.dropna(subset=["Latitude", "Longitude"])
+        df = df[(df["Latitude"].abs() <= 90) & (df["Longitude"].abs() <= 180)]
+        return df
+    except Exception as e:
+        st.error(f"Error loading geocoded companies data: {str(e)}")
+        return pd.DataFrame()
+
 geojson_metadata = {
     "lantanapresence.geojson": {
         "source": "Research Paper",
@@ -123,49 +135,96 @@ geojson_metadata = {
     }
 }
 
-plants = load_steel_plants()
-
 if section == "Dashboard":
-    st.title("🗺️ Biochar Cluster Map with Steel Plants and GeoJSON Overlays")
-    st.markdown("### Visualizing invasive species clusters and steel plants")
+    st.title("🗺️ Biochar Cluster Map with Industrial Data and GeoJSON Overlays")
+    
+    # NEW: Data source selector
+    data_source = st.selectbox(
+        "Select Data Source:",
+        ["Steel Plants", "Geocoded Companies"],
+        help="Choose between steel plant data or geocoded companies data"
+    )
+    
+    # Load appropriate data based on selection
+    if data_source == "Steel Plants":
+        plants = load_steel_plants()
+        st.markdown("### Visualizing invasive species clusters and steel plants")
+    else:
+        plants = load_geocoded_companies()
+        st.markdown("### Visualizing invasive species clusters and geocoded companies")
 
     with st.expander("Data Debug Info"):
-        st.write(f"Loaded {len(plants)} steel plants")
+        st.write(f"Loaded {len(plants)} records from {data_source.lower()}")
         st.dataframe(plants)
-        invalid_coords = plants[(plants["latitude"].abs() > 90) | (plants["longitude"].abs() > 180)]
+        if data_source == "Steel Plants":
+            invalid_coords = plants[(plants["latitude"].abs() > 90) | (plants["longitude"].abs() > 180)]
+        else:
+            invalid_coords = plants[(plants["Latitude"].abs() > 90) | (plants["Longitude"].abs() > 180)]
         if not invalid_coords.empty:
-            st.warning(f"Found {len(invalid_coords)} plants with invalid coordinates:")
+            st.warning(f"Found {len(invalid_coords)} records with invalid coordinates:")
             st.dataframe(invalid_coords)
 
     # --- FILTER WIDGETS ---
-    st.markdown("#### 🔍 Filter Steel Plant Data")
-    name_filter = st.text_input("Search Plant Name")
-    operational_filter = st.multiselect("Operational Status", options=plants["Operational"].dropna().unique())
-    furnace_filter = st.multiselect("Furnace Type", options=plants["Furnance"].dropna().unique())
+    st.markdown(f"#### 🔍 Filter {data_source} Data")
+    
+    if data_source == "Steel Plants":
+        name_filter = st.text_input("Search Plant Name")
+        operational_filter = st.multiselect("Operational Status", options=plants["Operational"].dropna().unique())
+        furnace_filter = st.multiselect("Furnace Type", options=plants["Furnance"].dropna().unique())
 
-    filtered_plants = plants.copy()
-    if name_filter:
-        filtered_plants = filtered_plants[filtered_plants["Plant Name"].str.contains(name_filter, case=False, na=False)]
-    if operational_filter:
-        filtered_plants = filtered_plants[filtered_plants["Operational"].isin(operational_filter)]
-    if furnace_filter:
-        filtered_plants = filtered_plants[filtered_plants["Furnance"].isin(furnace_filter)]
+        filtered_plants = plants.copy()
+        if name_filter:
+            filtered_plants = filtered_plants[filtered_plants["Plant Name"].str.contains(name_filter, case=False, na=False)]
+        if operational_filter:
+            filtered_plants = filtered_plants[filtered_plants["Operational"].isin(operational_filter)]
+        if furnace_filter:
+            filtered_plants = filtered_plants[filtered_plants["Furnance"].isin(furnace_filter)]
+    else:
+        # Filters for geocoded companies
+        name_filter = st.text_input("Search Company Name")
+        if "State_Province" in plants.columns:
+            state_filter = st.multiselect("State/Province", options=plants["State_Province"].dropna().unique())
+        else:
+            state_filter = []
+        if "Country" in plants.columns:
+            country_filter = st.multiselect("Country", options=plants["Country"].dropna().unique())
+        else:
+            country_filter = []
 
-    # --- NEW: DISPLAY SEARCH RESULTS ---
-    # This block will show detailed info only when a user searches by name.
+        filtered_plants = plants.copy()
+        if name_filter:
+            filtered_plants = filtered_plants[filtered_plants["Company_Name"].str.contains(name_filter, case=False, na=False)]
+        if state_filter:
+            filtered_plants = filtered_plants[filtered_plants["State_Province"].isin(state_filter)]
+        if country_filter:
+            filtered_plants = filtered_plants[filtered_plants["Country"].isin(country_filter)]
+
+    # --- DISPLAY SEARCH RESULTS ---
     if name_filter and not filtered_plants.empty:
         st.markdown("---")
-        st.markdown(f"#### ℹ️ Details for Found Plant(s)")
+        st.markdown(f"#### ℹ️ Details for Found {data_source}")
         for index, row in filtered_plants.iterrows():
-            with st.expander(f"{row['Plant Name']}"):
-                st.write(f"**Capacity (MTPA):** {row.get('Capacity(MTPA)', 'N/A')}")
-                st.write(f"**Furnace Type:** {row.get('Furnance', 'N/A')}")
-                st.write(f"**Operational Status:** {row.get('Operational', 'N/A')}")
-                source_url = row.get('Source')
-                if isinstance(source_url, str) and source_url.startswith('http'):
-                    st.markdown(f"**Source:** <a href='{source_url}' target='_blank'>Visit Link</a>", unsafe_allow_html=True)
-                else:
-                    st.write(f"**Source:** {source_url if pd.notna(source_url) else 'N/A'}")
+            if data_source == "Steel Plants":
+                with st.expander(f"{row['Plant Name']}"):
+                    st.write(f"**Capacity (MTPA):** {row.get('Capacity(MTPA)', 'N/A')}")
+                    st.write(f"**Furnace Type:** {row.get('Furnance', 'N/A')}")
+                    st.write(f"**Operational Status:** {row.get('Operational', 'N/A')}")
+                    source_url = row.get('Source')
+                    if isinstance(source_url, str) and source_url.startswith('http'):
+                        st.markdown(f"**Source:** <a href='{source_url}' target='_blank'>Visit Link</a>", unsafe_allow_html=True)
+                    else:
+                        st.write(f"**Source:** {source_url if pd.notna(source_url) else 'N/A'}")
+            else:
+                with st.expander(f"{row['Company_Name']}"):
+                    st.write(f"**Sales Revenue:** {row.get('Sales_Revenue', 'N/A')}")
+                    st.write(f"**City:** {row.get('City', 'N/A')}")
+                    st.write(f"**State:** {row.get('State_Province', 'N/A')}")
+                    st.write(f"**Country:** {row.get('Country', 'N/A')}")
+                    company_url = row.get('Company_URL')
+                    if isinstance(company_url, str) and company_url.startswith('http'):
+                        st.markdown(f"**Website:** <a href='{company_url}' target='_blank'>Visit Site</a>", unsafe_allow_html=True)
+                    else:
+                        st.write(f"**Website:** {company_url if pd.notna(company_url) else 'N/A'}")
         st.markdown("---")
 
     geojson_file1 = st.selectbox("Select Primary GeoJSON Overlay:", ["None"] + list(geojson_metadata.keys()), key="geo1")
@@ -194,12 +253,17 @@ if section == "Dashboard":
         show_metadata_and_image(geojson_file2)
 
     if not filtered_plants.empty:
+        # Set up map parameters based on data source
+        if data_source == "Steel Plants":
+            lat_col, lon_col, hover_name_col = "latitude", "longitude", "Plant Name"
+        else:
+            lat_col, lon_col, hover_name_col = "Latitude", "Longitude", "Company_Name"
+        
         fig = px.scatter_mapbox(
             filtered_plants,
-            lat="latitude",
-            lon="longitude",
-            hover_name="Plant Name",
-            # --- MODIFIED: Removed hover_data to keep hover clean ---
+            lat=lat_col,
+            lon=lon_col,
+            hover_name=hover_name_col,
             zoom=4,
             height=500,
             mapbox_style="carto-positron",
@@ -236,15 +300,15 @@ if section == "Dashboard":
                                 fig.add_trace(px.line_mapbox(lat=list(lats)+[lats[0]], lon=list(lons)+[lons[0]], color_discrete_sequence=[overlay_color]).data[0])
 
         with st.expander("Legend"):
-            st.markdown("""
-            - 🟣 **Purple**: Steel Plants  
+            st.markdown(f"""
+            - 🟣 **Purple**: {data_source}  
             - 🟠 **Orange**: Primary GeoJSON Overlay  
             - 🔵 **Blue**: Comparison GeoJSON Overlay
             """)
 
         st.plotly_chart(fig, use_container_width=True)
     else:
-        st.warning("No steel plant data available or after filtering.")
+        st.warning(f"No {data_source.lower()} data available or after filtering.")
 
 elif section == "Crop-Specific Data":
     st.title("🌾 Crop-Specific Biochar Resource Information")
