@@ -3,7 +3,7 @@ Readme(Basic)<br>
 2.make that into a video using any software(davinci,etc.)<br>
 3.run videotoframes.py<br>
 4.then run the SAM2_final.ipynb<br>
-or https://colab.research.google.com/drive/1Df6grPlp8xkpFlIcMIHcTyeVzRaA7NE4?usp=sharing<br>
+or(use T4GPU**) https://colab.research.google.com/drive/1Df6grPlp8xkpFlIcMIHcTyeVzRaA7NE4?usp=sharing<br>
 5.Change the required values as needed<br>
 6.Now using the final video run again the videotoframes.py files <br>
 7.using the frames , geotagg them using step5_geotaggingframes.py <br>
