@@ -90,6 +90,18 @@ def load_geocoded_companies():
         st.error(f"Error loading geocoded companies data: {str(e)}")
         return pd.DataFrame()
 
+@st.cache_data
+def load_ricemill_data():
+    try:
+        df = pd.read_csv("ricemills.csv")
+        # Clean up any invalid coordinates
+        df = df.dropna(subset=["lat", "lng"])
+        df = df[(df["lat"].abs() <= 90) & (df["lng"].abs() <= 180)]
+        return df
+    except Exception as e:
+        st.error(f"Error loading ricemill data: {str(e)}")
+        return pd.DataFrame()
+
 geojson_metadata = {
     "lantanapresence.geojson": {
         "source": "Research Paper",
@@ -138,26 +150,31 @@ geojson_metadata = {
 if section == "Dashboard":
     st.title("🗺️ Biochar Cluster Map with Industrial Data and GeoJSON Overlays")
     
-    # NEW: Data source selector
+    # UPDATED: Data source selector with Rice Mills
     data_source = st.selectbox(
         "Select Data Source:",
-        ["Steel Plants", "Geocoded Companies"],
-        help="Choose between steel plant data or geocoded companies data"
+        ["Steel Plants", "Geocoded Companies", "Rice Mills"],
+        help="Choose between steel plant data, geocoded companies data, or rice mills data"
     )
     
     # Load appropriate data based on selection
     if data_source == "Steel Plants":
         plants = load_steel_plants()
         st.markdown("### Visualizing invasive species clusters and steel plants")
-    else:
+    elif data_source == "Geocoded Companies":
         plants = load_geocoded_companies()
         st.markdown("### Visualizing invasive species clusters and geocoded companies")
+    else:  # Rice Mills
+        plants = load_ricemill_data()
+        st.markdown("### Visualizing invasive species clusters and rice mills")
 
     with st.expander("Data Debug Info"):
         st.write(f"Loaded {len(plants)} records from {data_source.lower()}")
         st.dataframe(plants)
         if data_source == "Steel Plants":
             invalid_coords = plants[(plants["latitude"].abs() > 90) | (plants["longitude"].abs() > 180)]
+        elif data_source == "Rice Mills":
+            invalid_coords = plants[(plants["lat"].abs() > 90) | (plants["lng"].abs() > 180)]
         else:
             invalid_coords = plants[(plants["Latitude"].abs() > 90) | (plants["Longitude"].abs() > 180)]
         if not invalid_coords.empty:
@@ -179,6 +196,33 @@ if section == "Dashboard":
             filtered_plants = filtered_plants[filtered_plants["Operational"].isin(operational_filter)]
         if furnace_filter:
             filtered_plants = filtered_plants[filtered_plants["Furnance"].isin(furnace_filter)]
+            
+    elif data_source == "Rice Mills":
+        # Filters for rice mills
+        name_filter = st.text_input("Search Rice Mill Name")
+        if "state" in plants.columns:
+            state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
+        else:
+            state_filter = []
+        if "country" in plants.columns:
+            country_filter = st.multiselect("Country", options=plants["country"].dropna().unique())
+        else:
+            country_filter = []
+        if "primary_category_name" in plants.columns:
+            category_filter = st.multiselect("Category", options=plants["primary_category_name"].dropna().unique())
+        else:
+            category_filter = []
+
+        filtered_plants = plants.copy()
+        if name_filter:
+            filtered_plants = filtered_plants[filtered_plants["name"].str.contains(name_filter, case=False, na=False)]
+        if state_filter:
+            filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
+        if country_filter:
+            filtered_plants = filtered_plants[filtered_plants["country"].isin(country_filter)]
+        if category_filter:
+            filtered_plants = filtered_plants[filtered_plants["primary_category_name"].isin(category_filter)]
+            
     else:
         # Filters for geocoded companies
         name_filter = st.text_input("Search Company Name")
@@ -214,6 +258,45 @@ if section == "Dashboard":
                         st.markdown(f"**Source:** <a href='{source_url}' target='_blank'>Visit Link</a>", unsafe_allow_html=True)
                     else:
                         st.write(f"**Source:** {source_url if pd.notna(source_url) else 'N/A'}")
+                        
+            elif data_source == "Rice Mills":
+                with st.expander(f"{row['name']}"):
+                    st.write(f"**Address:** {row.get('address', 'N/A')}")
+                    st.write(f"**Phone:** {row.get('phone', 'N/A')}")
+                    st.write(f"**Email:** {row.get('email', 'N/A')}")
+                    st.write(f"**State:** {row.get('state', 'N/A')}")
+                    st.write(f"**Country:** {row.get('country', 'N/A')}")
+                    st.write(f"**ZIP:** {row.get('zip', 'N/A')}")
+                    st.write(f"**Rating:** {row.get('star_count', 'N/A')} ({row.get('rating_count', 'N/A')} reviews)")
+                    st.write(f"**Category:** {row.get('primary_category_name', 'N/A')}")
+                    
+                    # Website link
+                    website_url = row.get('url')
+                    if isinstance(website_url, str) and website_url.startswith('http'):
+                        st.markdown(f"**Website:** <a href='{website_url}' target='_blank'>Visit Site</a>", unsafe_allow_html=True)
+                    else:
+                        st.write(f"**Website:** {website_url if pd.notna(website_url) else 'N/A'}")
+                    
+                    # Social media links
+                    social_links = []
+                    if pd.notna(row.get('facebook_link')) and row.get('facebook_link').startswith('http'):
+                        social_links.append(f"<a href='{row['facebook_link']}' target='_blank'>Facebook</a>")
+                    if pd.notna(row.get('instagram_link')) and row.get('instagram_link').startswith('http'):
+                        social_links.append(f"<a href='{row['instagram_link']}' target='_blank'>Instagram</a>")
+                    if pd.notna(row.get('twitter_link')) and row.get('twitter_link').startswith('http'):
+                        social_links.append(f"<a href='{row['twitter_link']}' target='_blank'>Twitter</a>")
+                    if pd.notna(row.get('linkedin_link')) and row.get('linkedin_link').startswith('http'):
+                        social_links.append(f"<a href='{row['linkedin_link']}' target='_blank'>LinkedIn</a>")
+                    if pd.notna(row.get('youtube_link')) and row.get('youtube_link').startswith('http'):
+                        social_links.append(f"<a href='{row['youtube_link']}' target='_blank'>YouTube</a>")
+                    if pd.notna(row.get('whatsapp_link')) and row.get('whatsapp_link').startswith('http'):
+                        social_links.append(f"<a href='{row['whatsapp_link']}' target='_blank'>WhatsApp</a>")
+                    if pd.notna(row.get('tiktok_link')) and row.get('tiktok_link').startswith('http'):
+                        social_links.append(f"<a href='{row['tiktok_link']}' target='_blank'>TikTok</a>")
+                    
+                    if social_links:
+                        st.markdown(f"**Social Media:** {' | '.join(social_links)}", unsafe_allow_html=True)
+                        
             else:
                 with st.expander(f"{row['Company_Name']}"):
                     st.write(f"**Sales Revenue:** {row.get('Sales_Revenue', 'N/A')}")
@@ -256,6 +339,8 @@ if section == "Dashboard":
         # Set up map parameters based on data source
         if data_source == "Steel Plants":
             lat_col, lon_col, hover_name_col = "latitude", "longitude", "Plant Name"
+        elif data_source == "Rice Mills":
+            lat_col, lon_col, hover_name_col = "lat", "lng", "name"
         else:
             lat_col, lon_col, hover_name_col = "Latitude", "Longitude", "Company_Name"
         
