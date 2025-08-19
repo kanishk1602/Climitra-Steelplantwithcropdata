@@ -148,7 +148,7 @@ geojson_metadata = {
 }
 
 if section == "Dashboard":
-    st.title("🗺️ Biochar Cluster Map with Industrial Data and GeoJSON Overlays")
+    st.title("Biochar Cluster Map with Industrial Data and GeoJSON Overlays")
     
     # UPDATED: Data source selector with Rice Mills
     data_source = st.selectbox(
@@ -186,16 +186,16 @@ if section == "Dashboard":
     
     if data_source == "Steel Plants":
         name_filter = st.text_input("Search Plant Name")
-        operational_filter = st.multiselect("Operational Status", options=plants["Operational"].dropna().unique())
-        furnace_filter = st.multiselect("Furnace Type", options=plants["Furnance"].dropna().unique())
+        state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
+        district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
 
         filtered_plants = plants.copy()
         if name_filter:
             filtered_plants = filtered_plants[filtered_plants["Plant Name"].str.contains(name_filter, case=False, na=False)]
-        if operational_filter:
-            filtered_plants = filtered_plants[filtered_plants["Operational"].isin(operational_filter)]
-        if furnace_filter:
-            filtered_plants = filtered_plants[filtered_plants["Furnance"].isin(furnace_filter)]
+        if state_filter:
+            filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
+        if district_filter:
+            filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
             
     elif data_source == "Rice Mills":
         # Filters for rice mills
@@ -212,6 +212,10 @@ if section == "Dashboard":
             category_filter = st.multiselect("Category", options=plants["primary_category_name"].dropna().unique())
         else:
             category_filter = []
+        if "district" in plants.columns:
+            district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
+        else:
+            district_filter = []
 
         filtered_plants = plants.copy()
         if name_filter:
@@ -222,16 +226,22 @@ if section == "Dashboard":
             filtered_plants = filtered_plants[filtered_plants["country"].isin(country_filter)]
         if category_filter:
             filtered_plants = filtered_plants[filtered_plants["primary_category_name"].isin(category_filter)]
+        if district_filter:
+            filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
             
     else:
-        # Filters for geocoded companies
+        # Filters for geocoded companies (using lowercase column names as per .xlsx)
         name_filter = st.text_input("Search Company Name")
-        if "State_Province" in plants.columns:
-            state_filter = st.multiselect("State/Province", options=plants["State_Province"].dropna().unique())
+        if "state" in plants.columns:
+            state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
         else:
             state_filter = []
-        if "Country" in plants.columns:
-            country_filter = st.multiselect("Country", options=plants["Country"].dropna().unique())
+        if "district" in plants.columns:
+            district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
+        else:
+            district_filter = []
+        if "country" in plants.columns:
+            country_filter = st.multiselect("Country", options=plants["country"].dropna().unique())
         else:
             country_filter = []
 
@@ -239,9 +249,11 @@ if section == "Dashboard":
         if name_filter:
             filtered_plants = filtered_plants[filtered_plants["Company_Name"].str.contains(name_filter, case=False, na=False)]
         if state_filter:
-            filtered_plants = filtered_plants[filtered_plants["State_Province"].isin(state_filter)]
+            filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
+        if district_filter:
+            filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
         if country_filter:
-            filtered_plants = filtered_plants[filtered_plants["Country"].isin(country_filter)]
+            filtered_plants = filtered_plants[filtered_plants["country"].isin(country_filter)]
 
     # --- DISPLAY SEARCH RESULTS ---
     if name_filter and not filtered_plants.empty:
@@ -301,7 +313,7 @@ if section == "Dashboard":
                 with st.expander(f"{row['Company_Name']}"):
                     st.write(f"**Sales Revenue:** {row.get('Sales_Revenue', 'N/A')}")
                     st.write(f"**City:** {row.get('City', 'N/A')}")
-                    st.write(f"**State:** {row.get('State_Province', 'N/A')}")
+                    st.write(f"**State:** {row.get('State', 'N/A')}")
                     st.write(f"**Country:** {row.get('Country', 'N/A')}")
                     company_url = row.get('Company_URL')
                     if isinstance(company_url, str) and company_url.startswith('http'):
@@ -336,6 +348,9 @@ if section == "Dashboard":
         show_metadata_and_image(geojson_file2)
 
     if not filtered_plants.empty:
+        # Show count summary
+        st.info(f"Showing {len(filtered_plants)} {data_source} in selected area.")
+
         # Set up map parameters based on data source
         if data_source == "Steel Plants":
             lat_col, lon_col, hover_name_col = "latitude", "longitude", "Plant Name"
@@ -343,7 +358,7 @@ if section == "Dashboard":
             lat_col, lon_col, hover_name_col = "lat", "lng", "name"
         else:
             lat_col, lon_col, hover_name_col = "Latitude", "Longitude", "Company_Name"
-        
+
         fig = px.scatter_mapbox(
             filtered_plants,
             lat=lat_col,
@@ -354,7 +369,10 @@ if section == "Dashboard":
             mapbox_style="carto-positron",
             color_discrete_sequence=["purple"]
         )
-        fig.update_layout(mapbox_center={"lat": 20.5937, "lon": 78.9629}, margin={"r":0,"t":0,"l":0,"b":0})
+        fig.update_layout(
+            mapbox_center={"lat": 20.5937, "lon": 78.9629},
+            margin={"r":0,"t":0,"l":0,"b":0}
+        )
 
         overlay_colors = {
             geojson_file1: "rgba(255, 165, 0, 0.5)",
@@ -391,7 +409,7 @@ if section == "Dashboard":
             - 🔵 **Blue**: Comparison GeoJSON Overlay
             """)
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
     else:
         st.warning(f"No {data_source.lower()} data available or after filtering.")
 
