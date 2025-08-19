@@ -8,7 +8,7 @@ from PIL import Image
 import base64
 import streamlit.components.v1 as components
 from streamlit_pdf_viewer import pdf_viewer
-
+###
 st.set_page_config(page_title="Biochar Dashboard")
 
 st.markdown("""
