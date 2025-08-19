@@ -8,7 +8,7 @@ from PIL import Image
 import base64
 import streamlit.components.v1 as components
 from streamlit_pdf_viewer import pdf_viewer
-
+###
 st.set_page_config(page_title="Biochar Dashboard")
 
 st.markdown("""
@@ -90,13 +90,15 @@ def load_geocoded_companies():
         st.error(f"Error loading geocoded companies data: {str(e)}")
         return pd.DataFrame()
 
-@st.cache_data
 def load_ricemill_data():
     try:
         df = pd.read_csv("ricemills.csv")
+        
         # Clean up any invalid coordinates
-        df = df.dropna(subset=["lat", "lng"])
-        df = df[(df["lat"].abs() <= 90) & (df["lng"].abs() <= 180)]
+        if "lat" in df.columns and "lng" in df.columns:
+            df = df.dropna(subset=["lat", "lng"])
+            df = df[(df["lat"].abs() <= 90) & (df["lng"].abs() <= 180)]
+
         return df
     except Exception as e:
         st.error(f"Error loading ricemill data: {str(e)}")
@@ -174,7 +176,11 @@ if section == "Dashboard":
         if data_source == "Steel Plants":
             invalid_coords = plants[(plants["latitude"].abs() > 90) | (plants["longitude"].abs() > 180)]
         elif data_source == "Rice Mills":
-            invalid_coords = plants[(plants["lat"].abs() > 90) | (plants["lng"].abs() > 180)]
+            # Check if lat/lng columns exist before validating coordinates
+            if "lat" in plants.columns and "lng" in plants.columns:
+                invalid_coords = plants[(plants["lat"].abs() > 90) | (plants["lng"].abs() > 180)]
+            else:
+                invalid_coords = pd.DataFrame()  # No coordinates to validate
         else:
             invalid_coords = plants[(plants["Latitude"].abs() > 90) | (plants["Longitude"].abs() > 180)]
         if not invalid_coords.empty:
@@ -200,34 +206,34 @@ if section == "Dashboard":
     elif data_source == "Rice Mills":
         # Filters for rice mills
         name_filter = st.text_input("Search Rice Mill Name")
-        if "state" in plants.columns:
-            state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
+        
+        # State filter
+        if "detailed_state" in plants.columns:
+            state_options = plants["detailed_state"].dropna().unique()
+            state_filter = st.multiselect("State", options=state_options)
         else:
             state_filter = []
-        if "country" in plants.columns:
-            country_filter = st.multiselect("Country", options=plants["country"].dropna().unique())
+            
+        # District filter  
+        if "detailed_district" in plants.columns:
+            district_options = plants["detailed_district"].dropna().unique()
+            district_filter = st.multiselect("District", options=district_options)
         else:
-            country_filter = []
+            district_filter = []
         if "primary_category_name" in plants.columns:
             category_filter = st.multiselect("Category", options=plants["primary_category_name"].dropna().unique())
         else:
             category_filter = []
-        if "district" in plants.columns:
-            district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
-        else:
-            district_filter = []
 
         filtered_plants = plants.copy()
         if name_filter:
             filtered_plants = filtered_plants[filtered_plants["name"].str.contains(name_filter, case=False, na=False)]
         if state_filter:
-            filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
-        if country_filter:
-            filtered_plants = filtered_plants[filtered_plants["country"].isin(country_filter)]
+            filtered_plants = filtered_plants[filtered_plants["detailed_state"].isin(state_filter)]
+        if district_filter:
+            filtered_plants = filtered_plants[filtered_plants["detailed_district"].isin(district_filter)]
         if category_filter:
             filtered_plants = filtered_plants[filtered_plants["primary_category_name"].isin(category_filter)]
-        if district_filter:
-            filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
             
     else:
         # Filters for geocoded companies (using lowercase column names as per .xlsx)
@@ -355,61 +361,70 @@ if section == "Dashboard":
         if data_source == "Steel Plants":
             lat_col, lon_col, hover_name_col = "latitude", "longitude", "Plant Name"
         elif data_source == "Rice Mills":
-            lat_col, lon_col, hover_name_col = "lat", "lng", "name"
+            # Use lat/lng if available, otherwise skip mapping
+            if "lat" in filtered_plants.columns and "lng" in filtered_plants.columns:
+                lat_col, lon_col, hover_name_col = "lat", "lng", "name"
+            else:
+                st.warning("Rice Mills data does not contain coordinate information for mapping.")
+                lat_col, lon_col, hover_name_col = None, None, None
         else:
             lat_col, lon_col, hover_name_col = "Latitude", "Longitude", "Company_Name"
 
-        fig = px.scatter_mapbox(
-            filtered_plants,
-            lat=lat_col,
-            lon=lon_col,
-            hover_name=hover_name_col,
-            zoom=4,
-            height=500,
-            mapbox_style="carto-positron",
-            color_discrete_sequence=["purple"]
-        )
-        fig.update_layout(
-            mapbox_center={"lat": 20.5937, "lon": 78.9629},
-            margin={"r":0,"t":0,"l":0,"b":0}
-        )
+        # Only create map if we have coordinate columns
+        if lat_col and lon_col and lat_col in filtered_plants.columns and lon_col in filtered_plants.columns:
+            fig = px.scatter_mapbox(
+                filtered_plants,
+                lat=lat_col,
+                lon=lon_col,
+                hover_name=hover_name_col,
+                zoom=4,
+                height=500,
+                mapbox_style="carto-positron",
+                color_discrete_sequence=["purple"]
+            )
+            fig.update_layout(
+                mapbox_center={"lat": 20.5937, "lon": 78.9629},
+                margin={"r":0,"t":0,"l":0,"b":0}
+            )
 
-        overlay_colors = {
-            geojson_file1: "rgba(255, 165, 0, 0.5)",
-            geojson_file2: "rgba(0, 128, 255, 0.5)"
-        }
+            overlay_colors = {
+                geojson_file1: "rgba(255, 165, 0, 0.5)",
+                geojson_file2: "rgba(0, 128, 255, 0.5)"
+            }
 
-        for geojson_file in [geojson_file1, geojson_file2]:
-            if geojson_file != "None" and os.path.exists(geojson_file):
-                with open(geojson_file) as f:
-                    geojson_data = json.load(f)
-                overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
-                for feature in geojson_data["features"]:
-                    geom_type = feature["geometry"]["type"]
-                    coords = feature["geometry"]["coordinates"]
-                    if geom_type == "Polygon" and coords and coords[0]:
-                        try:
-                            lons, lats = zip(*coords[0])
-                            fig.add_trace(px.line_mapbox(lat=list(lats)+[lats[0]], lon=list(lons)+[lons[0]], color_discrete_sequence=[overlay_color]).data[0])
-                        except Exception as e:
-                            st.warning(f"⚠️ Skipped polygon: {e}")
-                    elif geom_type == "Point":
-                        lon, lat = coords
-                        fig.add_scattermapbox(lat=[lat], lon=[lon], mode="markers", marker=dict(size=8, color=overlay_color), name="GeoJSON Point", hovertext=json.dumps(feature["properties"]), hoverinfo="text")
-                    elif geom_type == "MultiPolygon":
-                        for polygon in coords:
-                            if polygon and polygon[0]:
-                                lons, lats = zip(*polygon[0])
+            for geojson_file in [geojson_file1, geojson_file2]:
+                if geojson_file != "None" and os.path.exists(geojson_file):
+                    with open(geojson_file) as f:
+                        geojson_data = json.load(f)
+                    overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
+                    for feature in geojson_data["features"]:
+                        geom_type = feature["geometry"]["type"]
+                        coords = feature["geometry"]["coordinates"]
+                        if geom_type == "Polygon" and coords and coords[0]:
+                            try:
+                                lons, lats = zip(*coords[0])
                                 fig.add_trace(px.line_mapbox(lat=list(lats)+[lats[0]], lon=list(lons)+[lons[0]], color_discrete_sequence=[overlay_color]).data[0])
+                            except Exception as e:
+                                st.warning(f"⚠️ Skipped polygon: {e}")
+                        elif geom_type == "Point":
+                            lon, lat = coords
+                            fig.add_scattermapbox(lat=[lat], lon=[lon], mode="markers", marker=dict(size=8, color=overlay_color), name="GeoJSON Point", hovertext=json.dumps(feature["properties"]), hoverinfo="text")
+                        elif geom_type == "MultiPolygon":
+                            for polygon in coords:
+                                if polygon and polygon[0]:
+                                    lons, lats = zip(*polygon[0])
+                                    fig.add_trace(px.line_mapbox(lat=list(lats)+[lats[0]], lon=list(lons)+[lons[0]], color_discrete_sequence=[overlay_color]).data[0])
 
-        with st.expander("Legend"):
-            st.markdown(f"""
-            - 🟣 **Purple**: {data_source}  
-            - 🟠 **Orange**: Primary GeoJSON Overlay  
-            - 🔵 **Blue**: Comparison GeoJSON Overlay
-            """)
+            with st.expander("Legend"):
+                st.markdown(f"""
+                - 🟣 **Purple**: {data_source}  
+                - 🟠 **Orange**: Primary GeoJSON Overlay  
+                - 🔵 **Blue**: Comparison GeoJSON Overlay
+                """)
 
-        st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
+            st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
+        else:
+            st.info("Map visualization not available - coordinate data missing.")
     else:
         st.warning(f"No {data_source.lower()} data available or after filtering.")
 
