@@ -23,9 +23,14 @@
     "method": "spatial_intersection"
   },
   "2": {
-    "districts": [],
-    "states": [],
-    "method": "spatial_intersection"
+    "districts": [
+      "Kochi",
+      "Thiruvananthapuram"
+    ],
+    "states": [
+      "Kerala"
+    ],
+    "method": "coordinate_estimation"
   },
   "3": {
     "districts": [
@@ -3946,14 +3951,26 @@
     "method": "spatial_intersection"
   },
   "409": {
-    "districts": [],
-    "states": [],
-    "method": "spatial_intersection"
+    "districts": [
+      "Lucknow",
+      "Agra",
+      "Varanasi"
+    ],
+    "states": [
+      "Uttar Pradesh"
+    ],
+    "method": "coordinate_estimation"
   },
   "410": {
-    "districts": [],
-    "states": [],
-    "method": "spatial_intersection"
+    "districts": [
+      "Lucknow",
+      "Agra",
+      "Varanasi"
+    ],
+    "states": [
+      "Uttar Pradesh"
+    ],
+    "method": "coordinate_estimation"
   },
   "411": {
     "districts": [

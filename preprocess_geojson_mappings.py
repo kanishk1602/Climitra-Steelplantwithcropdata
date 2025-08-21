@@ -176,10 +176,12 @@ def process_geojson_file(filename, boundaries):
                     continue
                 
                 # Get districts and states
+                districts, states = [], []
+                method = "spatial_intersection"
                 if not boundaries.empty:
                     districts, states = get_intersected_regions(polygon, boundaries)
-                    method = "spatial_intersection"
-                else:
+                # Fallback if intersection fails (empty)
+                if not districts and not states:
                     districts, states = get_coordinate_fallback(polygon)
                     method = "coordinate_estimation"
                 
@@ -244,7 +246,8 @@ def main():
         "cottonstalk.geojson",
         "sugarcane.geojson",
         "maize.geojson",
-        "bamboo.geojson"
+        "bamboo.geojson",
+        "enhanced_juliflora.geojson"
     ]
     
     # Process each file

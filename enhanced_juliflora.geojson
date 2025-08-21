@@ -4,9 +4,14 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Amritsar",
+          "Ludhiana"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 0
       },
       "geometry": {
@@ -20,9 +25,14 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Amritsar",
+          "Ludhiana"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 1
       },
       "geometry": {
@@ -36,9 +46,14 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Amritsar",
+          "Ludhiana"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 2
       },
       "geometry": {
@@ -52,9 +67,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 3
       },
       "geometry": {
@@ -68,9 +89,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 4
       },
       "geometry": {
@@ -84,9 +111,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 5
       },
       "geometry": {
@@ -100,9 +133,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 6
       },
       "geometry": {
@@ -116,9 +155,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 7
       },
       "geometry": {
@@ -132,9 +177,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 8
       },
       "geometry": {
@@ -148,9 +199,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Lucknow",
+          "Agra",
+          "Varanasi"
+        ],
+        "states": [
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 9
       },
       "geometry": {
@@ -164,9 +221,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 10
       },
       "geometry": {
@@ -180,9 +243,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 11
       },
       "geometry": {
@@ -196,9 +265,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 12
       },
       "geometry": {
@@ -212,9 +287,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 13
       },
       "geometry": {
@@ -228,9 +309,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 14
       },
       "geometry": {
@@ -244,9 +331,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Lucknow",
+          "Agra",
+          "Varanasi"
+        ],
+        "states": [
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 15
       },
       "geometry": {
@@ -260,9 +353,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Lucknow",
+          "Agra",
+          "Varanasi"
+        ],
+        "states": [
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 16
       },
       "geometry": {
@@ -276,9 +375,13 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Unknown District"
+        ],
+        "states": [
+          "Unknown State"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 17
       },
       "geometry": {
@@ -292,9 +395,14 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhubaneswar",
+          "Cuttack"
+        ],
+        "states": [
+          "Odisha"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 18
       },
       "geometry": {
@@ -308,9 +416,14 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhubaneswar",
+          "Cuttack"
+        ],
+        "states": [
+          "Odisha"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 19
       },
       "geometry": {
@@ -324,9 +437,14 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhubaneswar",
+          "Cuttack"
+        ],
+        "states": [
+          "Odisha"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 20
       },
       "geometry": {
@@ -340,9 +458,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Hyderabad",
+          "Visakhapatnam"
+        ],
+        "states": [
+          "Telangana",
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 21
       },
       "geometry": {
@@ -356,9 +480,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Hyderabad",
+          "Visakhapatnam"
+        ],
+        "states": [
+          "Telangana",
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 22
       },
       "geometry": {
@@ -372,9 +502,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Hyderabad",
+          "Visakhapatnam"
+        ],
+        "states": [
+          "Telangana",
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 23
       },
       "geometry": {
@@ -388,9 +524,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 24
       },
       "geometry": {
@@ -404,9 +546,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 25
       },
       "geometry": {
@@ -420,9 +568,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 26
       },
       "geometry": {
@@ -436,9 +590,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 27
       },
       "geometry": {
@@ -452,9 +612,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 28
       },
       "geometry": {
@@ -468,9 +634,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 29
       },
       "geometry": {
@@ -484,9 +656,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 30
       },
       "geometry": {
@@ -500,9 +678,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 31
       },
       "geometry": {
@@ -516,9 +700,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 32
       },
       "geometry": {
@@ -532,9 +722,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 33
       },
       "geometry": {
@@ -548,9 +744,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 34
       },
       "geometry": {
@@ -564,9 +766,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 35
       },
       "geometry": {
@@ -580,9 +788,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 36
       },
       "geometry": {
@@ -596,9 +810,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 37
       },
       "geometry": {
@@ -612,9 +832,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 38
       },
       "geometry": {
@@ -628,9 +854,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bhopal",
+          "Indore",
+          "Jabalpur"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 39
       },
       "geometry": {
@@ -644,9 +876,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 40
       },
       "geometry": {
@@ -660,9 +898,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 41
       },
       "geometry": {
@@ -676,9 +920,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 42
       },
       "geometry": {
@@ -692,9 +942,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 43
       },
       "geometry": {
@@ -708,9 +964,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 44
       },
       "geometry": {
@@ -724,9 +986,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 45
       },
       "geometry": {
@@ -740,9 +1008,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 46
       },
       "geometry": {
@@ -756,9 +1030,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 47
       },
       "geometry": {
@@ -772,9 +1052,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 48
       },
       "geometry": {
@@ -788,9 +1074,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 49
       },
       "geometry": {
@@ -804,9 +1096,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 50
       },
       "geometry": {
@@ -820,9 +1118,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 51
       },
       "geometry": {
@@ -836,9 +1140,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 52
       },
       "geometry": {
@@ -852,9 +1162,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 53
       },
       "geometry": {
@@ -868,9 +1184,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 54
       },
       "geometry": {
@@ -884,9 +1206,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 55
       },
       "geometry": {
@@ -900,9 +1228,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 56
       },
       "geometry": {
@@ -916,9 +1250,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 57
       },
       "geometry": {
@@ -932,9 +1272,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 58
       },
       "geometry": {
@@ -948,9 +1294,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Jodhpur",
+          "Jaipur",
+          "Bikaner"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 59
       },
       "geometry": {
@@ -964,9 +1316,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 60
       },
       "geometry": {
@@ -980,9 +1338,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 61
       },
       "geometry": {
@@ -996,9 +1360,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 62
       },
       "geometry": {
@@ -1012,9 +1382,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 63
       },
       "geometry": {
@@ -1028,9 +1404,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 64
       },
       "geometry": {
@@ -1044,9 +1426,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 65
       },
       "geometry": {
@@ -1060,9 +1448,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 66
       },
       "geometry": {
@@ -1076,9 +1470,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 67
       },
       "geometry": {
@@ -1092,9 +1492,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 68
       },
       "geometry": {
@@ -1108,9 +1514,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 69
       },
       "geometry": {
@@ -1124,9 +1536,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Ahmedabad",
+          "Rajkot",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 70
       },
       "geometry": {
@@ -1140,9 +1558,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 71
       },
       "geometry": {
@@ -1156,9 +1580,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 72
       },
       "geometry": {
@@ -1172,9 +1602,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 73
       },
       "geometry": {
@@ -1188,9 +1624,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 74
       },
       "geometry": {
@@ -1204,9 +1646,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 75
       },
       "geometry": {
@@ -1220,9 +1668,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 76
       },
       "geometry": {
@@ -1236,9 +1690,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 77
       },
       "geometry": {
@@ -1252,9 +1712,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 78
       },
       "geometry": {
@@ -1268,9 +1734,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 79
       },
       "geometry": {
@@ -1284,9 +1756,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 80
       },
       "geometry": {
@@ -1300,9 +1778,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 81
       },
       "geometry": {
@@ -1316,9 +1800,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 82
       },
       "geometry": {
@@ -1332,9 +1822,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 83
       },
       "geometry": {
@@ -1348,9 +1844,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 84
       },
       "geometry": {
@@ -1364,9 +1866,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 85
       },
       "geometry": {
@@ -1380,9 +1888,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 86
       },
       "geometry": {
@@ -1396,9 +1910,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 87
       },
       "geometry": {
@@ -1412,9 +1932,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 88
       },
       "geometry": {
@@ -1428,9 +1954,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 89
       },
       "geometry": {
@@ -1444,9 +1976,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Mumbai",
+          "Pune",
+          "Nagpur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 90
       },
       "geometry": {
@@ -1460,9 +1998,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 91
       },
       "geometry": {
@@ -1476,9 +2020,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 92
       },
       "geometry": {
@@ -1492,9 +2042,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Chennai",
+          "Coimbatore",
+          "Madurai"
+        ],
+        "states": [
+          "Tamil Nadu"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 93
       },
       "geometry": {
@@ -1508,9 +2064,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Hyderabad",
+          "Visakhapatnam"
+        ],
+        "states": [
+          "Telangana",
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 94
       },
       "geometry": {
@@ -1524,9 +2086,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 95
       },
       "geometry": {
@@ -1540,9 +2108,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Chennai",
+          "Coimbatore",
+          "Madurai"
+        ],
+        "states": [
+          "Tamil Nadu"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 96
       },
       "geometry": {
@@ -1556,9 +2130,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 97
       },
       "geometry": {
@@ -1572,9 +2152,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Bangalore",
+          "Mysore",
+          "Belgaum"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 98
       },
       "geometry": {
@@ -1588,9 +2174,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Chennai",
+          "Coimbatore",
+          "Madurai"
+        ],
+        "states": [
+          "Tamil Nadu"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 99
       },
       "geometry": {
@@ -1604,9 +2196,15 @@
     {
       "type": "Feature",
       "properties": {
-        "districts": [],
-        "states": [],
-        "mapping_method": "spatial_intersection",
+        "districts": [
+          "Chennai",
+          "Coimbatore",
+          "Madurai"
+        ],
+        "states": [
+          "Tamil Nadu"
+        ],
+        "mapping_method": "coordinate_estimation",
         "feature_id": 100
       },
       "geometry": {
