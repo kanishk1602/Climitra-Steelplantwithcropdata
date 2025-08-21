@@ -975,14 +975,23 @@ if section == "Dashboard":
 
                             elif geom_type == "Point":
                                 lon, lat = coords
-                                point_info = json.dumps(feature.get("properties", {}))
+                                feature_props = feature.get("properties", {})
+                                districts = feature_props.get("districts", [])
+                                states = feature_props.get("states", [])
+                                tooltip_text = ""
+                                if districts:
+                                    tooltip_text += f"Districts: {', '.join(districts)}<br>"
+                                if states:
+                                    tooltip_text += f"States: {', '.join(states)}"
+                                if not tooltip_text:
+                                    tooltip_text = "Location data unavailable"
                                 fig.add_scattermapbox(
                                     lat=[lat], 
                                     lon=[lon], 
                                     mode="markers", 
                                     marker=dict(size=8, color=overlay_color), 
                                     name="GeoJSON Point", 
-                                    hovertext=f"Point from {geojson_file}<br>{point_info}", 
+                                    hovertext=tooltip_text, 
                                     hoverinfo="text"
                                 )
 
