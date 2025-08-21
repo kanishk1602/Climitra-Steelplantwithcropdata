@@ -13,7 +13,6 @@ def get_location_info_from_coords(polygon):
     """
     Enhanced function to estimate location based on polygon centroid coordinates.
     Maps coordinates to actual Indian states and major districts.
-    This function uses detailed coordinate ranges for each state and district.
     """
     try:
         centroid = polygon.centroid
