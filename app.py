@@ -478,7 +478,7 @@ if section == "Dashboard":
     data_source = st.selectbox(
         "Select Data Source:",
         ["Steel Plants", "Steel Plants with BF", "Geocoded Companies", "Rice Mills"],
-        help="Choose between steel plant data, steel plants with BF, geocoded companies data, or rice mills data"
+        help="Choose between steel plants data, steel plants with BF, geocoded companies data, or rice mills data"
     )
     
     # Load appropriate data based on selection
