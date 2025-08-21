@@ -155,14 +155,18 @@ if section == "Dashboard":
     # UPDATED: Data source selector with Rice Mills
     data_source = st.selectbox(
         "Select Data Source:",
-        ["Steel Plants", "Geocoded Companies", "Rice Mills"],
-        help="Choose between steel plant data, geocoded companies data, or rice mills data"
+        ["Steel Plants", "Steel Plants with BF", "Geocoded Companies", "Rice Mills"],
+        help="Choose between steel plant data, steel plants with BF, geocoded companies data, or rice mills data"
     )
     
     # Load appropriate data based on selection
     if data_source == "Steel Plants":
         plants = load_steel_plants()
         st.markdown("### Visualizing invasive species clusters and steel plants")
+    elif data_source == "Steel Plants with BF":
+        from steel_plant_bf_loader import load_steel_plants_bf
+        plants = load_steel_plants_bf()
+        st.markdown("### Visualizing invasive species clusters and steel plants with BF")
     elif data_source == "Geocoded Companies":
         plants = load_geocoded_companies()
         st.markdown("### Visualizing invasive species clusters and geocoded companies")
@@ -173,7 +177,7 @@ if section == "Dashboard":
     with st.expander("Data Debug Info"):
         st.write(f"Loaded {len(plants)} records from {data_source.lower()}")
         st.dataframe(plants)
-        if data_source == "Steel Plants":
+        if data_source in ["Steel Plants", "Steel Plants with BF"]:
             invalid_coords = plants[(plants["latitude"].abs() > 90) | (plants["longitude"].abs() > 180)]
         elif data_source == "Rice Mills":
             # Check if lat/lng columns exist before validating coordinates
@@ -202,6 +206,44 @@ if section == "Dashboard":
             filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
         if district_filter:
             filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
+            
+    elif data_source == "Steel Plants with BF":
+        name_filter = st.text_input("Search Plant Name")
+        
+        # State filter
+        if "State" in plants.columns:
+            state_options = plants["State"].dropna().unique()
+            state_filter = st.multiselect("State", options=state_options)
+        else:
+            state_filter = []
+            
+        # District filter
+        if "District" in plants.columns:
+            district_options = plants["District"].dropna().unique()
+            district_filter = st.multiselect("District", options=district_options)
+        else:
+            district_filter = []
+            
+        # Capacity filter
+        if "Quantity" in plants.columns:
+            min_capacity = float(plants["Quantity"].min()) if not plants["Quantity"].empty else 0
+            max_capacity = float(plants["Quantity"].max()) if not plants["Quantity"].empty else 100
+            capacity_filter = st.slider("Blast Furnace Capacity Range (Mtpa)", min_capacity, max_capacity, (min_capacity, max_capacity))
+        else:
+            capacity_filter = None
+
+        filtered_plants = plants.copy()
+        if name_filter:
+            name_col = "Plant" if "Plant" in filtered_plants.columns else "Plant Name"
+            if name_col in filtered_plants.columns:
+                filtered_plants = filtered_plants[filtered_plants[name_col].str.contains(name_filter, case=False, na=False)]
+        if state_filter:
+            filtered_plants = filtered_plants[filtered_plants["State"].isin(state_filter)]
+        if district_filter:
+            filtered_plants = filtered_plants[filtered_plants["District"].isin(district_filter)]
+        if capacity_filter is not None:
+            filtered_plants = filtered_plants[(filtered_plants["Quantity"] >= capacity_filter[0]) & 
+                                              (filtered_plants["Quantity"] <= capacity_filter[1])]
             
     elif data_source == "Rice Mills":
         # Filters for rice mills
@@ -276,6 +318,13 @@ if section == "Dashboard":
                         st.markdown(f"**Source:** <a href='{source_url}' target='_blank'>Visit Link</a>", unsafe_allow_html=True)
                     else:
                         st.write(f"**Source:** {source_url if pd.notna(source_url) else 'N/A'}")
+            
+            elif data_source == "Steel Plants with BF":
+                plant_name = row.get('Plant') if 'Plant' in row else row.get('Plant Name', 'Unknown Plant')
+                with st.expander(f"{plant_name}"):
+                    st.write(f"**Blast Furnace Capacity:** {row.get('Quantity', 'N/A')} Mtpa")
+                    st.write(f"**State:** {row.get('State', 'N/A')}")
+                    st.write(f"**District:** {row.get('District', 'N/A')}")
                         
             elif data_source == "Rice Mills":
                 with st.expander(f"{row['name']}"):
@@ -354,34 +403,124 @@ if section == "Dashboard":
         show_metadata_and_image(geojson_file2)
 
     if not filtered_plants.empty:
-        # Show count summary
-        st.info(f"Showing {len(filtered_plants)} {data_source} in selected area.")
-
-        # Set up map parameters based on data source
-        if data_source == "Steel Plants":
-            lat_col, lon_col, hover_name_col = "latitude", "longitude", "Plant Name"
+        # Show count summary with specific filter information
+        filter_info = ""
+        if data_source == "Steel Plants with BF":
+            if district_filter:
+                if len(district_filter) == 1:
+                    filter_info = f" in {district_filter[0]} district"
+                else:
+                    filter_info = f" in {len(district_filter)} districts"
+            elif state_filter:
+                if len(state_filter) == 1:
+                    filter_info = f" in {state_filter[0]} state"
+                else:
+                    filter_info = f" in {len(state_filter)} states"
+        elif data_source == "Steel Plants":
+            if district_filter:
+                if len(district_filter) == 1:
+                    filter_info = f" in {district_filter[0]} district"
+                else:
+                    filter_info = f" in {len(district_filter)} districts"
+            elif state_filter:
+                if len(state_filter) == 1:
+                    filter_info = f" in {state_filter[0]} state"
+                else:
+                    filter_info = f" in {len(state_filter)} states"
         elif data_source == "Rice Mills":
-            # Use lat/lng if available, otherwise skip mapping
-            if "lat" in filtered_plants.columns and "lng" in filtered_plants.columns:
-                lat_col, lon_col, hover_name_col = "lat", "lng", "name"
+            if district_filter:
+                if len(district_filter) == 1:
+                    filter_info = f" in {district_filter[0]} district"
+                else:
+                    filter_info = f" in {len(district_filter)} districts"
+            elif state_filter:
+                if len(state_filter) == 1:
+                    filter_info = f" in {state_filter[0]} state"
+                else:
+                    filter_info = f" in {len(state_filter)} states"
+        elif data_source == "Geocoded Companies":
+            if district_filter:
+                if len(district_filter) == 1:
+                    filter_info = f" in {district_filter[0]} district"
+                else:
+                    filter_info = f" in {len(district_filter)} districts"
+            elif state_filter:
+                if len(state_filter) == 1:
+                    filter_info = f" in {state_filter[0]} state"
+                else:
+                    filter_info = f" in {len(state_filter)} states"
+            elif country_filter:
+                if len(country_filter) == 1:
+                    filter_info = f" in {country_filter[0]}"
+                else:
+                    filter_info = f" in {len(country_filter)} countries"
+                    
+        if data_source == "Steel Plants with BF" and capacity_filter is not None:
+            if not filter_info:
+                filter_info = f" with capacity between {capacity_filter[0]} and {capacity_filter[1]} Mtpa"
             else:
-                st.warning("Rice Mills data does not contain coordinate information for mapping.")
-                lat_col, lon_col, hover_name_col = None, None, None
-        else:
-            lat_col, lon_col, hover_name_col = "Latitude", "Longitude", "Company_Name"
+                filter_info += f" with capacity between {capacity_filter[0]} and {capacity_filter[1]} Mtpa"
+        
+        if not filter_info:
+            filter_info = " matching your criteria"
+                
+        st.info(f"Showing {len(filtered_plants)} {data_source}{filter_info}.")
 
-        # Only create map if we have coordinate columns
+        # Dynamically determine latitude and longitude column names based on available columns
+        if data_source == "Steel Plants" or data_source == "Steel Plants with BF":
+            lat_col, lon_col = "latitude", "longitude"
+            hover_name_col = "Plant Name" if "Plant Name" in filtered_plants.columns else "Plant"
+        elif data_source == "Rice Mills":
+            lat_col, lon_col = "lat", "lng"
+            hover_name_col = "name"
+        else:  # Geocoded Companies
+            lat_col, lon_col = "Latitude", "Longitude"
+            hover_name_col = "Company_Name"
+
+        # Check for invalid coordinates only if the columns exist
+        if lat_col in plants.columns and lon_col in plants.columns:
+            invalid_coords = plants[(plants[lat_col].abs() > 90) | (plants[lon_col].abs() > 180)]
+        else:
+            invalid_coords = pd.DataFrame()  # No coordinates to validate
+
         if lat_col and lon_col and lat_col in filtered_plants.columns and lon_col in filtered_plants.columns:
+            # Add hover data based on data source
+            hover_data = None
+            if data_source == "Steel Plants":
+                hover_data = ["Capacity(MTPA)", "Furnance"]
+            elif data_source == "Steel Plants with BF":
+                hover_data = ["Quantity"] if "Quantity" in filtered_plants.columns else None
+            elif data_source == "Rice Mills":
+                hover_data = ["primary_category_name"] if "primary_category_name" in filtered_plants.columns else None
+            elif data_source == "Geocoded Companies":
+                hover_data = ["Sales_Revenue"] if "Sales_Revenue" in filtered_plants.columns else None
+                
+            # Create hover text with custom formatting
+            if data_source == "Steel Plants with BF":
+                filtered_plants["hover_text"] = filtered_plants.apply(
+                    lambda row: f"<b>{row.get('Plant', row.get('Plant Name', 'Unknown'))}</b><br>" +
+                               f"Capacity: {row.get('Quantity', 'N/A')} Mtpa<br>" +
+                               f"District: {row.get('District', 'N/A')}<br>" +
+                               f"State: {row.get('State', 'N/A')}",
+                    axis=1
+                )
+                
             fig = px.scatter_mapbox(
                 filtered_plants,
                 lat=lat_col,
                 lon=lon_col,
                 hover_name=hover_name_col,
+                hover_data=hover_data,
+                custom_data=[filtered_plants["hover_text"]] if "hover_text" in filtered_plants.columns else None,
                 zoom=4,
                 height=500,
                 mapbox_style="carto-positron",
                 color_discrete_sequence=["purple"]
             )
+            
+            # Apply custom hover template if available
+            if "hover_text" in filtered_plants.columns:
+                fig.update_traces(hovertemplate="%{customdata[0]}")
             fig.update_layout(
                 mapbox_center={"lat": 20.5937, "lon": 78.9629},
                 margin={"r":0,"t":0,"l":0,"b":0}
