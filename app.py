@@ -12,7 +12,7 @@ from streamlit_pdf_viewer import pdf_viewer
 def get_location_info_from_coords(polygon):
     """
     Enhanced function to estimate location based on polygon centroid coordinates.
-    Maps coordinates to actual Indian states and major districts
+    Maps coordinates to actual Indian states and major districts.
     """
     try:
         centroid = polygon.centroid
