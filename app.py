@@ -407,7 +407,7 @@ if section == "Dashboard":
         filter_info = ""
         total_capacity_info = ""
 
-        # We're not using total_capacity_info in filter_info anymore
+        # We're not using total_capacity_info in filter_info anymore - total capacity is only shown in colored box
         total_capacity_info = ""
 
         # Build filter info string
