@@ -405,6 +405,12 @@ if section == "Dashboard":
     if not filtered_plants.empty:
         # Show count summary with specific filter information
         filter_info = ""
+        total_capacity_info = ""
+
+        # We're not using total_capacity_info in filter_info anymore
+        total_capacity_info = ""
+
+        # Build filter info string
         if data_source == "Steel Plants with BF":
             if district_filter:
                 if len(district_filter) == 1:
@@ -463,8 +469,14 @@ if section == "Dashboard":
         
         if not filter_info:
             filter_info = " matching your criteria"
+            # Removed adding total capacity info to the filter_info
                 
         st.info(f"Showing {len(filtered_plants)} {data_source}{filter_info}.")
+        
+        # Display total capacity separately with different color for Steel Plants with BF
+        if data_source == "Steel Plants with BF" and "Quantity" in filtered_plants.columns:
+            total_capacity = filtered_plants["Quantity"].sum()
+            st.markdown(f"<div style='background-color: #e6f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;'><b>Total Blast Furnace Capacity:</b> {total_capacity:.2f} Mtpa</div>", unsafe_allow_html=True)
 
         # Dynamically determine latitude and longitude column names based on available columns
         if data_source == "Steel Plants" or data_source == "Steel Plants with BF":
