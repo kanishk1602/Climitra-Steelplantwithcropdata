@@ -8,6 +8,318 @@ from PIL import Image
 import base64
 import streamlit.components.v1 as components
 from streamlit_pdf_viewer import pdf_viewer
+# Note: Removed geopandas and shapely imports since we now use precomputed spatial data
+
+# Note: Boundary loading functions and get_intersected_regions are no longer needed
+# since we now use precomputed district/state data from enhanced GeoJSON files
+
+# Enhanced coordinate-based location estimation for Indian states and districts
+def get_location_info_from_coords(polygon):
+    """
+    Enhanced function to estimate location based on polygon centroid coordinates.
+    Maps coordinates to actual Indian states and major districts.
+    """
+    try:
+        centroid = polygon.centroid
+        lat, lon = centroid.y, centroid.x
+        
+        # Detailed coordinate-based state and district identification for India
+        
+        # Rajasthan
+        if 24.0 <= lat <= 30.2 and 69.5 <= lon <= 78.2:
+            districts = []
+            if 26.8 <= lat <= 28.4 and 75.0 <= lon <= 76.8:
+                districts = ["Jaipur", "Alwar", "Sikar"]
+            elif 24.3 <= lat <= 26.0 and 70.9 <= lon <= 73.8:
+                districts = ["Jodhpur", "Barmer", "Jaisalmer"]
+            elif 27.0 <= lat <= 28.9 and 73.0 <= lon <= 75.5:
+                districts = ["Bikaner", "Ganganagar", "Hanumangarh"]
+            elif 24.0 <= lat <= 25.8 and 73.7 <= lon <= 75.8:
+                districts = ["Udaipur", "Rajsamand", "Dungarpur"]
+            else:
+                districts = ["Central Rajasthan"]
+            return districts, ["Rajasthan"]
+        
+        # Gujarat
+        elif 20.1 <= lat <= 24.7 and 68.2 <= lon <= 74.5:
+            districts = []
+            if 22.2 <= lat <= 23.8 and 72.0 <= lon <= 73.2:
+                districts = ["Ahmedabad", "Gandhinagar", "Mehsana"]
+            elif 21.1 <= lat <= 22.3 and 70.0 <= lon <= 72.1:
+                districts = ["Rajkot", "Jamnagar", "Porbandar"]
+            elif 20.9 <= lat <= 21.9 and 72.7 <= lon <= 73.2:
+                districts = ["Surat", "Navsari", "Valsad"]
+            elif 22.7 <= lat <= 24.2 and 68.8 <= lon <= 71.8:
+                districts = ["Kutch", "Banaskantha", "Patan"]
+            else:
+                districts = ["Central Gujarat"]
+            return districts, ["Gujarat"]
+        
+        # Maharashtra
+        elif 15.6 <= lat <= 22.0 and 72.6 <= lon <= 80.9:
+            districts = []
+            if 18.8 <= lat <= 19.3 and 72.7 <= lon <= 73.2:
+                districts = ["Mumbai", "Mumbai Suburban", "Thane"]
+            elif 18.4 <= lat <= 18.7 and 73.7 <= lon <= 74.0:
+                districts = ["Pune", "Pimpri-Chinchwad"]
+            elif 19.7 <= lat <= 21.2 and 78.0 <= lon <= 79.3:
+                districts = ["Nagpur", "Wardha", "Chandrapur"]
+            elif 19.0 <= lat <= 20.3 and 74.7 <= lon <= 76.0:
+                districts = ["Aurangabad", "Jalna", "Beed"]
+            else:
+                districts = ["Central Maharashtra"]
+            return districts, ["Maharashtra"]
+        
+        # Karnataka
+        elif 11.5 <= lat <= 18.5 and 74.0 <= lon <= 78.6:
+            districts = []
+            if 12.8 <= lat <= 13.2 and 77.4 <= lon <= 77.8:
+                districts = ["Bangalore Urban", "Bangalore Rural"]
+            elif 15.3 <= lat <= 15.9 and 75.0 <= lon <= 75.8:
+                districts = ["Belgaum", "Bagalkot", "Bijapur"]
+            elif 13.3 <= lat <= 14.5 and 74.8 <= lon <= 75.8:
+                districts = ["Mysore", "Mandya", "Hassan"]
+            elif 14.4 <= lat <= 15.6 and 76.0 <= lon <= 77.6:
+                districts = ["Bellary", "Raichur", "Koppal"]
+            else:
+                districts = ["Central Karnataka"]
+            return districts, ["Karnataka"]
+        
+        # Tamil Nadu
+        elif 8.1 <= lat <= 13.6 and 76.2 <= lon <= 80.3:
+            districts = []
+            if 12.8 <= lat <= 13.2 and 79.8 <= lon <= 80.3:
+                districts = ["Chennai", "Kanchipuram", "Tiruvallur"]
+            elif 10.7 <= lat <= 11.1 and 76.9 <= lon <= 77.8:
+                districts = ["Coimbatore", "Tirupur", "Erode"]
+            elif 9.9 <= lat <= 10.8 and 78.0 <= lon <= 78.8:
+                districts = ["Madurai", "Theni", "Dindigul"]
+            elif 11.8 <= lat <= 12.5 and 79.0 <= lon <= 79.9:
+                districts = ["Vellore", "Tiruvannamalai", "Villupuram"]
+            else:
+                districts = ["Central Tamil Nadu"]
+            return districts, ["Tamil Nadu"]
+        
+        # Andhra Pradesh & Telangana
+        elif 12.6 <= lat <= 19.9 and 76.8 <= lon <= 84.8:
+            districts = []
+            if 17.2 <= lat <= 17.6 and 78.2 <= lon <= 78.7:
+                districts = ["Hyderabad", "Rangareddy", "Medchal"]
+                return districts, ["Telangana"]
+            elif 15.8 <= lat <= 17.1 and 79.7 <= lon <= 81.8:
+                districts = ["Visakhapatnam", "Vizianagaram", "Srikakulam"]
+                return districts, ["Andhra Pradesh"]
+            elif 14.4 <= lat <= 15.9 and 78.1 <= lon <= 80.0:
+                districts = ["Kurnool", "Anantapur", "Kadapa"]
+                return districts, ["Andhra Pradesh"]
+            elif 16.5 <= lat <= 19.0 and 77.3 <= lon <= 80.5:
+                districts = ["Warangal", "Karimnagar", "Nizamabad"]
+                return districts, ["Telangana"]
+            else:
+                districts = ["Central Region"]
+                return districts, ["Andhra Pradesh/Telangana"]
+        
+        # Kerala
+        elif 8.2 <= lat <= 12.8 and 74.9 <= lon <= 77.4:
+            districts = []
+            if 9.9 <= lat <= 10.0 and 76.2 <= lon <= 76.4:
+                districts = ["Kochi", "Ernakulam"]
+            elif 8.4 <= lat <= 8.9 and 76.8 <= lon <= 77.1:
+                districts = ["Thiruvananthapuram", "Kollam"]
+            elif 11.2 <= lat <= 11.6 and 75.7 <= lon <= 76.1:
+                districts = ["Kozhikode", "Malappuram", "Wayanad"]
+            elif 9.5 <= lat <= 10.5 and 76.0 <= lon <= 77.0:
+                districts = ["Kottayam", "Idukki", "Alappuzha"]
+            else:
+                districts = ["Central Kerala"]
+            return districts, ["Kerala"]
+        
+        # West Bengal
+        elif 21.5 <= lat <= 27.1 and 85.8 <= lon <= 89.9:
+            districts = []
+            if 22.4 <= lat <= 22.7 and 88.2 <= lon <= 88.5:
+                districts = ["Kolkata", "North 24 Parganas", "South 24 Parganas"]
+            elif 23.2 <= lat <= 25.6 and 87.8 <= lon <= 89.3:
+                districts = ["Darjeeling", "Jalpaiguri", "Cooch Behar"]
+            elif 23.8 <= lat <= 24.6 and 87.0 <= lon <= 88.8:
+                districts = ["Malda", "Murshidabad", "Birbhum"]
+            else:
+                districts = ["Central West Bengal"]
+            return districts, ["West Bengal"]
+        
+        # Odisha
+        elif 17.8 <= lat <= 22.6 and 81.4 <= lon <= 87.5:
+            districts = []
+            if 20.2 <= lat <= 20.4 and 85.7 <= lon <= 86.0:
+                districts = ["Bhubaneswar", "Khordha", "Puri"]
+            elif 21.4 <= lat <= 22.0 and 84.8 <= lon <= 85.8:
+                districts = ["Rourkela", "Sundargarh", "Jharsuguda"]
+            elif 19.2 <= lat <= 20.5 and 83.9 <= lon <= 85.2:
+                districts = ["Cuttack", "Jagatsinghpur", "Kendrapara"]
+            else:
+                districts = ["Central Odisha"]
+            return districts, ["Odisha"]
+        
+        # Madhya Pradesh
+        elif 21.1 <= lat <= 26.9 and 74.0 <= lon <= 82.8:
+            districts = []
+            if 23.1 <= lat <= 23.4 and 77.2 <= lon <= 77.6:
+                districts = ["Bhopal", "Sehore", "Raisen"]
+            elif 22.6 <= lat <= 23.0 and 75.7 <= lon <= 76.1:
+                districts = ["Indore", "Dewas", "Ujjain"]
+            elif 24.5 <= lat <= 25.9 and 78.0 <= lon <= 80.4:
+                districts = ["Jabalpur", "Katni", "Narsinghpur"]
+            elif 24.0 <= lat <= 25.4 and 81.2 <= lon <= 82.8:
+                districts = ["Rewa", "Satna", "Sidhi"]
+            else:
+                districts = ["Central Madhya Pradesh"]
+            return districts, ["Madhya Pradesh"]
+        
+        # Uttar Pradesh
+        elif 23.9 <= lat <= 30.4 and 77.1 <= lon <= 84.6:
+            districts = []
+            if 28.4 <= lat <= 28.8 and 77.0 <= lon <= 77.4:
+                districts = ["New Delhi", "Ghaziabad", "Gautam Buddha Nagar"]
+            elif 26.8 <= lat <= 27.2 and 80.8 <= lon <= 81.0:
+                districts = ["Lucknow", "Unnao", "Rae Bareli"]
+            elif 25.3 <= lat <= 25.5 and 82.9 <= lon <= 83.1:
+                districts = ["Varanasi", "Chandauli", "Jaunpur"]
+            elif 27.1 <= lat <= 27.3 and 78.0 <= lon <= 78.2:
+                districts = ["Agra", "Mathura", "Firozabad"]
+            else:
+                districts = ["Central Uttar Pradesh"]
+            return districts, ["Uttar Pradesh"]
+        
+        # Punjab
+        elif 29.5 <= lat <= 32.5 and 73.9 <= lon <= 76.9:
+            districts = []
+            if 31.6 <= lat <= 31.8 and 74.8 <= lon <= 75.0:
+                districts = ["Amritsar", "Tarn Taran", "Gurdaspur"]
+            elif 30.3 <= lat <= 30.5 and 75.8 <= lon <= 76.0:
+                districts = ["Ludhiana", "Jalandhar", "Kapurthala"]
+            elif 30.9 <= lat <= 31.1 and 75.3 <= lon <= 75.5:
+                districts = ["Patiala", "Fatehgarh Sahib", "Sangrur"]
+            else:
+                districts = ["Central Punjab"]
+            return districts, ["Punjab"]
+        
+        # Haryana
+        elif 27.7 <= lat <= 30.9 and 74.5 <= lon <= 77.6:
+            districts = []
+            if 28.4 <= lat <= 28.6 and 76.9 <= lon <= 77.1:
+                districts = ["Gurugram", "Faridabad", "Palwal"]
+            elif 29.1 <= lat <= 29.3 and 76.0 <= lon <= 76.2:
+                districts = ["Hisar", "Fatehabad", "Sirsa"]
+            elif 28.8 <= lat <= 29.0 and 76.6 <= lon <= 76.8:
+                districts = ["Rohtak", "Jhajjar", "Sonipat"]
+            else:
+                districts = ["Central Haryana"]
+            return districts, ["Haryana"]
+        
+        # Jharkhand
+        elif 21.9 <= lat <= 25.3 and 83.3 <= lon <= 87.6:
+            districts = []
+            if 23.3 <= lat <= 23.5 and 85.2 <= lon <= 85.4:
+                districts = ["Ranchi", "Khunti", "Lohardaga"]
+            elif 22.7 <= lat <= 22.9 and 86.1 <= lon <= 86.3:
+                districts = ["Jamshedpur", "East Singhbhum", "West Singhbhum"]
+            elif 24.6 <= lat <= 24.8 and 85.9 <= lon <= 86.1:
+                districts = ["Dhanbad", "Bokaro", "Giridih"]
+            else:
+                districts = ["Central Jharkhand"]
+            return districts, ["Jharkhand"]
+        
+        # Chhattisgarh
+        elif 17.8 <= lat <= 24.1 and 80.2 <= lon <= 84.4:
+            districts = []
+            if 21.2 <= lat <= 21.4 and 81.5 <= lon <= 81.7:
+                districts = ["Raipur", "Durg", "Bilaspur"]
+            elif 19.0 <= lat <= 19.2 and 81.9 <= lon <= 82.1:
+                districts = ["Jagdalpur", "Bastar", "Kondagaon"]
+            else:
+                districts = ["Central Chhattisgarh"]
+            return districts, ["Chhattisgarh"]
+        
+        # Bihar
+        elif 24.3 <= lat <= 27.5 and 83.3 <= lon <= 88.1:
+            districts = []
+            if 25.5 <= lat <= 25.7 and 85.0 <= lon <= 85.2:
+                districts = ["Patna", "Nalanda", "Jehanabad"]
+            elif 26.1 <= lat <= 26.3 and 85.1 <= lon <= 85.3:
+                districts = ["Muzaffarpur", "Sitamarhi", "Sheohar"]
+            else:
+                districts = ["Central Bihar"]
+            return districts, ["Bihar"]
+        
+        # Assam and Northeast
+        elif 24.1 <= lat <= 28.2 and 89.7 <= lon <= 97.1:
+            districts = []
+            if 26.1 <= lat <= 26.3 and 91.7 <= lon <= 91.9:
+                districts = ["Guwahati", "Kamrup", "Nalbari"]
+                return districts, ["Assam"]
+            elif 25.5 <= lat <= 25.7 and 91.8 <= lon <= 92.0:
+                districts = ["Shillong", "East Khasi Hills", "West Khasi Hills"]
+                return districts, ["Meghalaya"]
+            elif 23.7 <= lat <= 24.7 and 91.2 <= lon <= 92.7:
+                districts = ["Agartala", "West Tripura", "Sepahijala"]
+                return districts, ["Tripura"]
+            elif 25.1 <= lat <= 27.7 and 93.2 <= lon <= 97.4:
+                districts = ["Itanagar", "Papum Pare", "Lower Subansiri"]
+                return districts, ["Arunachal Pradesh"]
+            else:
+                districts = ["Northeast Region"]
+                return districts, ["Northeast States"]
+        
+        # Himachal Pradesh
+        elif 30.2 <= lat <= 33.2 and 75.6 <= lon <= 79.0:
+            districts = []
+            if 31.1 <= lat <= 31.3 and 77.1 <= lon <= 77.3:
+                districts = ["Shimla", "Solan", "Sirmaur"]
+            elif 32.2 <= lat <= 32.4 and 76.3 <= lon <= 76.5:
+                districts = ["Dharamshala", "Kangra", "Hamirpur"]
+            else:
+                districts = ["Central Himachal Pradesh"]
+            return districts, ["Himachal Pradesh"]
+        
+        # Uttarakhand
+        elif 28.4 <= lat <= 31.5 and 77.6 <= lon <= 81.0:
+            districts = []
+            if 30.3 <= lat <= 30.5 and 78.0 <= lon <= 78.2:
+                districts = ["Dehradun", "Tehri Garhwal", "Pauri Garhwal"]
+            elif 29.2 <= lat <= 29.4 and 79.5 <= lon <= 79.7:
+                districts = ["Nainital", "Almora", "Pithoragarh"]
+            else:
+                districts = ["Central Uttarakhand"]
+            return districts, ["Uttarakhand"]
+        
+        # Jammu & Kashmir / Ladakh
+        elif 32.3 <= lat <= 37.1 and 73.3 <= lon <= 80.3:
+            districts = []
+            if 34.0 <= lat <= 34.2 and 74.7 <= lon <= 74.9:
+                districts = ["Srinagar", "Budgam", "Ganderbal"]
+                return districts, ["Jammu & Kashmir"]
+            elif 32.7 <= lat <= 32.9 and 74.8 <= lon <= 75.0:
+                districts = ["Jammu", "Samba", "Kathua"]
+                return districts, ["Jammu & Kashmir"]
+            elif 34.1 <= lat <= 34.3 and 77.5 <= lon <= 77.7:
+                districts = ["Leh", "Kargil"]
+                return districts, ["Ladakh"]
+            else:
+                districts = ["Northern Region"]
+                return districts, ["Jammu & Kashmir/Ladakh"]
+        
+        # Goa
+        elif 15.0 <= lat <= 15.8 and 73.7 <= lon <= 74.3:
+            districts = ["North Goa", "South Goa"]
+            return districts, ["Goa"]
+        
+        # Default case for coordinates not matching any state
+        else:
+            return ["Region Unknown"], ["State Unknown"]
+            
+    except Exception as e:
+        return ["Region Unknown"], ["State Unknown"]
+
 ###
 st.set_page_config(page_title="Biochar Dashboard")
 
@@ -105,47 +417,61 @@ def load_ricemill_data():
         return pd.DataFrame()
 
 geojson_metadata = {
-    "lantanapresence.geojson": {
+    "enhanced_lantanapresence.geojson": {
         "source": "Research Paper",
         "external_link": "https://doi.org/10.1016/j.gecco.2020.e01080",
         "recorded_time": "2020",
         "description": "This layer shows Lantana camara presence clusters extracted from satellite NDVI and field survey data in India.",
-        "image_path": "lantana.png"
+        "image_path": "lantana.png",
+        "original": "lantanapresence.geojson"
     },
-    "juliflora.geojson": {
+    "enhanced_juliflora.geojson": {
         "source": "Manual published by CAZRI, Jodhpur & HDRA, Coventry",
         "external_link": "https://www.researchgate.net/publication/244993994_Managing_Prosopis_juliflora_A_Technical_Manual",
         "recorded_time": "2001",
         "description": "These dots show distribution of juliflora across Indian Map",
-        "image_path": "juliflora.png"
+        "image_path": "juliflora.png",
+        "original": "juliflora.geojson"
     },
-    "cottonstalk.geojson": {
+    "enhanced_juliflorapdf.geojson": {
+        "source": "Manual published by CAZRI, Jodhpur & HDRA, Coventry",
+        "external_link": "https://www.researchgate.net/publication/244993994_Managing_Prosopis_juliflora_A_Technical_Manual",
+        "recorded_time": "2001",
+        "description": "Juliflora distribution extracted from PDF source",
+        "image_path": "juliflora.png",
+        "original": "juliflorapdf.geojson"
+    },
+    "enhanced_cottonstalk.geojson": {
         "source": "Bhuvan Jaivoorja (ISRO)",
         "external_link": "https://bhuvan-app1.nrsc.gov.in/bioenergy/index.php",
         "recorded_time": "2016",
         "description": "Surplus Cotton Biomass shown in this layer.",
-        "image_path": "Cotton.png"
+        "image_path": "Cotton.png",
+        "original": "cottonstalk.geojson"
     },
-    "sugarcane.geojson": {
+    "enhanced_sugarcane.geojson": {
         "source": "Bhuvan Jaivoorja (ISRO)",
         "external_link": "https://bhuvan-app1.nrsc.gov.in/bioenergy/index.php",
         "recorded_time": "2016",
         "description": "Surplus Sugarcane Biomass shown in this layer.",
-        "image_path": "sugarcane.png"
+        "image_path": "sugarcane.png",
+        "original": "sugarcane.geojson"
     },
-    "maize.geojson": {
+    "enhanced_maize.geojson": {
         "source": "ICRISAT",
         "external_link": "https://oar.icrisat.org/10759/1/maize%20yield%20India.pdf",
         "recorded_time": "2018",
         "description": "Major districts of maize in India with area sown.",
-        "image_path": "Maize.png"
+        "image_path": "Maize.png",
+        "original": "maize.geojson"
     },
-    "bamboo.geojson": {
+    "enhanced_bamboo.geojson": {
         "source": "Zenodo Dataset",
         "external_link": "https://doi.org/10.5281/zenodo.14671750",
         "recorded_time": "2025",
         "description": "Shows the Bamboo presence.",
-        "image_path": "bamboo.png"
+        "image_path": "bamboo.png",
+        "original": "bamboo.geojson"
     }
 }
 
@@ -174,6 +500,34 @@ if section == "Dashboard":
         plants = load_ricemill_data()
         st.markdown("### Visualizing invasive species clusters and rice mills")
 
+    # Normalize common column name variants to avoid KeyError in downstream code
+    if isinstance(plants, pd.DataFrame):
+        # State / state
+        if "State" in plants.columns and "state" not in plants.columns:
+            plants["state"] = plants["State"]
+        if "state" in plants.columns and "State" not in plants.columns:
+            plants["State"] = plants["state"]
+        # District / district
+        if "District" in plants.columns and "district" not in plants.columns:
+            plants["district"] = plants["District"]
+        if "district" in plants.columns and "District" not in plants.columns:
+            plants["District"] = plants["district"]
+        # Plant Name / Plant
+        if "Plant Name" in plants.columns and "Plant" not in plants.columns:
+            plants["Plant"] = plants["Plant Name"]
+        if "Plant" in plants.columns and "Plant Name" not in plants.columns:
+            plants["Plant Name"] = plants["Plant"]
+        # Latitude / latitude
+        if "Latitude" in plants.columns and "latitude" not in plants.columns:
+            plants["latitude"] = plants["Latitude"]
+        if "latitude" in plants.columns and "Latitude" not in plants.columns:
+            plants["Latitude"] = plants["latitude"]
+        # Longitude / longitude
+        if "Longitude" in plants.columns and "longitude" not in plants.columns:
+            plants["longitude"] = plants["Longitude"]
+        if "longitude" in plants.columns and "Longitude" not in plants.columns:
+            plants["Longitude"] = plants["longitude"]
+
     with st.expander("Data Debug Info"):
         st.write(f"Loaded {len(plants)} records from {data_source.lower()}")
         st.dataframe(plants)
@@ -196,15 +550,25 @@ if section == "Dashboard":
     
     if data_source == "Steel Plants":
         name_filter = st.text_input("Search Plant Name")
-        state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
-        district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
+        # Guard against missing 'state' and 'district' columns
+        if "state" in plants.columns:
+            state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
+        else:
+            state_filter = []
+        if "district" in plants.columns:
+            district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
+        else:
+            district_filter = []
 
         filtered_plants = plants.copy()
         if name_filter:
-            filtered_plants = filtered_plants[filtered_plants["Plant Name"].str.contains(name_filter, case=False, na=False)]
-        if state_filter:
+            # Support different possible name columns safely
+            name_col = "Plant Name" if "Plant Name" in filtered_plants.columns else ("Plant" if "Plant" in filtered_plants.columns else None)
+            if name_col:
+                filtered_plants = filtered_plants[filtered_plants[name_col].str.contains(name_filter, case=False, na=False)]
+        if state_filter and "state" in filtered_plants.columns:
             filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
-        if district_filter:
+        if district_filter and "district" in filtered_plants.columns:
             filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
             
     elif data_source == "Steel Plants with BF":
@@ -389,10 +753,20 @@ if section == "Dashboard":
             st.markdown(f"**Source_link:** [Visit site]({meta.get('external_link', '#')})")
             st.markdown(f"**Recorded Time:** {meta.get('recorded_time', 'Unknown')}")
             st.markdown(f"**Source:** {meta.get('source', 'Unknown')}")
+            
+            # Offer download of the original GeoJSON file (without precomputed data)
+            original_file = meta.get("original", geojson_file.replace("enhanced_", ""))
+            if os.path.exists(original_file):
+                with open(original_file, "r") as f:
+                    geojson_text = f.read()
+                st.download_button(f"Download Original {original_file}", geojson_text, file_name=original_file, mime="application/json")
+            
+            # Also offer the enhanced version for advanced users
             if os.path.exists(geojson_file):
                 with open(geojson_file, "r") as f:
-                    geojson_text = f.read()
-                st.download_button(f"Download {geojson_file}", geojson_text, file_name=geojson_file, mime="application/json")
+                    enhanced_text = f.read()
+                st.download_button(f"Download Enhanced {geojson_file}", enhanced_text, file_name=geojson_file, mime="application/json")
+                
         with col2:
             if os.path.exists(meta.get("image_path", "")):
                 st.image(meta["image_path"], caption="Source Reference Map", use_column_width=True)
@@ -543,29 +917,127 @@ if section == "Dashboard":
                 geojson_file2: "rgba(0, 128, 255, 0.5)"
             }
 
+            # Update the loop for adding polygons to the map
             for geojson_file in [geojson_file1, geojson_file2]:
                 if geojson_file != "None" and os.path.exists(geojson_file):
                     with open(geojson_file) as f:
                         geojson_data = json.load(f)
                     overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
+                    
+                    # Extract color for fill (remove alpha for better visibility)
+                    fill_color = overlay_color.replace("0.5", "0.2")  # More transparent for fill
+                    line_color = overlay_color.replace("0.5", "0.8")  # Less transparent for border
+
                     for feature in geojson_data["features"]:
                         geom_type = feature["geometry"]["type"]
                         coords = feature["geometry"]["coordinates"]
-                        if geom_type == "Polygon" and coords and coords[0]:
-                            try:
-                                lons, lats = zip(*coords[0])
-                                fig.add_trace(px.line_mapbox(lat=list(lats)+[lats[0]], lon=list(lons)+[lons[0]], color_discrete_sequence=[overlay_color]).data[0])
-                            except Exception as e:
-                                st.warning(f"⚠️ Skipped polygon: {e}")
-                        elif geom_type == "Point":
-                            lon, lat = coords
-                            fig.add_scattermapbox(lat=[lat], lon=[lon], mode="markers", marker=dict(size=8, color=overlay_color), name="GeoJSON Point", hovertext=json.dumps(feature["properties"]), hoverinfo="text")
-                        elif geom_type == "MultiPolygon":
-                            for polygon in coords:
-                                if polygon and polygon[0]:
-                                    lons, lats = zip(*polygon[0])
-                                    fig.add_trace(px.line_mapbox(lat=list(lats)+[lats[0]], lon=list(lons)+[lons[0]], color_discrete_sequence=[overlay_color]).data[0])
+                        
+                        # Skip features with empty coordinates
+                        if not coords or (isinstance(coords, list) and len(coords) == 0):
+                            continue
+                            
+                        try:
+                            if geom_type == "Polygon":
+                                # Extract coordinates for polygon
+                                polygon_coords = coords[0]  # Outer ring
+                                if not polygon_coords:
+                                    continue
+                                    
+                                lons, lats = zip(*polygon_coords)
+                                
+                                # Prepare tooltip text using precomputed data from enhanced GeoJSON
+                                tooltip_text = f"<b>Polygon Information</b><br>"
+                                
+                                # Get precomputed district and state data from feature properties
+                                feature_props = feature.get("properties", {})
+                                districts = feature_props.get("districts", [])
+                                states = feature_props.get("states", [])
+                                
+                                if districts:
+                                    tooltip_text += f"Districts: {', '.join(districts[:5])}"  # Limit to first 5 for readability
+                                    if len(districts) > 5:
+                                        tooltip_text += f" (+{len(districts)-5} more)"
+                                    tooltip_text += "<br>"
+                                
+                                if states:
+                                    tooltip_text += f"States: {', '.join(states)}"
+                                
+                                # If no precomputed data available, show a basic message
+                                if not districts and not states:
+                                    tooltip_text = "Polygon area (location data unavailable)"
+                                
+                                # Add filled polygon with hover capability
+                                fig.add_scattermapbox(
+                                    lat=list(lats),
+                                    lon=list(lons),
+                                    fill="toself",
+                                    fillcolor=fill_color,
+                                    line=dict(color=line_color, width=2),
+                                    mode="lines",
+                                    name=f"Polygon ({geojson_file})",
+                                    hovertext=tooltip_text,
+                                    hoverinfo="text",
+                                    showlegend=False
+                                )
 
+                            elif geom_type == "Point":
+                                lon, lat = coords
+                                point_info = json.dumps(feature.get("properties", {}))
+                                fig.add_scattermapbox(
+                                    lat=[lat], 
+                                    lon=[lon], 
+                                    mode="markers", 
+                                    marker=dict(size=8, color=overlay_color), 
+                                    name="GeoJSON Point", 
+                                    hovertext=f"Point from {geojson_file}<br>{point_info}", 
+                                    hoverinfo="text"
+                                )
+
+                            elif geom_type == "MultiPolygon":
+                                # Handle MultiPolygon correctly
+                                for i, poly_coords in enumerate(coords):
+                                    # Skip empty polygons
+                                    if not poly_coords or not poly_coords[0]:
+                                        continue
+                                        
+                                    lons, lats = zip(*poly_coords[0])  # Outer ring of this polygon
+                                    
+                                    # Prepare tooltip for this sub-polygon using precomputed data
+                                    feature_props = feature.get("properties", {})
+                                    districts = feature_props.get("districts", [])
+                                    states = feature_props.get("states", [])
+                                    
+                                    tooltip_text = f"<b>MultiPolygon Part {i+1}</b><br>"
+                                    
+                                    if districts:
+                                        tooltip_text += f"Districts: {', '.join(districts[:3])}"
+                                        if len(districts) > 3:
+                                            tooltip_text += f" (+{len(districts)-3} more)"
+                                        tooltip_text += "<br>"
+                                    
+                                    if states:
+                                        tooltip_text += f"States: {', '.join(states)}"
+                                    
+                                    if not districts and not states:
+                                        tooltip_text += "Location data unavailable"
+                                        tooltip_text += f"States Enclosed: {', '.join(states)}"
+                                    
+                                    # Add each polygon part with hover
+                                    fig.add_scattermapbox(
+                                        lat=list(lats),
+                                        lon=list(lons),
+                                        fill="toself",
+                                        fillcolor=fill_color,
+                                        line=dict(color=line_color, width=2),
+                                        mode="lines",
+                                        name=f"MultiPolygon ({geojson_file})",
+                                        hovertext=tooltip_text,
+                                        hoverinfo="text",
+                                        showlegend=False
+                                    )
+
+                        except Exception as e:
+                            st.warning(f"⚠️ Skipped polygon: {e}")
             with st.expander("Legend"):
                 st.markdown(f"""
                 - 🟣 **Purple**: {data_source}  
