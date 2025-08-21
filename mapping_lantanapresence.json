@@ -276,9 +276,14 @@
     "method": "spatial_intersection"
   },
   "27": {
-    "districts": [],
-    "states": [],
-    "method": "spatial_intersection"
+    "districts": [
+      "Bhubaneswar",
+      "Cuttack"
+    ],
+    "states": [
+      "Odisha"
+    ],
+    "method": "coordinate_estimation"
   },
   "28": {
     "districts": [

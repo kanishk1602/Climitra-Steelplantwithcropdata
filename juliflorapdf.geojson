@@ -3,7 +3,16 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Kachchh"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 0
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -274,7 +283,19 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Barmer",
+          "Bikaner",
+          "Jaisalmer",
+          "Jodhpur"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -545,7 +566,31 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Chittoor",
+          "Bangalore Rural",
+          "Bangalore Urban",
+          "Chamrajnagar",
+          "Kolar",
+          "Mandya",
+          "Mysore",
+          "Dharmapuri",
+          "Erode",
+          "Namakkal",
+          "Salem",
+          "Tiruvannamalai",
+          "Vellore",
+          "Villupuram"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Karnataka",
+          "Tamil Nadu"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 2
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -816,7 +861,23 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Anantapur",
+          "Kurnool",
+          "Bellary",
+          "Chitradurga",
+          "Koppal",
+          "Raichur",
+          "Tumkur"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 3
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1087,7 +1148,22 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Bidar",
+          "Bijapur",
+          "Gulbarga",
+          "Raichur",
+          "Osmanabad",
+          "Solapur"
+        ],
+        "states": [
+          "Karnataka",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 4
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1358,7 +1434,25 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Vadodara",
+          "Barwani",
+          "Dhar",
+          "Indore",
+          "Jhabua",
+          "West Nimar",
+          "Dhule",
+          "Nandurbar"
+        ],
+        "states": [
+          "Gujarat",
+          "Madhya Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 5
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1629,7 +1723,21 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Ahmednagar",
+          "Bid",
+          "Osmanabad",
+          "Pune",
+          "Satara",
+          "Solapur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 6
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1900,7 +2008,23 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Bastar",
+          "Dhamtari",
+          "Kanker",
+          "Raipur",
+          "Kalahandi",
+          "Nabarangpur",
+          "Nuapada"
+        ],
+        "states": [
+          "Chhattisgarh",
+          "Orissa"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 7
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2171,7 +2295,24 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Datia",
+          "Gwalior",
+          "Morena",
+          "Sheopur",
+          "Shivpuri",
+          "Baran",
+          "Dhaulpur",
+          "Karauli"
+        ],
+        "states": [
+          "Madhya Pradesh",
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 8
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2442,7 +2583,28 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Rewa",
+          "Allahabad",
+          "Banda",
+          "Chitrakoot",
+          "Fatehpur",
+          "Jaunpur",
+          "Kaushambi",
+          "Mirzapur",
+          "Pratapgarh",
+          "Rae Bareli",
+          "Sant Ravi Das Nagar",
+          "Sultanpur"
+        ],
+        "states": [
+          "Madhya Pradesh",
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 9
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2713,7 +2875,22 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Amritsar",
+          "Faridkot",
+          "Firozpur",
+          "Jalandhar",
+          "Kapurthala",
+          "Ludhiana",
+          "Moga"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 10
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2984,7 +3161,21 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Bikaner",
+          "Churu",
+          "Ganganagar",
+          "Jaisalmer",
+          "Jodhpur",
+          "Nagaur"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 11
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3255,7 +3446,27 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Medak",
+          "Nizamabad",
+          "Rangareddi",
+          "Bidar",
+          "Gulbarga",
+          "Latur",
+          "Nanded",
+          "Osmanabad",
+          "Parbhani"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Karnataka",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 12
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3526,7 +3737,25 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Faridabad",
+          "Gurgaon",
+          "Bharatpur",
+          "Aligarh",
+          "Bulandshahr",
+          "Gautam Buddha Nagar",
+          "Hathras",
+          "Mathura"
+        ],
+        "states": [
+          "Haryana",
+          "Rajasthan",
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 13
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3797,7 +4026,24 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Bhiwani",
+          "Fatehabad",
+          "Hisar",
+          "Jind",
+          "Kaithal",
+          "Karnal",
+          "Panipat",
+          "Rohtak",
+          "Sonepat"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 14
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4068,7 +4314,21 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Ajmer",
+          "Bhilwara",
+          "Jodhpur",
+          "Nagaur",
+          "Pali",
+          "Rajsamand"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 15
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4339,7 +4599,18 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Churu",
+          "Jhunjhunun",
+          "Sikar"
+        ],
+        "states": [
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 16
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4610,7 +4881,16 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Tikamgarh"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 17
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4881,7 +5161,19 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Panna",
+          "Satna",
+          "Banda"
+        ],
+        "states": [
+          "Madhya Pradesh",
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 18
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -5152,7 +5444,16 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Surguja"
+        ],
+        "states": [
+          "Chhattisgarh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 19
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -5423,7 +5724,16 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Garhwa"
+        ],
+        "states": [
+          "Jharkhand"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 20
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -5694,278 +6004,24 @@
     },
     {
       "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ],
-            [
-              83.58526898622802,
-              24.825927028612327
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Aurangabad",
+          "Bhabua",
+          "Rohtas",
+          "Garhwa",
+          "Palamu",
+          "Chandauli",
+          "Sonbhadra"
+        ],
+        "states": [
+          "Bihar",
+          "Jharkhand",
+          "Uttar Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 22
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -6236,7 +6292,18 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Jharsuguda",
+          "Sambalpur",
+          "Sundargarh"
+        ],
+        "states": [
+          "Orissa"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 23
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -6507,7 +6574,21 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "districts": [
+          "Chittoor",
+          "Cuddapah",
+          "Nellore",
+          "Thiruvallur",
+          "Vellore"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Tamil Nadu"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 24
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [

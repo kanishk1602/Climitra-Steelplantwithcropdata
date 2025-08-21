@@ -30,7 +30,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Davanagere"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 0
+      }
     },
     {
       "type": "Feature",
@@ -57,7 +66,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Davanagere"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 1
+      }
     },
     {
       "type": "Feature",
@@ -96,7 +114,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Davanagere"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 2
+      }
     },
     {
       "type": "Feature",
@@ -173,7 +200,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bellary",
+          "Davanagere"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 3
+      }
     },
     {
       "type": "Feature",
@@ -212,23 +249,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bellary"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 4
+      }
     },
     {
       "type": "Feature",
@@ -267,7 +297,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nellore",
+          "Prakasam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 7
+      }
     },
     {
       "type": "Feature",
@@ -302,7 +342,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Anantapur",
+          "Kurnool"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 8
+      }
     },
     {
       "type": "Feature",
@@ -359,7 +409,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Kurnool"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 9
+      }
     },
     {
       "type": "Feature",
@@ -412,7 +471,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Prakasam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 10
+      }
     },
     {
       "type": "Feature",
@@ -471,7 +539,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Prakasam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 11
+      }
     },
     {
       "type": "Feature",
@@ -526,7 +603,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bellary",
+          "Koppal"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 12
+      }
     },
     {
       "type": "Feature",
@@ -553,7 +640,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Kurnool"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 13
+      }
     },
     {
       "type": "Feature",
@@ -610,7 +706,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Kurnool"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 14
+      }
     },
     {
       "type": "Feature",
@@ -641,15 +746,17 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Guntur",
+          "Krishna"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 15
+      }
     },
     {
       "type": "Feature",
@@ -688,7 +795,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Kurnool"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 17
+      }
     },
     {
       "type": "Feature",
@@ -715,15 +831,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahbubnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 18
+      }
     },
     {
       "type": "Feature",
@@ -762,7 +879,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Krishna"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 20
+      }
     },
     {
       "type": "Feature",
@@ -1447,15 +1573,18 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Guntur",
+          "Nellore",
+          "Prakasam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 21
+      }
     },
     {
       "type": "Feature",
@@ -1504,7 +1633,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahbubnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 23
+      }
     },
     {
       "type": "Feature",
@@ -1585,7 +1723,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahbubnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 24
+      }
     },
     {
       "type": "Feature",
@@ -1620,7 +1767,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Gulbarga"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 25
+      }
     },
     {
       "type": "Feature",
@@ -1745,7 +1901,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahbubnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 26
+      }
     },
     {
       "type": "Feature",
@@ -1772,7 +1937,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bijapur",
+          "Gulbarga"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 27
+      }
     },
     {
       "type": "Feature",
@@ -2641,7 +2816,27 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bagalkot",
+          "Belgaum",
+          "Bellary",
+          "Davanagere",
+          "Dharwad",
+          "Gadag",
+          "Haveri",
+          "Shimoga",
+          "Uttar Kannand",
+          "Kolhapur",
+          "Sangli"
+        ],
+        "states": [
+          "Karnataka",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 28
+      }
     },
     {
       "type": "Feature",
@@ -2698,7 +2893,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nalgonda"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 29
+      }
     },
     {
       "type": "Feature",
@@ -2725,15 +2929,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nalgonda"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 30
+      }
     },
     {
       "type": "Feature",
@@ -2760,7 +2965,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nalgonda"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 32
+      }
     },
     {
       "type": "Feature",
@@ -3137,23 +3351,19 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahbubnagar",
+          "Gulbarga",
+          "Raichur"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 33
+      }
     },
     {
       "type": "Feature",
@@ -3192,7 +3402,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bijapur",
+          "Gulbarga"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 36
+      }
     },
     {
       "type": "Feature",
@@ -3223,7 +3443,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Gulbarga"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 37
+      }
     },
     {
       "type": "Feature",
@@ -3304,7 +3533,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Gulbarga"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 38
+      }
     },
     {
       "type": "Feature",
@@ -3361,7 +3599,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 39
+      }
     },
     {
       "type": "Feature",
@@ -3392,7 +3639,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nalgonda"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 40
+      }
     },
     {
       "type": "Feature",
@@ -3423,7 +3679,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 41
+      }
     },
     {
       "type": "Feature",
@@ -3824,7 +4089,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bijapur",
+          "Gulbarga",
+          "Raichur"
+        ],
+        "states": [
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 42
+      }
     },
     {
       "type": "Feature",
@@ -6177,15 +6453,27 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Anantapur",
+          "Guntur",
+          "Khammam",
+          "Krishna",
+          "Kurnool",
+          "Mahbubnagar",
+          "Nalgonda",
+          "Prakasam",
+          "Warangal",
+          "Bellary",
+          "Raichur"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Karnataka"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 43
+      }
     },
     {
       "type": "Feature",
@@ -6216,7 +6504,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nalgonda",
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 45
+      }
     },
     {
       "type": "Feature",
@@ -6251,7 +6549,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 46
+      }
     },
     {
       "type": "Feature",
@@ -6282,15 +6589,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 47
+      }
     },
     {
       "type": "Feature",
@@ -6317,7 +6625,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 49
+      }
     },
     {
       "type": "Feature",
@@ -6364,15 +6681,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 50
+      }
     },
     {
       "type": "Feature",
@@ -6411,7 +6729,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Medak",
+          "Nalgonda",
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 52
+      }
     },
     {
       "type": "Feature",
@@ -6476,7 +6805,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 53
+      }
     },
     {
       "type": "Feature",
@@ -6507,7 +6845,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 54
+      }
     },
     {
       "type": "Feature",
@@ -6538,15 +6885,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 55
+      }
     },
     {
       "type": "Feature",
@@ -6577,7 +6925,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 57
+      }
     },
     {
       "type": "Feature",
@@ -6612,7 +6969,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Medak"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 58
+      }
     },
     {
       "type": "Feature",
@@ -6679,7 +7045,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 59
+      }
     },
     {
       "type": "Feature",
@@ -6722,7 +7097,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Khammam",
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 60
+      }
     },
     {
       "type": "Feature",
@@ -6821,7 +7206,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar",
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 61
+      }
     },
     {
       "type": "Feature",
@@ -6848,15 +7243,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 62
+      }
     },
     {
       "type": "Feature",
@@ -6891,7 +7287,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 64
+      }
     },
     {
       "type": "Feature",
@@ -6922,7 +7327,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 65
+      }
     },
     {
       "type": "Feature",
@@ -6953,7 +7367,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 66
+      }
     },
     {
       "type": "Feature",
@@ -6980,7 +7403,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Warangal"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 67
+      }
     },
     {
       "type": "Feature",
@@ -7007,7 +7439,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 68
+      }
     },
     {
       "type": "Feature",
@@ -7034,7 +7475,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 69
+      }
     },
     {
       "type": "Feature",
@@ -7077,7 +7527,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 70
+      }
     },
     {
       "type": "Feature",
@@ -7104,7 +7563,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 71
+      }
     },
     {
       "type": "Feature",
@@ -7161,7 +7629,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 72
+      }
     },
     {
       "type": "Feature",
@@ -7314,7 +7791,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid",
+          "Latur",
+          "Osmanabad"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 73
+      }
     },
     {
       "type": "Feature",
@@ -7345,7 +7833,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 74
+      }
     },
     {
       "type": "Feature",
@@ -7408,7 +7905,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid",
+          "Latur"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 75
+      }
     },
     {
       "type": "Feature",
@@ -7477,15 +7984,17 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Latur",
+          "Nanded"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 76
+      }
     },
     {
       "type": "Feature",
@@ -7516,7 +8025,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 78
+      }
     },
     {
       "type": "Feature",
@@ -7547,15 +8065,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 79
+      }
     },
     {
       "type": "Feature",
@@ -7582,7 +8101,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Karimnagar"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 81
+      }
     },
     {
       "type": "Feature",
@@ -7617,7 +8145,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid",
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 82
+      }
     },
     {
       "type": "Feature",
@@ -7648,7 +8186,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nanded",
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 83
+      }
     },
     {
       "type": "Feature",
@@ -7733,7 +8281,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmednagar",
+          "Bid"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 84
+      }
     },
     {
       "type": "Feature",
@@ -7760,7 +8318,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nanded"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 85
+      }
     },
     {
       "type": "Feature",
@@ -7813,7 +8380,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 86
+      }
     },
     {
       "type": "Feature",
@@ -7840,7 +8416,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 87
+      }
     },
     {
       "type": "Feature",
@@ -7867,7 +8452,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 88
+      }
     },
     {
       "type": "Feature",
@@ -7894,7 +8488,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid",
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 89
+      }
     },
     {
       "type": "Feature",
@@ -8055,7 +8659,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Karimnagar",
+          "Nizamabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 90
+      }
     },
     {
       "type": "Feature",
@@ -8086,15 +8701,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 91
+      }
     },
     {
       "type": "Feature",
@@ -8129,7 +8745,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 93
+      }
     },
     {
       "type": "Feature",
@@ -8182,7 +8807,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 94
+      }
     },
     {
       "type": "Feature",
@@ -8231,7 +8865,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 95
+      }
     },
     {
       "type": "Feature",
@@ -8262,15 +8905,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 96
+      }
     },
     {
       "type": "Feature",
@@ -8297,7 +8941,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Nanded"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 98
+      }
     },
     {
       "type": "Feature",
@@ -8324,7 +8979,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nanded"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 99
+      }
     },
     {
       "type": "Feature",
@@ -8351,7 +9015,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad",
+          "Bid"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 100
+      }
     },
     {
       "type": "Feature",
@@ -8382,7 +9056,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 101
+      }
     },
     {
       "type": "Feature",
@@ -8447,7 +9130,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad"
+        ],
+        "states": [
+          "Andhra Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 102
+      }
     },
     {
       "type": "Feature",
@@ -8528,7 +9220,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nanded",
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 103
+      }
     },
     {
       "type": "Feature",
@@ -8629,7 +9331,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 104
+      }
     },
     {
       "type": "Feature",
@@ -8660,7 +9371,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Nanded"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 105
+      }
     },
     {
       "type": "Feature",
@@ -8789,15 +9511,18 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bid",
+          "Jalna",
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 106
+      }
     },
     {
       "type": "Feature",
@@ -8866,7 +9591,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Nanded"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 108
+      }
     },
     {
       "type": "Feature",
@@ -8959,7 +9695,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nanded",
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 109
+      }
     },
     {
       "type": "Feature",
@@ -8994,7 +9740,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 110
+      }
     },
     {
       "type": "Feature",
@@ -9025,7 +9780,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jalna",
+          "Parbhani"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 111
+      }
     },
     {
       "type": "Feature",
@@ -9064,7 +9829,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Buldana",
+          "Jalna"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 112
+      }
     },
     {
       "type": "Feature",
@@ -9099,7 +9874,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 113
+      }
     },
     {
       "type": "Feature",
@@ -9152,7 +9936,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Nanded",
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 114
+      }
     },
     {
       "type": "Feature",
@@ -9191,7 +9985,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 115
+      }
     },
     {
       "type": "Feature",
@@ -9244,7 +10047,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Buldana",
+          "Jalna"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 116
+      }
     },
     {
       "type": "Feature",
@@ -9321,7 +10134,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 117
+      }
     },
     {
       "type": "Feature",
@@ -9348,7 +10170,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 118
+      }
     },
     {
       "type": "Feature",
@@ -9489,7 +10320,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Yavatmal"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 119
+      }
     },
     {
       "type": "Feature",
@@ -9520,7 +10362,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Washim",
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 120
+      }
     },
     {
       "type": "Feature",
@@ -9637,7 +10489,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 121
+      }
     },
     {
       "type": "Feature",
@@ -9668,7 +10529,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 122
+      }
     },
     {
       "type": "Feature",
@@ -9695,7 +10565,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 123
+      }
     },
     {
       "type": "Feature",
@@ -9726,7 +10605,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Buldana"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 124
+      }
     },
     {
       "type": "Feature",
@@ -9895,7 +10783,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad",
+          "Jalna"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 125
+      }
     },
     {
       "type": "Feature",
@@ -9930,7 +10828,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Aurangabad",
+          "Jalna"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 126
+      }
     },
     {
       "type": "Feature",
@@ -9989,7 +10897,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Wardha",
+          "Yavatmal"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 127
+      }
     },
     {
       "type": "Feature",
@@ -10778,7 +11696,20 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmednagar",
+          "Aurangabad",
+          "Bid",
+          "Buldana",
+          "Jalna"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 128
+      }
     },
     {
       "type": "Feature",
@@ -10809,7 +11740,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Dhule"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 129
+      }
     },
     {
       "type": "Feature",
@@ -10836,7 +11776,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amravati"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 130
+      }
     },
     {
       "type": "Feature",
@@ -10867,7 +11816,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 131
+      }
     },
     {
       "type": "Feature",
@@ -10894,7 +11852,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Buldana"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 132
+      }
     },
     {
       "type": "Feature",
@@ -10947,7 +11914,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Dhule",
+          "Nashik"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 133
+      }
     },
     {
       "type": "Feature",
@@ -10974,7 +11951,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 134
+      }
     },
     {
       "type": "Feature",
@@ -11001,7 +11987,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Dhule"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 135
+      }
     },
     {
       "type": "Feature",
@@ -11086,7 +12081,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amravati",
+          "Wardha"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 136
+      }
     },
     {
       "type": "Feature",
@@ -11121,7 +12126,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Buldana"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 137
+      }
     },
     {
       "type": "Feature",
@@ -11194,7 +12208,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Dhule"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 138
+      }
     },
     {
       "type": "Feature",
@@ -11225,7 +12248,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Wardha"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 139
+      }
     },
     {
       "type": "Feature",
@@ -12866,7 +13898,28 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Adilabad",
+          "Nizamabad",
+          "Akola",
+          "Amravati",
+          "Buldana",
+          "Chandrapur",
+          "Hingoli",
+          "Nanded",
+          "Parbhani",
+          "Wardha",
+          "Washim",
+          "Yavatmal"
+        ],
+        "states": [
+          "Andhra Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 140
+      }
     },
     {
       "type": "Feature",
@@ -12977,15 +14030,17 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Dhule",
+          "Nashik"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 141
+      }
     },
     {
       "type": "Feature",
@@ -13214,7 +14269,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli",
+          "Bhavnagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 143
+      }
     },
     {
       "type": "Feature",
@@ -13283,23 +14348,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amravati"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 144
+      }
     },
     {
       "type": "Feature",
@@ -13374,7 +14432,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 147
+      }
     },
     {
       "type": "Feature",
@@ -13535,7 +14602,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amravati",
+          "Nagpur",
+          "Wardha"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 148
+      }
     },
     {
       "type": "Feature",
@@ -13622,7 +14700,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amravati"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 149
+      }
     },
     {
       "type": "Feature",
@@ -13653,7 +14740,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Betul",
+          "Amravati"
+        ],
+        "states": [
+          "Madhya Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 150
+      }
     },
     {
       "type": "Feature",
@@ -13692,7 +14790,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amravati"
+        ],
+        "states": [
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 151
+      }
     },
     {
       "type": "Feature",
@@ -13755,7 +14862,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bharuch",
+          "Narmada",
+          "Surat"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 152
+      }
     },
     {
       "type": "Feature",
@@ -13786,7 +14904,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Junagadh",
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 153
+      }
     },
     {
       "type": "Feature",
@@ -13867,7 +14995,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli",
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 154
+      }
     },
     {
       "type": "Feature",
@@ -14044,7 +15182,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhavnagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 155
+      }
     },
     {
       "type": "Feature",
@@ -14105,7 +15252,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli",
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 156
+      }
     },
     {
       "type": "Feature",
@@ -14144,7 +15301,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 157
+      }
     },
     {
       "type": "Feature",
@@ -14175,7 +15341,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jamnagar",
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 158
+      }
     },
     {
       "type": "Feature",
@@ -14300,7 +15476,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 159
+      }
     },
     {
       "type": "Feature",
@@ -14331,7 +15516,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jamnagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 160
+      }
     },
     {
       "type": "Feature",
@@ -14358,15 +15552,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 161
+      }
     },
     {
       "type": "Feature",
@@ -14651,7 +15846,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Amreli",
+          "Bhavnagar",
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 163
+      }
     },
     {
       "type": "Feature",
@@ -14708,7 +15914,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Narmada",
+          "Vadodara"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 164
+      }
     },
     {
       "type": "Feature",
@@ -15009,7 +16225,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bharuch",
+          "Surat",
+          "Vadodara"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 165
+      }
     },
     {
       "type": "Feature",
@@ -15102,7 +16329,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jamnagar",
+          "Rajkot"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 166
+      }
     },
     {
       "type": "Feature",
@@ -15235,15 +16472,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Vadodara"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 167
+      }
     },
     {
       "type": "Feature",
@@ -15294,7 +16532,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Rajkot",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 169
+      }
     },
     {
       "type": "Feature",
@@ -15329,7 +16577,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jamnagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 170
+      }
     },
     {
       "type": "Feature",
@@ -16082,7 +17339,25 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Barwani",
+          "Burhanpur",
+          "Dhar",
+          "East Nimar",
+          "West Nimar",
+          "Amravati",
+          "Dhule",
+          "Jalgaon",
+          "Nandurbar"
+        ],
+        "states": [
+          "Madhya Pradesh",
+          "Maharashtra"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 171
+      }
     },
     {
       "type": "Feature",
@@ -16113,7 +17388,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Vadodara",
+          "Jhabua"
+        ],
+        "states": [
+          "Gujarat",
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 172
+      }
     },
     {
       "type": "Feature",
@@ -16418,7 +17704,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jamnagar",
+          "Porbandar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 173
+      }
     },
     {
       "type": "Feature",
@@ -16527,7 +17823,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Narmada",
+          "Vadodara"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 174
+      }
     },
     {
       "type": "Feature",
@@ -16576,7 +17882,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 175
+      }
     },
     {
       "type": "Feature",
@@ -16637,7 +17953,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 176
+      }
     },
     {
       "type": "Feature",
@@ -16730,7 +18055,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Panch Mahals",
+          "Vadodara"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 177
+      }
     },
     {
       "type": "Feature",
@@ -16979,7 +18314,19 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Anand",
+          "Bhavnagar",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 178
+      }
     },
     {
       "type": "Feature",
@@ -17400,7 +18747,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Jamnagar",
+          "Rajkot",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 179
+      }
     },
     {
       "type": "Feature",
@@ -17431,15 +18789,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 180
+      }
     },
     {
       "type": "Feature",
@@ -17470,23 +18829,17 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Kheda"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 182
+      }
     },
     {
       "type": "Feature",
@@ -17673,7 +19026,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Dhar",
+          "Ujjain"
+        ],
+        "states": [
+          "Madhya Pradesh"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 185
+      }
     },
     {
       "type": "Feature",
@@ -17704,7 +19067,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 186
+      }
     },
     {
       "type": "Feature",
@@ -17731,7 +19103,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 187
+      }
     },
     {
       "type": "Feature",
@@ -17866,7 +19247,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Kachchh",
+          "Rajkot",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 188
+      }
     },
     {
       "type": "Feature",
@@ -18071,7 +19463,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Kachchh",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 189
+      }
     },
     {
       "type": "Feature",
@@ -18114,7 +19517,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Mahesana"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 190
+      }
     },
     {
       "type": "Feature",
@@ -18223,7 +19636,19 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Gandhinagar",
+          "Kheda",
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 191
+      }
     },
     {
       "type": "Feature",
@@ -18274,7 +19699,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Ahmadabad",
+          "Patan",
+          "Surendranagar"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 192
+      }
     },
     {
       "type": "Feature",
@@ -18313,7 +19749,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Panch Mahals",
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 193
+      }
     },
     {
       "type": "Feature",
@@ -18340,7 +19786,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 194
+      }
     },
     {
       "type": "Feature",
@@ -18393,7 +19848,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 195
+      }
     },
     {
       "type": "Feature",
@@ -18442,7 +19906,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 196
+      }
     },
     {
       "type": "Feature",
@@ -18481,15 +19954,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 197
+      }
     },
     {
       "type": "Feature",
@@ -18516,7 +19990,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha",
+          "Udaipur"
+        ],
+        "states": [
+          "Gujarat",
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 199
+      }
     },
     {
       "type": "Feature",
@@ -18543,7 +20028,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 200
+      }
     },
     {
       "type": "Feature",
@@ -18574,7 +20068,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Sabar Kantha"
+        ],
+        "states": [
+          "Gujarat"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 201
+      }
     },
     {
       "type": "Feature",
@@ -18601,7 +20104,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahendragarh"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 202
+      }
     },
     {
       "type": "Feature",
@@ -18632,7 +20144,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Mahendragarh"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 203
+      }
     },
     {
       "type": "Feature",
@@ -18659,7 +20180,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhiwani"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 204
+      }
     },
     {
       "type": "Feature",
@@ -18724,7 +20254,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhiwani"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 205
+      }
     },
     {
       "type": "Feature",
@@ -18873,7 +20412,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhiwani",
+          "Churu"
+        ],
+        "states": [
+          "Haryana",
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 206
+      }
     },
     {
       "type": "Feature",
@@ -18904,7 +20454,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhiwani",
+          "Hisar"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 207
+      }
     },
     {
       "type": "Feature",
@@ -18943,7 +20503,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Hisar"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 208
+      }
     },
     {
       "type": "Feature",
@@ -19120,7 +20689,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhiwani",
+          "Hisar",
+          "Rohtak"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 209
+      }
     },
     {
       "type": "Feature",
@@ -19225,7 +20805,18 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Hisar",
+          "Jind",
+          "Sonepat"
+        ],
+        "states": [
+          "Haryana"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 210
+      }
     },
     {
       "type": "Feature",
@@ -19256,7 +20847,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Firozpur"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 211
+      }
     },
     {
       "type": "Feature",
@@ -20273,7 +21873,31 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bhiwani",
+          "Fatehabad",
+          "Hisar",
+          "Jind",
+          "Sirsa",
+          "Bathinda",
+          "Firozpur",
+          "Mansa",
+          "Muktsar",
+          "Sangrur",
+          "Bikaner",
+          "Churu",
+          "Ganganagar",
+          "Hanumangarh"
+        ],
+        "states": [
+          "Haryana",
+          "Punjab",
+          "Rajasthan"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 212
+      }
     },
     {
       "type": "Feature",
@@ -20354,15 +21978,16 @@
           ]
         ]
       },
-      "properties": {}
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": []
-      },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Bathinda"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 213
+      }
     },
     {
       "type": "Feature",
@@ -20415,7 +22040,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Faridkot"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 215
+      }
     },
     {
       "type": "Feature",
@@ -20484,7 +22118,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Firozpur",
+          "Muktsar"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 216
+      }
     },
     {
       "type": "Feature",
@@ -20519,7 +22163,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Faridkot",
+          "Muktsar"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 217
+      }
     },
     {
       "type": "Feature",
@@ -20550,7 +22204,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Moga"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 218
+      }
     },
     {
       "type": "Feature",
@@ -20611,7 +22274,16 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Firozpur"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 219
+      }
     },
     {
       "type": "Feature",
@@ -20650,7 +22322,17 @@
           ]
         ]
       },
-      "properties": {}
+      "properties": {
+        "districts": [
+          "Firozpur",
+          "Moga"
+        ],
+        "states": [
+          "Punjab"
+        ],
+        "mapping_method": "spatial_intersection",
+        "feature_id": 220
+      }
     }
   ]
 }
