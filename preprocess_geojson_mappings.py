@@ -198,17 +198,16 @@ def process_geojson_file(filename, boundaries):
                 print(f"⚠️ Error processing feature {i} in {filename}: {e}")
                 continue
         
-        # Save enhanced GeoJSON with enhanced_ prefix
-        output_filename = f"enhanced_{filename}"
+        # Save enhanced GeoJSON (overwrite original with enhanced version)
         enhanced_geojson = {
             "type": "FeatureCollection",
             "features": processed_features
         }
         
-        with open(output_filename, 'w') as f:
+        with open(filename, 'w') as f:
             json.dump(enhanced_geojson, f, indent=2)
         
-        print(f"✅ Saved {len(processed_features)} enhanced features to {output_filename}")
+        print(f"✅ Enhanced {filename} with {len(processed_features)} features (original file updated)")
         
         # Create summary mapping file
         summary = {}
@@ -255,18 +254,16 @@ def main():
         else:
             print(f"⚠️ File {filename} not found, skipping...")
     
-    print("\n🎉 Preprocessing complete! Enhanced GeoJSON files created.")
-    print("📝 Files created:")
+    print("\n🎉 Preprocessing complete! Original GeoJSON files enhanced with district/state data.")
+    print("📝 Files updated:")
     for filename in geojson_files:
         if os.path.exists(filename):
-            enhanced_file = f"enhanced_{filename}"
             mapping_file = f"mapping_{filename.replace('.geojson', '.json')}"
-            if os.path.exists(enhanced_file):
-                print(f"   ✅ {enhanced_file}")
+            print(f"   ✅ {filename} (enhanced with precomputed data)")
             if os.path.exists(mapping_file):
                 print(f"   ✅ {mapping_file}")
     
-    print("\n🚀 Now update your Streamlit app to use these pre-processed files for instant loading!")
+    print("\n🚀 Now update your Streamlit app to use these enhanced files for instant loading!")
 
 if __name__ == "__main__":
     main()
