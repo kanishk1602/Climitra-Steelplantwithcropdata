@@ -8,16 +8,12 @@ from PIL import Image
 import base64
 import streamlit.components.v1 as components
 from streamlit_pdf_viewer import pdf_viewer
-# Note: Removed geopandas and shapely imports since we now use precomputed spatial data
 
-# Note: Boundary loading functions and get_intersected_regions are no longer needed
-# since we now use precomputed district/state data from enhanced GeoJSON files
-
-# Enhanced coordinate-based location estimation for Indian states and districts
 def get_location_info_from_coords(polygon):
     """
     Enhanced function to estimate location based on polygon centroid coordinates.
     Maps coordinates to actual Indian states and major districts.
+    This function uses detailed coordinate ranges for each state and district.
     """
     try:
         centroid = polygon.centroid
@@ -482,7 +478,7 @@ if section == "Dashboard":
     data_source = st.selectbox(
         "Select Data Source:",
         ["Steel Plants", "Steel Plants with BF", "Geocoded Companies", "Rice Mills"],
-        help="Choose between steel plant data, steel plants with BF, geocoded companies data, or rice mills data"
+        help="Choose between steel plants data, steel plants with BF, geocoded companies data, or rice mills data"
     )
     
     # Load appropriate data based on selection
@@ -1071,3 +1067,4 @@ elif section == "Crop-Specific Data":
         pdf_viewer(pdf_map[crop_selected])
     else:
         st.warning("No PDF available for this crop.")
+
