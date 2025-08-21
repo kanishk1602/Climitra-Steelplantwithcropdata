@@ -950,9 +950,7 @@ if section == "Dashboard":
                                 states = feature_props.get("states", [])
                                 
                                 if districts:
-                                    tooltip_text += f"Districts: {', '.join(districts[:5])}"  # Limit to first 5 for readability
-                                    if len(districts) > 5:
-                                        tooltip_text += f" (+{len(districts)-5} more)"
+                                    tooltip_text += f"Districts: {', '.join(districts)}"  # Show all districts
                                     tooltip_text += "<br>"
                                 
                                 if states:
@@ -960,7 +958,7 @@ if section == "Dashboard":
                                 
                                 # If no precomputed data available, show a basic message
                                 if not districts and not states:
-                                    tooltip_text = "Polygon area (location data unavailable)"
+                                    tooltip_text = "Pßßolygon area (location data unavailable)"
                                 
                                 # Add filled polygon with hover capability
                                 fig.add_scattermapbox(
@@ -1006,9 +1004,7 @@ if section == "Dashboard":
                                     tooltip_text = f"<b>MultiPolygon Part {i+1}</b><br>"
                                     
                                     if districts:
-                                        tooltip_text += f"Districts: {', '.join(districts[:3])}"
-                                        if len(districts) > 3:
-                                            tooltip_text += f" (+{len(districts)-3} more)"
+                                        tooltip_text += f"Districts: {', '.join(districts)}"  # Show all districts
                                         tooltip_text += "<br>"
                                     
                                     if states:
@@ -1068,4 +1064,4 @@ elif section == "Crop-Specific Data":
     else:
         st.warning("No PDF available for this crop.")
 
-########21Aug#######
+######21Aug#####
