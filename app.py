@@ -473,267 +473,199 @@ geojson_metadata = {
 if section == "Dashboard":
     st.title("Biochar Cluster Map with Industrial Data and GeoJSON Overlays")
     
-    # UPDATED: Data source selector with Rice Mills
-    data_source = st.selectbox(
-        "Select Data Source:",
-        ["Steel Plants", "Steel Plants with BF", "Geocoded Companies", "Rice Mills"],
-        help="Choose between steel plants data, steel plants with BF, geocoded companies data, or rice mills data"
-    )
-    
-    # Load appropriate data based on selection
-    if data_source == "Steel Plants":
-        plants = load_steel_plants()
-        st.markdown("### Visualizing invasive species clusters and steel plants")
-    elif data_source == "Steel Plants with BF":
-        from steel_plant_bf_loader import load_steel_plants_bf
-        plants = load_steel_plants_bf()
-        st.markdown("### Visualizing invasive species clusters and steel plants with BF")
-    elif data_source == "Geocoded Companies":
-        plants = load_geocoded_companies()
-        st.markdown("### Visualizing invasive species clusters and geocoded companies")
-    else:  # Rice Mills
-        plants = load_ricemill_data()
-        st.markdown("### Visualizing invasive species clusters and rice mills")
 
-    # Normalize common column name variants to avoid KeyError in downstream code
-    if isinstance(plants, pd.DataFrame):
-        # State / state
-        if "State" in plants.columns and "state" not in plants.columns:
-            plants["state"] = plants["State"]
-        if "state" in plants.columns and "State" not in plants.columns:
-            plants["State"] = plants["state"]
-        # District / district
-        if "District" in plants.columns and "district" not in plants.columns:
-            plants["district"] = plants["District"]
-        if "district" in plants.columns and "District" not in plants.columns:
-            plants["District"] = plants["district"]
-        # Plant Name / Plant
-        if "Plant Name" in plants.columns and "Plant" not in plants.columns:
-            plants["Plant"] = plants["Plant Name"]
-        if "Plant" in plants.columns and "Plant Name" not in plants.columns:
-            plants["Plant Name"] = plants["Plant"]
-        # Latitude / latitude
-        if "Latitude" in plants.columns and "latitude" not in plants.columns:
-            plants["latitude"] = plants["Latitude"]
-        if "latitude" in plants.columns and "Latitude" not in plants.columns:
-            plants["Latitude"] = plants["latitude"]
-        # Longitude / longitude
-        if "Longitude" in plants.columns and "longitude" not in plants.columns:
-            plants["longitude"] = plants["Longitude"]
-        if "longitude" in plants.columns and "Longitude" not in plants.columns:
-            plants["Longitude"] = plants["longitude"]
+    # Multi-select for data sources
+    data_sources = st.multiselect(
+        "Select Data Sources:",
+        ["Steel Plants", "Steel Plants with BF", "Geocoded Companies", "Rice Mills"],
+        default=["Steel Plants"],
+        help="Choose one or more data sources to visualize together."
+    )
+
+    # Load and tag all selected data sources
+    all_dfs = []
+    for source in data_sources:
+        if source == "Steel Plants":
+            df = load_steel_plants()
+            df["source_type"] = "Steel Plants"
+        elif source == "Steel Plants with BF":
+            from steel_plant_bf_loader import load_steel_plants_bf
+            df = load_steel_plants_bf()
+            df["source_type"] = "Steel Plants with BF"
+        elif source == "Geocoded Companies":
+            df = load_geocoded_companies()
+            df["source_type"] = "Geocoded Companies"
+        elif source == "Rice Mills":
+            df = load_ricemill_data()
+            df["source_type"] = "Rice Mills"
+        else:
+            continue
+        # Normalize columns for each df
+        if "State" in df.columns and "state" not in df.columns:
+            df["state"] = df["State"]
+        if "state" in df.columns and "State" not in df.columns:
+            df["State"] = df["state"]
+        if "District" in df.columns and "district" not in df.columns:
+            df["district"] = df["District"]
+        if "district" in df.columns and "District" not in df.columns:
+            df["District"] = df["district"]
+        # Special fix for Rice Mills: if no 'district' column, but 'District' exists, create 'district' from 'District'
+        if source == "Rice Mills":
+            # Always use detailed_district and detailed_state if present
+            if "detailed_district" in df.columns:
+                df["district"] = df["detailed_district"]
+            elif "District" in df.columns:
+                df["district"] = df["District"]
+            elif "address" in df.columns:
+                df["district"] = df["address"].apply(lambda x: x.split(",")[-2].strip() if isinstance(x, str) and "," in x else None)
+            if "detailed_state" in df.columns:
+                df["state"] = df["detailed_state"]
+            elif "State" in df.columns:
+                df["state"] = df["State"]
+        if "Plant Name" in df.columns and "Plant" not in df.columns:
+            df["Plant"] = df["Plant Name"]
+        if "Plant" in df.columns and "Plant Name" not in df.columns:
+            df["Plant Name"] = df["Plant"]
+        if "Latitude" in df.columns and "latitude" not in df.columns:
+            df["latitude"] = df["Latitude"]
+        if "latitude" in df.columns and "Latitude" not in df.columns:
+            df["Latitude"] = df["latitude"]
+        if "Longitude" in df.columns and "longitude" not in df.columns:
+            df["longitude"] = df["Longitude"]
+        if "longitude" in df.columns and "Longitude" not in df.columns:
+            df["Longitude"] = df["longitude"]
+        all_dfs.append(df)
+
+    if not all_dfs:
+        st.warning("No data sources selected.")
+        st.stop()
+
+    # Concatenate all selected data
+    plants = pd.concat(all_dfs, ignore_index=True)
 
     with st.expander("Data Debug Info"):
-        st.write(f"Loaded {len(plants)} records from {data_source.lower()}")
+        st.write(f"Loaded {len(plants)} records from {', '.join(data_sources)}")
         st.dataframe(plants)
-        if data_source in ["Steel Plants", "Steel Plants with BF"]:
-            invalid_coords = plants[(plants["latitude"].abs() > 90) | (plants["longitude"].abs() > 180)]
-        elif data_source == "Rice Mills":
-            # Check if lat/lng columns exist before validating coordinates
-            if "lat" in plants.columns and "lng" in plants.columns:
-                invalid_coords = plants[(plants["lat"].abs() > 90) | (plants["lng"].abs() > 180)]
-            else:
-                invalid_coords = pd.DataFrame()  # No coordinates to validate
-        else:
-            invalid_coords = plants[(plants["Latitude"].abs() > 90) | (plants["Longitude"].abs() > 180)]
+        invalid_coords = pd.DataFrame()
+        for source in data_sources:
+            if source in ["Steel Plants", "Steel Plants with BF"]:
+                # Ensure latitude/longitude are numeric
+                lat = pd.to_numeric(plants["latitude"], errors="coerce") if "latitude" in plants.columns else pd.Series(dtype=float)
+                lon = pd.to_numeric(plants["longitude"], errors="coerce") if "longitude" in plants.columns else pd.Series(dtype=float)
+                mask = (plants["source_type"] == source)
+                invalid_coords = pd.concat([
+                    invalid_coords,
+                    plants[mask & ((lat.abs() > 90) | (lon.abs() > 180))]
+                ])
+            elif source == "Rice Mills":
+                if "lat" in plants.columns and "lng" in plants.columns:
+                    lat = pd.to_numeric(plants["lat"], errors="coerce")
+                    lng = pd.to_numeric(plants["lng"], errors="coerce")
+                    mask = (plants["source_type"] == source)
+                    invalid_coords = pd.concat([
+                        invalid_coords,
+                        plants[mask & ((lat.abs() > 90) | (lng.abs() > 180))]
+                    ])
+            elif source == "Geocoded Companies":
+                # Ensure Latitude/Longitude are numeric
+                lat = pd.to_numeric(plants["Latitude"], errors="coerce") if "Latitude" in plants.columns else pd.Series(dtype=float)
+                lon = pd.to_numeric(plants["Longitude"], errors="coerce") if "Longitude" in plants.columns else pd.Series(dtype=float)
+                mask = (plants["source_type"] == source)
+                invalid_coords = pd.concat([
+                    invalid_coords,
+                    plants[mask & ((lat.abs() > 90) | (lon.abs() > 180))]
+                ])
         if not invalid_coords.empty:
             st.warning(f"Found {len(invalid_coords)} records with invalid coordinates:")
             st.dataframe(invalid_coords)
 
     # --- FILTER WIDGETS ---
-    st.markdown(f"#### 🔍 Filter {data_source} Data")
-    
-    if data_source == "Steel Plants":
-        name_filter = st.text_input("Search Plant Name")
-        # Guard against missing 'state' and 'district' columns
-        if "state" in plants.columns:
-            state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
-        else:
-            state_filter = []
-        if "district" in plants.columns:
-            district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
-        else:
-            district_filter = []
+    st.markdown(f"#### 🔍 Filter Data (applies to all selected sources)")
+    name_filter = st.text_input("Search Name (Plant/Company/Rice Mill)")
+    state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
+    district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
 
-        filtered_plants = plants.copy()
-        if name_filter:
-            # Support different possible name columns safely
-            name_col = "Plant Name" if "Plant Name" in filtered_plants.columns else ("Plant" if "Plant" in filtered_plants.columns else None)
-            if name_col:
-                filtered_plants = filtered_plants[filtered_plants[name_col].str.contains(name_filter, case=False, na=False)]
-        if state_filter and "state" in filtered_plants.columns:
-            filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
-        if district_filter and "district" in filtered_plants.columns:
-            filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
-            
-    elif data_source == "Steel Plants with BF":
-        name_filter = st.text_input("Search Plant Name")
-        
-        # State filter
-        if "State" in plants.columns:
-            state_options = plants["State"].dropna().unique()
-            state_filter = st.multiselect("State", options=state_options)
-        else:
-            state_filter = []
-            
-        # District filter
-        if "District" in plants.columns:
-            district_options = plants["District"].dropna().unique()
-            district_filter = st.multiselect("District", options=district_options)
-        else:
-            district_filter = []
-            
-        # Capacity filter
-        if "Quantity" in plants.columns:
-            min_capacity = float(plants["Quantity"].min()) if not plants["Quantity"].empty else 0
-            max_capacity = float(plants["Quantity"].max()) if not plants["Quantity"].empty else 100
-            capacity_filter = st.slider("Blast Furnace Capacity Range (Mtpa)", min_capacity, max_capacity, (min_capacity, max_capacity))
-        else:
-            capacity_filter = None
-
-        filtered_plants = plants.copy()
-        if name_filter:
-            name_col = "Plant" if "Plant" in filtered_plants.columns else "Plant Name"
-            if name_col in filtered_plants.columns:
-                filtered_plants = filtered_plants[filtered_plants[name_col].str.contains(name_filter, case=False, na=False)]
-        if state_filter:
-            filtered_plants = filtered_plants[filtered_plants["State"].isin(state_filter)]
-        if district_filter:
-            filtered_plants = filtered_plants[filtered_plants["District"].isin(district_filter)]
-        if capacity_filter is not None:
-            filtered_plants = filtered_plants[(filtered_plants["Quantity"] >= capacity_filter[0]) & 
-                                              (filtered_plants["Quantity"] <= capacity_filter[1])]
-            
-    elif data_source == "Rice Mills":
-        # Filters for rice mills
-        name_filter = st.text_input("Search Rice Mill Name")
-        
-        # State filter
-        if "detailed_state" in plants.columns:
-            state_options = plants["detailed_state"].dropna().unique()
-            state_filter = st.multiselect("State", options=state_options)
-        else:
-            state_filter = []
-            
-        # District filter  
-        if "detailed_district" in plants.columns:
-            district_options = plants["detailed_district"].dropna().unique()
-            district_filter = st.multiselect("District", options=district_options)
-        else:
-            district_filter = []
-        if "primary_category_name" in plants.columns:
-            category_filter = st.multiselect("Category", options=plants["primary_category_name"].dropna().unique())
-        else:
-            category_filter = []
-
-        filtered_plants = plants.copy()
-        if name_filter:
-            filtered_plants = filtered_plants[filtered_plants["name"].str.contains(name_filter, case=False, na=False)]
-        if state_filter:
-            filtered_plants = filtered_plants[filtered_plants["detailed_state"].isin(state_filter)]
-        if district_filter:
-            filtered_plants = filtered_plants[filtered_plants["detailed_district"].isin(district_filter)]
-        if category_filter:
-            filtered_plants = filtered_plants[filtered_plants["primary_category_name"].isin(category_filter)]
-            
-    else:
-        # Filters for geocoded companies (using lowercase column names as per .xlsx)
-        name_filter = st.text_input("Search Company Name")
-        if "state" in plants.columns:
-            state_filter = st.multiselect("State", options=plants["state"].dropna().unique())
-        else:
-            state_filter = []
-        if "district" in plants.columns:
-            district_filter = st.multiselect("District", options=plants["district"].dropna().unique())
-        else:
-            district_filter = []
-        if "country" in plants.columns:
-            country_filter = st.multiselect("Country", options=plants["country"].dropna().unique())
-        else:
-            country_filter = []
-
-        filtered_plants = plants.copy()
-        if name_filter:
-            filtered_plants = filtered_plants[filtered_plants["Company_Name"].str.contains(name_filter, case=False, na=False)]
-        if state_filter:
-            filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
-        if district_filter:
-            filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
-        if country_filter:
-            filtered_plants = filtered_plants[filtered_plants["country"].isin(country_filter)]
+    filtered_plants = plants.copy()
+    if name_filter:
+        # Try to filter by all possible name columns
+        name_cols = [col for col in ["Plant Name", "Plant", "name", "Company_Name"] if col in filtered_plants.columns]
+        mask = pd.Series([False]*len(filtered_plants))
+        for col in name_cols:
+            mask = mask | filtered_plants[col].astype(str).str.contains(name_filter, case=False, na=False)
+        filtered_plants = filtered_plants[mask]
+    if state_filter:
+        filtered_plants = filtered_plants[filtered_plants["state"].isin(state_filter)]
+    if district_filter:
+        filtered_plants = filtered_plants[filtered_plants["district"].isin(district_filter)]
 
     # --- DISPLAY SEARCH RESULTS ---
     if name_filter and not filtered_plants.empty:
         st.markdown("---")
-        st.markdown(f"#### ℹ️ Details for Found {data_source}")
-        for index, row in filtered_plants.iterrows():
-            if data_source == "Steel Plants":
-                with st.expander(f"{row['Plant Name']}"):
-                    st.write(f"**Capacity (MTPA):** {row.get('Capacity(MTPA)', 'N/A')}")
-                    st.write(f"**Furnace Type:** {row.get('Furnance', 'N/A')}")
-                    st.write(f"**Operational Status:** {row.get('Operational', 'N/A')}")
-                    source_url = row.get('Source')
-                    if isinstance(source_url, str) and source_url.startswith('http'):
-                        st.markdown(f"**Source:** <a href='{source_url}' target='_blank'>Visit Link</a>", unsafe_allow_html=True)
-                    else:
-                        st.write(f"**Source:** {source_url if pd.notna(source_url) else 'N/A'}")
-            
-            elif data_source == "Steel Plants with BF":
-                plant_name = row.get('Plant') if 'Plant' in row else row.get('Plant Name', 'Unknown Plant')
-                with st.expander(f"{plant_name}"):
-                    st.write(f"**Blast Furnace Capacity:** {row.get('Quantity', 'N/A')} Mtpa")
-                    st.write(f"**State:** {row.get('State', 'N/A')}")
-                    st.write(f"**District:** {row.get('District', 'N/A')}")
-                        
-            elif data_source == "Rice Mills":
-                with st.expander(f"{row['name']}"):
-                    st.write(f"**Address:** {row.get('address', 'N/A')}")
-                    st.write(f"**Phone:** {row.get('phone', 'N/A')}")
-                    st.write(f"**Email:** {row.get('email', 'N/A')}")
-                    st.write(f"**State:** {row.get('state', 'N/A')}")
-                    st.write(f"**Country:** {row.get('country', 'N/A')}")
-                    st.write(f"**ZIP:** {row.get('zip', 'N/A')}")
-                    st.write(f"**Rating:** {row.get('star_count', 'N/A')} ({row.get('rating_count', 'N/A')} reviews)")
-                    st.write(f"**Category:** {row.get('primary_category_name', 'N/A')}")
-                    
-                    # Website link
-                    website_url = row.get('url')
-                    if isinstance(website_url, str) and website_url.startswith('http'):
-                        st.markdown(f"**Website:** <a href='{website_url}' target='_blank'>Visit Site</a>", unsafe_allow_html=True)
-                    else:
-                        st.write(f"**Website:** {website_url if pd.notna(website_url) else 'N/A'}")
-                    
-                    # Social media links
-                    social_links = []
-                    if pd.notna(row.get('facebook_link')) and row.get('facebook_link').startswith('http'):
-                        social_links.append(f"<a href='{row['facebook_link']}' target='_blank'>Facebook</a>")
-                    if pd.notna(row.get('instagram_link')) and row.get('instagram_link').startswith('http'):
-                        social_links.append(f"<a href='{row['instagram_link']}' target='_blank'>Instagram</a>")
-                    if pd.notna(row.get('twitter_link')) and row.get('twitter_link').startswith('http'):
-                        social_links.append(f"<a href='{row['twitter_link']}' target='_blank'>Twitter</a>")
-                    if pd.notna(row.get('linkedin_link')) and row.get('linkedin_link').startswith('http'):
-                        social_links.append(f"<a href='{row['linkedin_link']}' target='_blank'>LinkedIn</a>")
-                    if pd.notna(row.get('youtube_link')) and row.get('youtube_link').startswith('http'):
-                        social_links.append(f"<a href='{row['youtube_link']}' target='_blank'>YouTube</a>")
-                    if pd.notna(row.get('whatsapp_link')) and row.get('whatsapp_link').startswith('http'):
-                        social_links.append(f"<a href='{row['whatsapp_link']}' target='_blank'>WhatsApp</a>")
-                    if pd.notna(row.get('tiktok_link')) and row.get('tiktok_link').startswith('http'):
-                        social_links.append(f"<a href='{row['tiktok_link']}' target='_blank'>TikTok</a>")
-                    
-                    if social_links:
-                        st.markdown(f"**Social Media:** {' | '.join(social_links)}", unsafe_allow_html=True)
-                        
-            else:
-                with st.expander(f"{row['Company_Name']}"):
-                    st.write(f"**Sales Revenue:** {row.get('Sales_Revenue', 'N/A')}")
-                    st.write(f"**City:** {row.get('City', 'N/A')}")
-                    st.write(f"**State:** {row.get('State', 'N/A')}")
-                    st.write(f"**Country:** {row.get('Country', 'N/A')}")
-                    company_url = row.get('Company_URL')
-                    if isinstance(company_url, str) and company_url.startswith('http'):
-                        st.markdown(f"**Website:** <a href='{company_url}' target='_blank'>Visit Site</a>", unsafe_allow_html=True)
-                    else:
-                        st.write(f"**Website:** {company_url if pd.notna(company_url) else 'N/A'}")
+        st.markdown(f"#### ℹ️ Details for Found Results")
+        for source in data_sources:
+            df = filtered_plants[filtered_plants['source_type'] == source]
+            if df.empty:
+                continue
+            for index, row in df.iterrows():
+                if source == "Steel Plants":
+                    with st.expander(f"{row['Plant Name']}"):
+                        st.write(f"**Capacity (MTPA):** {row.get('Capacity(MTPA)', 'N/A')}")
+                        st.write(f"**Furnace Type:** {row.get('Furnance', 'N/A')}")
+                        st.write(f"**Operational Status:** {row.get('Operational', 'N/A')}")
+                        source_url = row.get('Source')
+                        if isinstance(source_url, str) and source_url.startswith('http'):
+                            st.markdown(f"**Source:** <a href='{source_url}' target='_blank'>Visit Link</a>", unsafe_allow_html=True)
+                        else:
+                            st.write(f"**Source:** {source_url if pd.notna(source_url) else 'N/A'}")
+                elif source == "Steel Plants with BF":
+                    plant_name = row.get('Plant') if 'Plant' in row else row.get('Plant Name', 'Unknown Plant')
+                    with st.expander(f"{plant_name}"):
+                        st.write(f"**Blast Furnace Capacity:** {row.get('Quantity', 'N/A')} Mtpa")
+                        st.write(f"**State:** {row.get('State', 'N/A')}")
+                        st.write(f"**District:** {row.get('District', 'N/A')}")
+                elif source == "Rice Mills":
+                    with st.expander(f"{row['name']}"):
+                        st.write(f"**Address:** {row.get('address', 'N/A')}")
+                        st.write(f"**Phone:** {row.get('phone', 'N/A')}")
+                        st.write(f"**Email:** {row.get('email', 'N/A')}")
+                        st.write(f"**State:** {row.get('state', 'N/A')}")
+                        st.write(f"**Country:** {row.get('country', 'N/A')}")
+                        st.write(f"**ZIP:** {row.get('zip', 'N/A')}")
+                        st.write(f"**Rating:** {row.get('star_count', 'N/A')} ({row.get('rating_count', 'N/A')} reviews)")
+                        st.write(f"**Category:** {row.get('primary_category_name', 'N/A')}")
+                        website_url = row.get('url')
+                        if isinstance(website_url, str) and website_url.startswith('http'):
+                            st.markdown(f"**Website:** <a href='{website_url}' target='_blank'>Visit Site</a>", unsafe_allow_html=True)
+                        else:
+                            st.write(f"**Website:** {website_url if pd.notna(website_url) else 'N/A'}")
+                        social_links = []
+                        if pd.notna(row.get('facebook_link')) and row.get('facebook_link').startswith('http'):
+                            social_links.append(f"<a href='{row['facebook_link']}' target='_blank'>Facebook</a>")
+                        if pd.notna(row.get('instagram_link')) and row.get('instagram_link').startswith('http'):
+                            social_links.append(f"<a href='{row['instagram_link']}' target='_blank'>Instagram</a>")
+                        if pd.notna(row.get('twitter_link')) and row.get('twitter_link').startswith('http'):
+                            social_links.append(f"<a href='{row['twitter_link']}' target='_blank'>Twitter</a>")
+                        if pd.notna(row.get('linkedin_link')) and row.get('linkedin_link').startswith('http'):
+                            social_links.append(f"<a href='{row['linkedin_link']}' target='_blank'>LinkedIn</a>")
+                        if pd.notna(row.get('youtube_link')) and row.get('youtube_link').startswith('http'):
+                            social_links.append(f"<a href='{row['youtube_link']}' target='_blank'>YouTube</a>")
+                        if pd.notna(row.get('whatsapp_link')) and row.get('whatsapp_link').startswith('http'):
+                            social_links.append(f"<a href='{row['whatsapp_link']}' target='_blank'>WhatsApp</a>")
+                        if pd.notna(row.get('tiktok_link')) and row.get('tiktok_link').startswith('http'):
+                            social_links.append(f"<a href='{row['tiktok_link']}' target='_blank'>TikTok</a>")
+                        if social_links:
+                            st.markdown(f"**Social Media:** {' | '.join(social_links)}", unsafe_allow_html=True)
+                elif source == "Geocoded Companies":
+                    with st.expander(f"{row['Company_Name']}"):
+                        st.write(f"**Sales Revenue:** {row.get('Sales_Revenue', 'N/A')}")
+                        st.write(f"**City:** {row.get('City', 'N/A')}")
+                        st.write(f"**State:** {row.get('State', 'N/A')}")
+                        st.write(f"**Country:** {row.get('Country', 'N/A')}")
+                        company_url = row.get('Company_URL')
+                        if isinstance(company_url, str) and company_url.startswith('http'):
+                            st.markdown(f"**Website:** <a href='{company_url}' target='_blank'>Visit Site</a>", unsafe_allow_html=True)
+                        else:
+                            st.write(f"**Website:** {company_url if pd.notna(company_url) else 'N/A'}")
         st.markdown("---")
 
     geojson_file1 = st.selectbox("Select Primary GeoJSON Overlay:", ["None"] + list(geojson_metadata.keys()), key="geo1")
@@ -772,284 +704,194 @@ if section == "Dashboard":
         show_metadata_and_image(geojson_file2)
 
     if not filtered_plants.empty:
-        # Show count summary with specific filter information
+        # Show count summary for all selected sources
         filter_info = ""
-        total_capacity_info = ""
-
-        # We're not using total_capacity_info in filter_info anymore - total capacity is only shown in colored box
-        total_capacity_info = ""
-
-        # Build filter info string
-        if data_source == "Steel Plants with BF":
-            if district_filter:
-                if len(district_filter) == 1:
-                    filter_info = f" in {district_filter[0]} district"
-                else:
-                    filter_info = f" in {len(district_filter)} districts"
-            elif state_filter:
-                if len(state_filter) == 1:
-                    filter_info = f" in {state_filter[0]} state"
-                else:
-                    filter_info = f" in {len(state_filter)} states"
-        elif data_source == "Steel Plants":
-            if district_filter:
-                if len(district_filter) == 1:
-                    filter_info = f" in {district_filter[0]} district"
-                else:
-                    filter_info = f" in {len(district_filter)} districts"
-            elif state_filter:
-                if len(state_filter) == 1:
-                    filter_info = f" in {state_filter[0]} state"
-                else:
-                    filter_info = f" in {len(state_filter)} states"
-        elif data_source == "Rice Mills":
-            if district_filter:
-                if len(district_filter) == 1:
-                    filter_info = f" in {district_filter[0]} district"
-                else:
-                    filter_info = f" in {len(district_filter)} districts"
-            elif state_filter:
-                if len(state_filter) == 1:
-                    filter_info = f" in {state_filter[0]} state"
-                else:
-                    filter_info = f" in {len(state_filter)} states"
-        elif data_source == "Geocoded Companies":
-            if district_filter:
-                if len(district_filter) == 1:
-                    filter_info = f" in {district_filter[0]} district"
-                else:
-                    filter_info = f" in {len(district_filter)} districts"
-            elif state_filter:
-                if len(state_filter) == 1:
-                    filter_info = f" in {state_filter[0]} state"
-                else:
-                    filter_info = f" in {len(state_filter)} states"
-            elif country_filter:
-                if len(country_filter) == 1:
-                    filter_info = f" in {country_filter[0]}"
-                else:
-                    filter_info = f" in {len(country_filter)} countries"
-                    
-        if data_source == "Steel Plants with BF" and capacity_filter is not None:
-            if not filter_info:
-                filter_info = f" with capacity between {capacity_filter[0]} and {capacity_filter[1]} Mtpa"
+        if district_filter:
+            if len(district_filter) == 1:
+                filter_info = f" in {district_filter[0]} district"
             else:
-                filter_info += f" with capacity between {capacity_filter[0]} and {capacity_filter[1]} Mtpa"
-        
+                filter_info = f" in {len(district_filter)} districts"
+        elif state_filter:
+            if len(state_filter) == 1:
+                filter_info = f" in {state_filter[0]} state"
+            else:
+                filter_info = f" in {len(state_filter)} states"
         if not filter_info:
             filter_info = " matching your criteria"
-            # Removed adding total capacity info to the filter_info
-                
-        st.info(f"Showing {len(filtered_plants)} {data_source}{filter_info}.")
-        
-        # Display total capacity separately with different color for Steel Plants with BF
-        if data_source == "Steel Plants with BF" and "Quantity" in filtered_plants.columns:
-            total_capacity = filtered_plants["Quantity"].sum()
-            st.markdown(f"<div style='background-color: #e6f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;'><b>Total Blast Furnace Capacity:</b> {total_capacity:.2f} Mtpa</div>", unsafe_allow_html=True)
+        st.info(f"Showing {len(filtered_plants)} records from {', '.join(data_sources)}{filter_info}.")
 
-        # Dynamically determine latitude and longitude column names based on available columns
-        if data_source == "Steel Plants" or data_source == "Steel Plants with BF":
-            lat_col, lon_col = "latitude", "longitude"
-            hover_name_col = "Plant Name" if "Plant Name" in filtered_plants.columns else "Plant"
-        elif data_source == "Rice Mills":
-            lat_col, lon_col = "lat", "lng"
-            hover_name_col = "name"
-        else:  # Geocoded Companies
-            lat_col, lon_col = "Latitude", "Longitude"
-            hover_name_col = "Company_Name"
+        # Show total capacity for Steel Plants with BF if present
+        if "Steel Plants with BF" in data_sources and "Quantity" in filtered_plants.columns:
+            total_capacity = filtered_plants[filtered_plants["source_type"] == "Steel Plants with BF"]["Quantity"].sum()
+            st.markdown(f"<div style='background-color: #e6f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;'><b>Total Blast Furnace Capacity (Steel Plants with BF):</b> {total_capacity:.2f} Mtpa</div>", unsafe_allow_html=True)
 
-        # Check for invalid coordinates only if the columns exist
-        if lat_col in plants.columns and lon_col in plants.columns:
-            invalid_coords = plants[(plants[lat_col].abs() > 90) | (plants[lon_col].abs() > 180)]
-        else:
-            invalid_coords = pd.DataFrame()  # No coordinates to validate
+        # Plot all selected sources together, color by source_type
+        color_map = {
+            "Steel Plants": "purple",
+            "Steel Plants with BF": "red",
+            "Geocoded Companies": "green",
+            "Rice Mills": "orange"
+        }
+        import plotly.graph_objects as go
+        fig = go.Figure()
+        for source in data_sources:
+            df = filtered_plants[filtered_plants["source_type"] == source]
+            if df.empty:
+                continue
+            if source in ["Steel Plants", "Steel Plants with BF"]:
+                lat_col, lon_col = "latitude", "longitude"
+                hover_name_col = "Plant Name" if "Plant Name" in df.columns else "Plant"
+            elif source == "Rice Mills":
+                lat_col, lon_col = "lat", "lng"
+                hover_name_col = "name"
+            else:  # Geocoded Companies
+                lat_col, lon_col = "Latitude", "Longitude"
+                hover_name_col = "Company_Name"
+            if lat_col not in df.columns or lon_col not in df.columns:
+                continue
+            # Build hover text for each row
+            hover_texts = []
+            for idx, row in df.iterrows():
+                name = row[hover_name_col] if hover_name_col in row and pd.notna(row[hover_name_col]) else "Unknown"
+                state = row["state"] if "state" in row and pd.notna(row["state"]) else row["State"] if "State" in row and pd.notna(row["State"]) else "Unknown"
+                district = row["district"] if "district" in row and pd.notna(row["district"]) else row["District"] if "District" in row and pd.notna(row["District"]) else "Unknown"
+                if source == "Steel Plants with BF":
+                    capacity = row["Quantity"] if "Quantity" in row and pd.notna(row["Quantity"]) else "N/A"
+                    hover_text = f"<b>{name}</b><br>Capacity: {capacity} Mtpa<br>District: {district}<br>State: {state}"
+                else:
+                    hover_text = f"<b>{name}</b><br>District: {district}<br>State: {state}"
+                hover_texts.append(hover_text)
+            fig.add_trace(go.Scattermapbox(
+                lat=df[lat_col],
+                lon=df[lon_col],
+                mode="markers",
+                marker=dict(size=8, color=color_map.get(source, "gray")),
+                name=source,
+                text=hover_texts,
+                hoverinfo="text"
+            ))
 
-        if lat_col and lon_col and lat_col in filtered_plants.columns and lon_col in filtered_plants.columns:
-            # Add hover data based on data source
-            hover_data = None
-            if data_source == "Steel Plants":
-                hover_data = ["Capacity(MTPA)", "Furnance"]
-            elif data_source == "Steel Plants with BF":
-                hover_data = ["Quantity"] if "Quantity" in filtered_plants.columns else None
-            elif data_source == "Rice Mills":
-                hover_data = ["primary_category_name"] if "primary_category_name" in filtered_plants.columns else None
-            elif data_source == "Geocoded Companies":
-                hover_data = ["Sales_Revenue"] if "Sales_Revenue" in filtered_plants.columns else None
-                
-            # Create hover text with custom formatting
-            if data_source == "Steel Plants with BF":
-                filtered_plants["hover_text"] = filtered_plants.apply(
-                    lambda row: f"<b>{row.get('Plant', row.get('Plant Name', 'Unknown'))}</b><br>" +
-                               f"Capacity: {row.get('Quantity', 'N/A')} Mtpa<br>" +
-                               f"District: {row.get('District', 'N/A')}<br>" +
-                               f"State: {row.get('State', 'N/A')}",
-                    axis=1
-                )
-                
-            fig = px.scatter_mapbox(
-                filtered_plants,
-                lat=lat_col,
-                lon=lon_col,
-                hover_name=hover_name_col,
-                hover_data=hover_data,
-                custom_data=[filtered_plants["hover_text"]] if "hover_text" in filtered_plants.columns else None,
-                zoom=4,
-                height=500,
-                mapbox_style="carto-positron",
-                color_discrete_sequence=["purple"]
-            )
-            
-            # Apply custom hover template if available
-            if "hover_text" in filtered_plants.columns:
-                fig.update_traces(hovertemplate="%{customdata[0]}")
-            fig.update_layout(
-                mapbox_center={"lat": 20.5937, "lon": 78.9629},
-                margin={"r":0,"t":0,"l":0,"b":0}
-            )
+        fig.update_layout(
+            mapbox_style="carto-positron",
+            mapbox_center={"lat": 20.5937, "lon": 78.9629},
+            mapbox_zoom=4,
+            height=500,
+            margin={"r":0,"t":0,"l":0,"b":0}
+        )
 
-            overlay_colors = {
-                geojson_file1: "rgba(255, 165, 0, 0.5)",
-                geojson_file2: "rgba(0, 128, 255, 0.5)"
-            }
+        overlay_colors = {
+            geojson_file1: "rgba(255, 165, 0, 0.5)",
+            geojson_file2: "rgba(0, 128, 255, 0.5)"
+        }
 
-            # Update the loop for adding polygons to the map
-            for geojson_file in [geojson_file1, geojson_file2]:
-                if geojson_file != "None" and os.path.exists(geojson_file):
-                    with open(geojson_file) as f:
-                        geojson_data = json.load(f)
-                    overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
-                    
-                    # Extract color for fill (remove alpha for better visibility)
-                    fill_color = overlay_color.replace("0.5", "0.2")  # More transparent for fill
-                    line_color = overlay_color.replace("0.5", "0.8")  # Less transparent for border
-
-                    for feature in geojson_data["features"]:
-                        geom_type = feature["geometry"]["type"]
-                        coords = feature["geometry"]["coordinates"]
-                        
-                        # Skip features with empty coordinates
-                        if not coords or (isinstance(coords, list) and len(coords) == 0):
-                            continue
-                            
-                        try:
-                            if geom_type == "Polygon":
-                                # Extract coordinates for polygon
-                                polygon_coords = coords[0]  # Outer ring
-                                if not polygon_coords:
+        # Add polygons/overlays as before
+        for geojson_file in [geojson_file1, geojson_file2]:
+            if geojson_file != "None" and os.path.exists(geojson_file):
+                with open(geojson_file) as f:
+                    geojson_data = json.load(f)
+                overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
+                fill_color = overlay_color.replace("0.5", "0.2")
+                line_color = overlay_color.replace("0.5", "0.8")
+                for feature in geojson_data["features"]:
+                    geom_type = feature["geometry"]["type"]
+                    coords = feature["geometry"]["coordinates"]
+                    if not coords or (isinstance(coords, list) and len(coords) == 0):
+                        continue
+                    try:
+                        if geom_type == "Polygon":
+                            polygon_coords = coords[0]
+                            if not polygon_coords:
+                                continue
+                            lons, lats = zip(*polygon_coords)
+                            tooltip_text = f"<b>Polygon Information</b><br>"
+                            feature_props = feature.get("properties", {})
+                            districts = feature_props.get("districts", [])
+                            states = feature_props.get("states", [])
+                            if districts:
+                                tooltip_text += f"Districts: {', '.join(districts)}<br>"
+                            if states:
+                                tooltip_text += f"States: {', '.join(states)}"
+                            if not districts and not states:
+                                tooltip_text = "Polygon area (location data unavailable)"
+                            fig.add_trace(go.Scattermapbox(
+                                lat=list(lats),
+                                lon=list(lons),
+                                fill="toself",
+                                fillcolor=fill_color,
+                                line=dict(color=line_color, width=2),
+                                mode="lines",
+                                name=f"Polygon ({geojson_file})",
+                                hovertext=tooltip_text,
+                                hoverinfo="text",
+                                showlegend=False
+                            ))
+                        elif geom_type == "Point":
+                            lon, lat = coords
+                            feature_props = feature.get("properties", {})
+                            districts = feature_props.get("districts", [])
+                            states = feature_props.get("states", [])
+                            tooltip_text = ""
+                            if districts:
+                                tooltip_text += f"Districts: {', '.join(districts)}<br>"
+                            if states:
+                                tooltip_text += f"States: {', '.join(states)}"
+                            if not tooltip_text:
+                                tooltip_text = "Location data unavailable"
+                            fig.add_trace(go.Scattermapbox(
+                                lat=[lat],
+                                lon=[lon],
+                                mode="markers",
+                                marker=dict(size=8, color=overlay_color),
+                                name="GeoJSON Point",
+                                hovertext=tooltip_text,
+                                hoverinfo="text"
+                            ))
+                        elif geom_type == "MultiPolygon":
+                            for i, poly_coords in enumerate(coords):
+                                if not poly_coords or not poly_coords[0]:
                                     continue
-                                    
-                                lons, lats = zip(*polygon_coords)
-                                
-                                # Prepare tooltip text using precomputed data from enhanced GeoJSON
-                                tooltip_text = f"<b>Polygon Information</b><br>"
-                                
-                                # Get precomputed district and state data from feature properties
+                                lons, lats = zip(*poly_coords[0])
                                 feature_props = feature.get("properties", {})
                                 districts = feature_props.get("districts", [])
                                 states = feature_props.get("states", [])
-                                
+                                tooltip_text = f"<b>MultiPolygon Part {i+1}</b><br>"
                                 if districts:
-                                    tooltip_text += f"Districts: {', '.join(districts)}"  # Show all districts
-                                    tooltip_text += "<br>"
-                                
+                                    tooltip_text += f"Districts: {', '.join(districts)}<br>"
                                 if states:
                                     tooltip_text += f"States: {', '.join(states)}"
-                                
-                                # If no precomputed data available, show a basic message
                                 if not districts and not states:
-                                    tooltip_text = "Pßßolygon area (location data unavailable)"
-                                
-                                # Add filled polygon with hover capability
-                                fig.add_scattermapbox(
+                                    tooltip_text += "Location data unavailable"
+                                fig.add_trace(go.Scattermapbox(
                                     lat=list(lats),
                                     lon=list(lons),
                                     fill="toself",
                                     fillcolor=fill_color,
                                     line=dict(color=line_color, width=2),
                                     mode="lines",
-                                    name=f"Polygon ({geojson_file})",
+                                    name=f"MultiPolygon ({geojson_file})",
                                     hovertext=tooltip_text,
                                     hoverinfo="text",
                                     showlegend=False
-                                )
-
-                            elif geom_type == "Point":
-                                lon, lat = coords
-                                feature_props = feature.get("properties", {})
-                                districts = feature_props.get("districts", [])
-                                states = feature_props.get("states", [])
-                                tooltip_text = ""
-                                if districts:
-                                    tooltip_text += f"Districts: {', '.join(districts)}<br>"
-                                if states:
-                                    tooltip_text += f"States: {', '.join(states)}"
-                                if not tooltip_text:
-                                    tooltip_text = "Location data unavailable"
-                                fig.add_scattermapbox(
-                                    lat=[lat], 
-                                    lon=[lon], 
-                                    mode="markers", 
-                                    marker=dict(size=8, color=overlay_color), 
-                                    name="GeoJSON Point", 
-                                    hovertext=tooltip_text, 
-                                    hoverinfo="text"
-                                )
-
-                            elif geom_type == "MultiPolygon":
-                                # Handle MultiPolygon correctly
-                                for i, poly_coords in enumerate(coords):
-                                    # Skip empty polygons
-                                    if not poly_coords or not poly_coords[0]:
-                                        continue
-                                        
-                                    lons, lats = zip(*poly_coords[0])  # Outer ring of this polygon
-                                    
-                                    # Prepare tooltip for this sub-polygon using precomputed data
-                                    feature_props = feature.get("properties", {})
-                                    districts = feature_props.get("districts", [])
-                                    states = feature_props.get("states", [])
-                                    
-                                    tooltip_text = f"<b>MultiPolygon Part {i+1}</b><br>"
-                                    
-                                    if districts:
-                                        tooltip_text += f"Districts: {', '.join(districts)}"  # Show all districts
-                                        tooltip_text += "<br>"
-                                    
-                                    if states:
-                                        tooltip_text += f"States: {', '.join(states)}"
-                                    
-                                    if not districts and not states:
-                                        tooltip_text += "Location data unavailable"
-                                        tooltip_text += f"States Enclosed: {', '.join(states)}"
-                                    
-                                    # Add each polygon part with hover
-                                    fig.add_scattermapbox(
-                                        lat=list(lats),
-                                        lon=list(lons),
-                                        fill="toself",
-                                        fillcolor=fill_color,
-                                        line=dict(color=line_color, width=2),
-                                        mode="lines",
-                                        name=f"MultiPolygon ({geojson_file})",
-                                        hovertext=tooltip_text,
-                                        hoverinfo="text",
-                                        showlegend=False
-                                    )
-
-                        except Exception as e:
-                            st.warning(f"⚠️ Skipped polygon: {e}")
-            with st.expander("Legend"):
-                st.markdown(f"""
-                - 🟣 **Purple**: {data_source}  
-                - 🟠 **Orange**: Primary GeoJSON Overlay  
-                - 🔵 **Blue**: Comparison GeoJSON Overlay
-                """)
-
-            st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
-        else:
-            st.info("Map visualization not available - coordinate data missing.")
+                                ))
+                    except Exception as e:
+                        st.warning(f"⚠️ Skipped polygon: {e}")
+        # Display the map
+        st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
+        
+        # Display legend below the map
+        st.markdown("""
+        <div style='background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 6px 10px; font-size: 11px; display: inline-block; margin-top: 8px;'>
+        <b style='font-size: 11px; color: #666;'>Legend:</b> &nbsp;
+        <span style='color: #800080;'>●</span> Steel Plants &nbsp;
+        <span style='color: #ff0000;'>●</span> Steel Plants with BF &nbsp;
+        <span style='color: #008000;'>●</span> Geocoded Companies &nbsp;
+        <span style='color: #ff9900;'>●</span> Rice Mills &nbsp;|&nbsp;
+        <span style='color: #ff9900;'>■</span> Primary GeoJSON &nbsp;
+        <span style='color: #0066ff;'>■</span> Comparison GeoJSON
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.warning(f"No {data_source.lower()} data available or after filtering.")
+        st.info("Map visualization not available - coordinate data missing.")
 
 elif section == "Crop-Specific Data":
     st.title("🌾 Crop-Specific Biochar Resource Information")
