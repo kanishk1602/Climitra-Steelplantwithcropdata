@@ -749,6 +749,10 @@ if section == "Dashboard":
                 hover_name_col = "Company_Name"
             if lat_col not in df.columns or lon_col not in df.columns:
                 continue
+            # Ensure lat/lon columns are float for Arrow compatibility
+            df = df.copy()
+            df[lat_col] = pd.to_numeric(df[lat_col], errors="coerce")
+            df[lon_col] = pd.to_numeric(df[lon_col], errors="coerce")
             # Build hover text for each row
             hover_texts = []
             for idx, row in df.iterrows():
