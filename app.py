@@ -878,18 +878,18 @@ if section == "Dashboard":
         # Display the map
         st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
         
-        # Display legend below the map
-        st.markdown("""
-        <div style='background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 6px 10px; font-size: 11px; display: inline-block; margin-top: 8px;'>
-        <b style='font-size: 11px; color: #666;'>Legend:</b> &nbsp;
-        <span style='color: #800080;'>●</span> Steel Plants &nbsp;
-        <span style='color: #ff0000;'>●</span> Steel Plants with BF &nbsp;
-        <span style='color: #008000;'>●</span> Geocoded Companies &nbsp;
-        <span style='color: #ff9900;'>●</span> Rice Mills &nbsp;|&nbsp;
-        <span style='color: #ff9900;'>■</span> Primary GeoJSON &nbsp;
-        <span style='color: #0066ff;'>■</span> Comparison GeoJSON
-        </div>
-        """, unsafe_allow_html=True)
+        # # Display legend below the map
+        # st.markdown("""
+        # <div style='background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 6px 10px; font-size: 11px; display: inline-block; margin-top: 8px;'>
+        # <b style='font-size: 11px; color: #666;'>Legend:</b> &nbsp;
+        # <span style='color: #800080;'>●</span> Steel Plants &nbsp;
+        # <span style='color: #ff0000;'>●</span> Steel Plants with BF &nbsp;
+        # <span style='color: #008000;'>●</span> Geocoded Companies &nbsp;
+        # <span style='color: #ff9900;'>●</span> Rice Mills &nbsp;|&nbsp;
+        # <span style='color: #ff9900;'>■</span> Primary GeoJSON &nbsp;
+        # <span style='color: #0066ff;'>■</span> Comparison GeoJSON
+        # </div>
+        # """, unsafe_allow_html=True)
     else:
         st.info("Map visualization not available - coordinate data missing.")
 
@@ -914,4 +914,4 @@ elif section == "Crop-Specific Data":
     else:
         st.warning("No PDF available for this crop.")
 
-######21Aug#####
+######26Aug#####
