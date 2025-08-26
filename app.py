@@ -733,6 +733,7 @@ if section == "Dashboard":
         b = int(hex_color[4:6], 16)
         return f"rgba({r}, {g}, {b}, {alpha})"
 
+<<<<<<< HEAD
     def get_palette(n):
         base = px.colors.qualitative.Plotly if hasattr(px.colors, "qualitative") else ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
         return [base[i % len(base)] for i in range(n)]
@@ -741,6 +742,114 @@ if section == "Dashboard":
     if selected_geojsons:
         colors_hex = get_palette(len(selected_geojsons))
         file_to_hex = {f: colors_hex[i] for i, f in enumerate(selected_geojsons)}
+=======
+        # Add polygons/overlays as before
+        for geojson_file in [geojson_file1, geojson_file2]:
+            if geojson_file != "None" and os.path.exists(geojson_file):
+                with open(geojson_file) as f:
+                    geojson_data = json.load(f)
+                overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
+                fill_color = overlay_color.replace("0.5", "0.2")
+                line_color = overlay_color.replace("0.5", "0.8")
+                for feature in geojson_data["features"]:
+                    geom_type = feature["geometry"]["type"]
+                    coords = feature["geometry"]["coordinates"]
+                    if not coords or (isinstance(coords, list) and len(coords) == 0):
+                        continue
+                    try:
+                        if geom_type == "Polygon":
+                            polygon_coords = coords[0]
+                            if not polygon_coords:
+                                continue
+                            lons, lats = zip(*polygon_coords)
+                            tooltip_text = f"<b>Polygon Information</b><br>"
+                            feature_props = feature.get("properties", {})
+                            districts = feature_props.get("districts", [])
+                            states = feature_props.get("states", [])
+                            if districts:
+                                tooltip_text += f"Districts: {', '.join(districts)}<br>"
+                            if states:
+                                tooltip_text += f"States: {', '.join(states)}"
+                            if not districts and not states:
+                                tooltip_text = "Polygon area (location data unavailable)"
+                            fig.add_trace(go.Scattermapbox(
+                                lat=list(lats),
+                                lon=list(lons),
+                                fill="toself",
+                                fillcolor=fill_color,
+                                line=dict(color=line_color, width=2),
+                                mode="lines",
+                                name=f"Polygon ({geojson_file})",
+                                hovertext=tooltip_text,
+                                hoverinfo="text",
+                                showlegend=False
+                            ))
+                        elif geom_type == "Point":
+                            lon, lat = coords
+                            feature_props = feature.get("properties", {})
+                            districts = feature_props.get("districts", [])
+                            states = feature_props.get("states", [])
+                            tooltip_text = ""
+                            if districts:
+                                tooltip_text += f"Districts: {', '.join(districts)}<br>"
+                            if states:
+                                tooltip_text += f"States: {', '.join(states)}"
+                            if not tooltip_text:
+                                tooltip_text = "Location data unavailable"
+                            fig.add_trace(go.Scattermapbox(
+                                lat=[lat],
+                                lon=[lon],
+                                mode="markers",
+                                marker=dict(size=8, color=overlay_color),
+                                name="GeoJSON Point",
+                                hovertext=tooltip_text,
+                                hoverinfo="text"
+                            ))
+                        elif geom_type == "MultiPolygon":
+                            for i, poly_coords in enumerate(coords):
+                                if not poly_coords or not poly_coords[0]:
+                                    continue
+                                lons, lats = zip(*poly_coords[0])
+                                feature_props = feature.get("properties", {})
+                                districts = feature_props.get("districts", [])
+                                states = feature_props.get("states", [])
+                                tooltip_text = f"<b>MultiPolygon Part {i+1}</b><br>"
+                                if districts:
+                                    tooltip_text += f"Districts: {', '.join(districts)}<br>"
+                                if states:
+                                    tooltip_text += f"States: {', '.join(states)}"
+                                if not districts and not states:
+                                    tooltip_text += "Location data unavailable"
+                                fig.add_trace(go.Scattermapbox(
+                                    lat=list(lats),
+                                    lon=list(lons),
+                                    fill="toself",
+                                    fillcolor=fill_color,
+                                    line=dict(color=line_color, width=2),
+                                    mode="lines",
+                                    name=f"MultiPolygon ({geojson_file})",
+                                    hovertext=tooltip_text,
+                                    hoverinfo="text",
+                                    showlegend=False
+                                ))
+                    except Exception as e:
+                        st.warning(f"⚠️ Skipped polygon: {e}")
+        # Display the map
+        st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
+        
+        # # Display legend below the map
+        # st.markdown("""
+        # <div style='background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 6px 10px; font-size: 11px; display: inline-block; margin-top: 8px;'>
+        # <b style='font-size: 11px; color: #666;'>Legend:</b> &nbsp;
+        # <span style='color: #800080;'>●</span> Steel Plants &nbsp;
+        # <span style='color: #ff0000;'>●</span> Steel Plants with BF &nbsp;
+        # <span style='color: #008000;'>●</span> Geocoded Companies &nbsp;
+        # <span style='color: #ff9900;'>●</span> Rice Mills &nbsp;|&nbsp;
+        # <span style='color: #ff9900;'>■</span> Primary GeoJSON &nbsp;
+        # <span style='color: #0066ff;'>■</span> Comparison GeoJSON
+        # </div>
+        # """, unsafe_allow_html=True)
+>>>>>>> 3365a1a (Fix map legend and update visualization logic)
     else:
         file_to_hex = {}
 
