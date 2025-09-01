@@ -8,6 +8,8 @@ from PIL import Image
 import base64
 import streamlit.components.v1 as components
 from streamlit_pdf_viewer import pdf_viewer
+import plotly.graph_objects as go
+import plotly.express as px
 
 def get_location_info_from_coords(polygon):
     """
@@ -668,9 +670,8 @@ if section == "Dashboard":
                             st.write(f"**Website:** {company_url if pd.notna(company_url) else 'N/A'}")
         st.markdown("---")
 
-    geojson_file1 = st.selectbox("Select Primary GeoJSON Overlay:", ["None"] + list(geojson_metadata.keys()), key="geo1")
-    geojson_file2 = st.selectbox("Select Comparison GeoJSON Overlay (optional):", ["None"] + list(geojson_metadata.keys()), key="geo2")
 
+    # Ensure show_metadata_and_image is defined (this is the same helper your old code used)
     def show_metadata_and_image(geojson_file):
         meta = geojson_metadata.get(geojson_file, {})
         col1, col2 = st.columns([1, 1])
@@ -680,101 +681,40 @@ if section == "Dashboard":
             st.markdown(f"**Source_link:** [Visit site]({meta.get('external_link', '#')})")
             st.markdown(f"**Recorded Time:** {meta.get('recorded_time', 'Unknown')}")
             st.markdown(f"**Source:** {meta.get('source', 'Unknown')}")
-            
             # Offer download of the original GeoJSON file (without precomputed data)
             original_file = meta.get("original", geojson_file.replace("enhanced_", ""))
             if os.path.exists(original_file):
-                with open(original_file, "r") as f:
+                with open(original_file, "r", encoding="utf-8") as f:
                     geojson_text = f.read()
                 st.download_button(f"Download Original {original_file}", geojson_text, file_name=original_file, mime="application/json")
-            
             # Also offer the enhanced version for advanced users
             if os.path.exists(geojson_file):
-                with open(geojson_file, "r") as f:
+                with open(geojson_file, "r", encoding="utf-8") as f:
                     enhanced_text = f.read()
                 st.download_button(f"Download Enhanced {geojson_file}", enhanced_text, file_name=geojson_file, mime="application/json")
-                
         with col2:
             if os.path.exists(meta.get("image_path", "")):
                 st.image(meta["image_path"], caption="Source Reference Map", use_column_width=True)
 
-    if geojson_file1 != "None":
-        show_metadata_and_image(geojson_file1)
-    if geojson_file2 != "None":
-        show_metadata_and_image(geojson_file2)
 
-    if not filtered_plants.empty:
-        # Show count summary for all selected sources
-        filter_info = ""
-        if district_filter:
-            if len(district_filter) == 1:
-                filter_info = f" in {district_filter[0]} district"
-            else:
-                filter_info = f" in {len(district_filter)} districts"
-        elif state_filter:
-            if len(state_filter) == 1:
-                filter_info = f" in {state_filter[0]} state"
-            else:
-                filter_info = f" in {len(state_filter)} states"
-        if not filter_info:
-            filter_info = " matching your criteria"
-        st.info(f"Showing {len(filtered_plants)} records from {', '.join(data_sources)}{filter_info}.")
+    # Multi-select for GeoJSON overlays (allows multiple selections)
+    selected_geojsons = st.multiselect(
+        "Select GeoJSON Overlays (one or more):",
+        options=list(geojson_metadata.keys()),
+        default=[],
+        help="Choose one or more GeoJSON overlays to visualize."
+    )
 
-        # Show total capacity for Steel Plants with BF if present
-        if "Steel Plants with BF" in data_sources and "Quantity" in filtered_plants.columns:
-            total_capacity = filtered_plants[filtered_plants["source_type"] == "Steel Plants with BF"]["Quantity"].sum()
-            st.markdown(f"<div style='background-color: #e6f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;'><b>Total Blast Furnace Capacity (Steel Plants with BF):</b> {total_capacity:.2f} Mtpa</div>", unsafe_allow_html=True)
+    # Show metadata for every selected overlay (same behaviour as before)
+    for gj_file in selected_geojsons:
+        show_metadata_and_image(gj_file)
 
-        # Plot all selected sources together, color by source_type
-        color_map = {
-            "Steel Plants": "purple",
-            "Steel Plants with BF": "red",
-            "Geocoded Companies": "green",
-            "Rice Mills": "orange"
-        }
-        import plotly.graph_objects as go
+
+    # --- Ensure Plotly is available and 'fig' exists (fallback if earlier fig creation was removed) ---
+    import plotly.graph_objects as go  # safe to import again; idempotent
+
+    if "fig" not in globals():
         fig = go.Figure()
-        for source in data_sources:
-            df = filtered_plants[filtered_plants["source_type"] == source]
-            if df.empty:
-                continue
-            if source in ["Steel Plants", "Steel Plants with BF"]:
-                lat_col, lon_col = "latitude", "longitude"
-                hover_name_col = "Plant Name" if "Plant Name" in df.columns else "Plant"
-            elif source == "Rice Mills":
-                lat_col, lon_col = "lat", "lng"
-                hover_name_col = "name"
-            else:  # Geocoded Companies
-                lat_col, lon_col = "Latitude", "Longitude"
-                hover_name_col = "Company_Name"
-            if lat_col not in df.columns or lon_col not in df.columns:
-                continue
-            # Ensure lat/lon columns are float for Arrow compatibility
-            df = df.copy()
-            df[lat_col] = pd.to_numeric(df[lat_col], errors="coerce")
-            df[lon_col] = pd.to_numeric(df[lon_col], errors="coerce")
-            # Build hover text for each row
-            hover_texts = []
-            for idx, row in df.iterrows():
-                name = row[hover_name_col] if hover_name_col in row and pd.notna(row[hover_name_col]) else "Unknown"
-                state = row["state"] if "state" in row and pd.notna(row["state"]) else row["State"] if "State" in row and pd.notna(row["State"]) else "Unknown"
-                district = row["district"] if "district" in row and pd.notna(row["district"]) else row["District"] if "District" in row and pd.notna(row["District"]) else "Unknown"
-                if source == "Steel Plants with BF":
-                    capacity = row["Quantity"] if "Quantity" in row and pd.notna(row["Quantity"]) else "N/A"
-                    hover_text = f"<b>{name}</b><br>Capacity: {capacity} Mtpa<br>District: {district}<br>State: {state}"
-                else:
-                    hover_text = f"<b>{name}</b><br>District: {district}<br>State: {state}"
-                hover_texts.append(hover_text)
-            fig.add_trace(go.Scattermapbox(
-                lat=df[lat_col],
-                lon=df[lon_col],
-                mode="markers",
-                marker=dict(size=8, color=color_map.get(source, "gray")),
-                name=source,
-                text=hover_texts,
-                hoverinfo="text"
-            ))
-
         fig.update_layout(
             mapbox_style="carto-positron",
             mapbox_center={"lat": 20.5937, "lon": 78.9629},
@@ -783,119 +723,295 @@ if section == "Dashboard":
             margin={"r":0,"t":0,"l":0,"b":0}
         )
 
-        overlay_colors = {
-            geojson_file1: "rgba(255, 165, 0, 0.5)",
-            geojson_file2: "rgba(0, 128, 255, 0.5)"
-        }
+    # Small helpers for color handling
+    def hex_to_rgba(hex_color, alpha):
+        hex_color = hex_color.lstrip("#")
+        if len(hex_color) == 3:
+            hex_color = ''.join([c*2 for c in hex_color])
+        r = int(hex_color[0:2], 16)
+        g = int(hex_color[2:4], 16)
+        b = int(hex_color[4:6], 16)
+        return f"rgba({r}, {g}, {b}, {alpha})"
 
-        # Add polygons/overlays as before
-        for geojson_file in [geojson_file1, geojson_file2]:
-            if geojson_file != "None" and os.path.exists(geojson_file):
-                with open(geojson_file) as f:
-                    geojson_data = json.load(f)
-                overlay_color = overlay_colors.get(geojson_file, "rgba(0,0,0,0.5)")
-                fill_color = overlay_color.replace("0.5", "0.2")
-                line_color = overlay_color.replace("0.5", "0.8")
-                for feature in geojson_data["features"]:
-                    geom_type = feature["geometry"]["type"]
-                    coords = feature["geometry"]["coordinates"]
-                    if not coords or (isinstance(coords, list) and len(coords) == 0):
-                        continue
-                    try:
-                        if geom_type == "Polygon":
-                            polygon_coords = coords[0]
-                            if not polygon_coords:
-                                continue
-                            lons, lats = zip(*polygon_coords)
-                            tooltip_text = f"<b>Polygon Information</b><br>"
-                            feature_props = feature.get("properties", {})
-                            districts = feature_props.get("districts", [])
-                            states = feature_props.get("states", [])
-                            if districts:
-                                tooltip_text += f"Districts: {', '.join(districts)}<br>"
-                            if states:
-                                tooltip_text += f"States: {', '.join(states)}"
-                            if not districts and not states:
-                                tooltip_text = "Polygon area (location data unavailable)"
-                            fig.add_trace(go.Scattermapbox(
-                                lat=list(lats),
-                                lon=list(lons),
-                                fill="toself",
-                                fillcolor=fill_color,
-                                line=dict(color=line_color, width=2),
-                                mode="lines",
-                                name=f"Polygon ({geojson_file})",
-                                hovertext=tooltip_text,
-                                hoverinfo="text",
-                                showlegend=False
-                            ))
-                        elif geom_type == "Point":
-                            lon, lat = coords
-                            feature_props = feature.get("properties", {})
-                            districts = feature_props.get("districts", [])
-                            states = feature_props.get("states", [])
-                            tooltip_text = ""
-                            if districts:
-                                tooltip_text += f"Districts: {', '.join(districts)}<br>"
-                            if states:
-                                tooltip_text += f"States: {', '.join(states)}"
-                            if not tooltip_text:
-                                tooltip_text = "Location data unavailable"
-                            fig.add_trace(go.Scattermapbox(
-                                lat=[lat],
-                                lon=[lon],
-                                mode="markers",
-                                marker=dict(size=8, color=overlay_color),
-                                name="GeoJSON Point",
-                                hovertext=tooltip_text,
-                                hoverinfo="text"
-                            ))
-                        elif geom_type == "MultiPolygon":
-                            for i, poly_coords in enumerate(coords):
-                                if not poly_coords or not poly_coords[0]:
-                                    continue
-                                lons, lats = zip(*poly_coords[0])
-                                feature_props = feature.get("properties", {})
-                                districts = feature_props.get("districts", [])
-                                states = feature_props.get("states", [])
-                                tooltip_text = f"<b>MultiPolygon Part {i+1}</b><br>"
-                                if districts:
-                                    tooltip_text += f"Districts: {', '.join(districts)}<br>"
-                                if states:
-                                    tooltip_text += f"States: {', '.join(states)}"
-                                if not districts and not states:
-                                    tooltip_text += "Location data unavailable"
-                                fig.add_trace(go.Scattermapbox(
-                                    lat=list(lats),
-                                    lon=list(lons),
-                                    fill="toself",
-                                    fillcolor=fill_color,
-                                    line=dict(color=line_color, width=2),
-                                    mode="lines",
-                                    name=f"MultiPolygon ({geojson_file})",
-                                    hovertext=tooltip_text,
-                                    hoverinfo="text",
-                                    showlegend=False
-                                ))
-                    except Exception as e:
-                        st.warning(f"⚠️ Skipped polygon: {e}")
-        # Display the map
-        st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
-        
-        # # Display legend below the map
-        # st.markdown("""
-        # <div style='background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 6px 10px; font-size: 11px; display: inline-block; margin-top: 8px;'>
-        # <b style='font-size: 11px; color: #666;'>Legend:</b> &nbsp;
-        # <span style='color: #800080;'>●</span> Steel Plants &nbsp;
-        # <span style='color: #ff0000;'>●</span> Steel Plants with BF &nbsp;
-        # <span style='color: #008000;'>●</span> Geocoded Companies &nbsp;
-        # <span style='color: #ff9900;'>●</span> Rice Mills &nbsp;|&nbsp;
-        # <span style='color: #ff9900;'>■</span> Primary GeoJSON &nbsp;
-        # <span style='color: #0066ff;'>■</span> Comparison GeoJSON
-        # </div>
-        # """, unsafe_allow_html=True)
+    def get_palette(n):
+        base = px.colors.qualitative.Plotly if hasattr(px.colors, "qualitative") else ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
+        return [base[i % len(base)] for i in range(n)]
+
+    # Build color map for selected geojsons
+    if selected_geojsons:
+        colors_hex = get_palette(len(selected_geojsons))
+        file_to_hex = {f: colors_hex[i] for i, f in enumerate(selected_geojsons)}
     else:
-        st.info("Map visualization not available - coordinate data missing.")
+        file_to_hex = {}
+
+    # Add traces for every selected geojson (robust: skips missing files / invalid geometries)
+    for geojson_file in selected_geojsons:
+        if not os.path.exists(geojson_file):
+            st.warning(f"GeoJSON file not found: {geojson_file} (skipping)")
+            continue
+        try:
+            with open(geojson_file, "r", encoding="utf-8") as fh:
+                geojson_data = json.load(fh)
+        except Exception as e:
+            st.warning(f"Failed to read {geojson_file}: {e}")
+            continue
+
+        hex_color = file_to_hex.get(geojson_file, "#1f77b4")
+        overlay_color = hex_to_rgba(hex_color, 0.6)
+        fill_color = hex_to_rgba(hex_color, 0.2)
+        line_color = hex_to_rgba(hex_color, 0.9)
+
+        for feature in geojson_data.get("features", []):
+            geom = feature.get("geometry") or {}
+            geom_type = geom.get("type")
+            coords = geom.get("coordinates")
+            if not coords:
+                continue
+            feature_props = feature.get("properties", {}) or {}
+            districts = feature_props.get("districts", []) if isinstance(feature_props.get("districts", []), list) else []
+            states = feature_props.get("states", []) if isinstance(feature_props.get("states", []), list) else []
+
+            # build tooltip text
+            tooltip_text = ""
+            if districts:
+                tooltip_text += f"Districts: {', '.join(districts)}<br>"
+            if states:
+                tooltip_text += f"States: {', '.join(states)}"
+            if not tooltip_text:
+                tooltip_text = "Location data unavailable"
+
+            try:
+                if geom_type == "Polygon":
+                    # polygon coords: take first ring
+                    ring = coords[0] if isinstance(coords[0], list) else coords[0]
+                    if not ring:
+                        continue
+                    lons, lats = zip(*ring)
+                    fig.add_trace(go.Scattermapbox(
+                        lat=list(lats),
+                        lon=list(lons),
+                        fill="toself",
+                        fillcolor=fill_color,
+                        line=dict(color=line_color, width=2),
+                        mode="lines",
+                        name=f"{os.path.basename(geojson_file)} (Polygon)",
+                        hovertext=tooltip_text,
+                        hoverinfo="text",
+                        showlegend=False
+                    ))
+                elif geom_type == "Point":
+                    lon, lat = coords
+                    fig.add_trace(go.Scattermapbox(
+                        lat=[lat],
+                        lon=[lon],
+                        mode="markers",
+                        marker=dict(size=8, color=overlay_color),
+                        name=f"{os.path.basename(geojson_file)} (Point)",
+                        hovertext=tooltip_text,
+                        hoverinfo="text",
+                        showlegend=False
+                    ))
+                elif geom_type == "MultiPolygon":
+                    for i, poly in enumerate(coords):
+                        ring = poly[0] if poly and isinstance(poly[0], list) else None
+                        if not ring:
+                            continue
+                        lons, lats = zip(*ring)
+                        fig.add_trace(go.Scattermapbox(
+                            lat=list(lats),
+                            lon=list(lons),
+                            fill="toself",
+                            fillcolor=fill_color,
+                            line=dict(color=line_color, width=2),
+                            mode="lines",
+                            name=f"{os.path.basename(geojson_file)} (MultiPolygon)",
+                            hovertext=f"<b>MultiPolygon</b><br>{tooltip_text}",
+                            hoverinfo="text",
+                            showlegend=False
+                        ))
+            except Exception as e:
+                st.warning(f"⚠️ Skipped a feature in {geojson_file}: {e}")
+
+        # --- Re-add core data traces (steel plants, BF, companies, rice mills) if they exist ---
+    def _find_lat_lon(df):
+        """Return (lat_col, lon_col) or (None,None) if no sensible columns found."""
+        if df is None:
+            return (None, None)
+        cols = [c.lower() for c in df.columns]
+        # common lat/lon names
+        lat_candidates = ["lat", "latitude", "y"]
+        lon_candidates = ["lon", "lng", "long", "longitude", "x"]
+        lat_col = next((df.columns[i] for i,c in enumerate(cols) if c in lat_candidates), None)
+        lon_col = next((df.columns[i] for i,c in enumerate(cols) if c in lon_candidates), None)
+        return (lat_col, lon_col)
+
+    # pick the DataFrame that should be plotted: prefer filtered_plants (so filters apply),
+    # otherwise fall back to the original plants DF.
+    data_df = None
+    if "filtered_plants" in globals() and hasattr(globals().get("filtered_plants"), "columns"):
+        data_df = globals()["filtered_plants"]
+    elif "plants" in globals() and hasattr(globals().get("plants"), "columns"):
+        data_df = globals()["plants"]
+
+    existing_names = {t.name for t in fig.data if getattr(t, "name", None)}
+
+    # 1) Steel Plants (purple)
+    if data_df is not None:
+        try:
+            latc, lonc = _find_lat_lon(data_df)
+            if latc and lonc and "Steel Plants" not in existing_names:
+                fig.add_trace(go.Scattermapbox(
+                    lat=data_df[latc],
+                    lon=data_df[lonc],
+                    mode="markers",
+                    marker=dict(size=8, color="rgb(128,0,128)"),  # purple
+                    name="Steel Plants",
+                    hoverinfo="text",
+                    hovertext=data_df.apply(lambda r: f"{r.get('name','') or r.get('Plant','')}\n{r.get('State', r.get('state',''))}", axis=1)
+                ))
+                existing_names.add("Steel Plants")
+        except Exception:
+            pass
+
+    # 2) Steel Plants with BF (red)
+    if data_df is not None:
+        bf_col = None
+        lower_cols = [c.lower() for c in data_df.columns]
+        for candidate in ["has_bf", "bf", "blast_furnace", "has_blast_furnace"]:
+            if candidate in lower_cols:
+                bf_col = data_df.columns[lower_cols.index(candidate)]
+                break
+        if bf_col is not None and "Steel Plants with BF" not in existing_names:
+            try:
+                bf_df = data_df[data_df[bf_col].astype(bool)]
+                latc, lonc = _find_lat_lon(bf_df)
+                if latc and lonc:
+                    fig.add_trace(go.Scattermapbox(
+                        lat=bf_df[latc],
+                        lon=bf_df[lonc],
+                        mode="markers",
+                        marker=dict(size=10, color="rgb(255,0,0)"),  # red
+                        name="Steel Plants with BF",
+                        hoverinfo="text",
+                        hovertext=bf_df.apply(lambda r: f"{r.get('name','')}\n{r.get('State', r.get('state',''))}", axis=1)
+                    ))
+                    existing_names.add("Steel Plants with BF")
+            except Exception:
+                pass
+
+    # 3) Geocoded companies (green) 
+    for dfname, legend_name, color in [
+        ("companies", "Geocoded Companies", "rgb(0,128,0)"),
+        ("geocoded_companies", "Geocoded Companies", "rgb(0,128,0)")
+    ]:
+        # first try filtered rows from data_df
+        if data_df is not None and "source_type" in data_df.columns and legend_name not in existing_names:
+            try:
+                df_src = data_df[data_df["source_type"] == legend_name]
+                if not df_src.empty:
+                    latc, lonc = _find_lat_lon(df_src)
+                    if latc and lonc:
+                        fig.add_trace(go.Scattermapbox(
+                            lat=df_src[latc],
+                            lon=df_src[lonc],
+                            mode="markers",
+                            marker=dict(size=6, color=color),
+                            name=legend_name,
+                            hoverinfo="text",
+                            hovertext=df_src.apply(lambda r: f"{r.get('name','')}\n{r.get('State', r.get('state',''))}", axis=1)
+                        ))
+                        existing_names.add(legend_name)
+                        break
+            except Exception:
+                pass
+        # fallback to global DF (unchanged behavior)
+        if dfname in globals() and legend_name not in existing_names:
+            df = globals()[dfname]
+            if hasattr(df, "columns"):
+                latc, lonc = _find_lat_lon(df)
+                if latc and lonc:
+                    try:
+                        fig.add_trace(go.Scattermapbox(
+                            lat=df[latc],
+                            lon=df[lonc],
+                            mode="markers",
+                            marker=dict(size=6, color=color),
+                            name=legend_name,
+                            hoverinfo="text",
+                            hovertext=df.apply(lambda r: f"{r.get('name','')}\n{r.get('State', r.get('state',''))}", axis=1)
+                        ))
+                        existing_names.add(legend_name)
+                    except Exception:
+                        pass
+            break
+
+    # 4) Rice mills (orange) 
+    for dfname, legend_name, color in [
+        ("rice_mills", "Rice Mills", "rgb(255,153,0)"),
+        ("rice_mill", "Rice Mills", "rgb(255,153,0)")
+    ]:
+        if data_df is not None and "source_type" in data_df.columns and legend_name not in existing_names:
+            try:
+                df_src = data_df[data_df["source_type"] == legend_name]
+                if not df_src.empty:
+                    latc, lonc = _find_lat_lon(df_src)
+                    if latc and lonc:
+                        fig.add_trace(go.Scattermapbox(
+                            lat=df_src[latc],
+                            lon=df_src[lonc],
+                            mode="markers",
+                            marker=dict(size=7, color=color),
+                            name=legend_name,
+                            hoverinfo="text",
+                            hovertext=df_src.apply(lambda r: f"{r.get('name','')}\n{r.get('State', r.get('state',''))}", axis=1)
+                        ))
+                        existing_names.add(legend_name)
+                        break
+            except Exception:
+                pass
+        # fallback: check for global rice df variables
+        if dfname in globals() and legend_name not in existing_names:
+            df = globals()[dfname]
+            if hasattr(df, "columns"):
+                latc, lonc = _find_lat_lon(df)
+                if latc and lonc:
+                    try:
+                        fig.add_trace(go.Scattermapbox(
+                            lat=df[latc],
+                            lon=df[lonc],
+                            mode="markers",
+                            marker=dict(size=7, color=color),
+                            name=legend_name,
+                            hoverinfo="text",
+                            hovertext=df.apply(lambda r: f"{r.get('name','')}\n{r.get('State', r.get('state',''))}", axis=1)
+                        ))
+                        existing_names.add(legend_name)
+                    except Exception:
+                        pass
+            break
+
+    # --- end re-add core traces ---
+
+    # Finally display the map (this mirrors the previous behaviour)
+    st.plotly_chart(fig, use_container_width=True, config={"scrollZoom": True})
+
+    # Build and display legend (append selected geojson swatches)
+    sources_legend_html = """
+    <div style='background: white; border: 1px solid #f0f0f0; border-radius: 4px; padding: 6px 10px; font-size: 11px; display: inline-block; margin-top: 8px;'>
+    <b style='font-size: 11px; color: #666;'>Legend:</b> &nbsp;
+    <span style='color: #800080;'>●</span> Steel Plants &nbsp;
+    <span style='color: #ff0000;'>●</span> Steel Plants with BF &nbsp;
+    <span style='color: #008000;'>●</span> Geocoded Companies &nbsp;
+    <span style='color: #ff9900;'>●</span> Rice Mills &nbsp;|&nbsp;
+    """
+    gj_items = ""
+    for gj, hexc in file_to_hex.items():
+        rgba_small = hex_to_rgba(hexc, 1.0)
+        gj_items += f"&nbsp;<span style='display:inline-block;width:12px;height:12px;background:{rgba_small};border-radius:2px;margin-right:6px;border:1px solid #ccc;'></span>{os.path.basename(gj)} "
+    legend_html = sources_legend_html + gj_items + "</div>"
+    st.markdown(legend_html, unsafe_allow_html=True)
+
+    # --- (End of multi-geojson overlay + metadata block) ---
 
 elif section == "Crop-Specific Data":
     st.title("🌾 Crop-Specific Biochar Resource Information")
@@ -918,4 +1034,4 @@ elif section == "Crop-Specific Data":
     else:
         st.warning("No PDF available for this crop.")
 
-######26Aug#####
+######27Aug#####
